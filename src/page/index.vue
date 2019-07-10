@@ -1,7 +1,7 @@
 <template>
     <div id="search">
         <div class="">
-            这里是搜索框
+            这里是首页警告
         </div>
     </div>
 </template>
