@@ -4,6 +4,9 @@ import '../src/common/css/reset.css'
 import router from './router'
 Vue.config.productionTip = false
 //css
+import ElementUI from 'element-ui'
+Vue.use(ElementUI) // 注册插件
+import 'element-ui/lib/theme-chalk/index.css'
 
 import './common/css/zyf.css'
 new Vue({
