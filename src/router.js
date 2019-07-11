@@ -13,6 +13,11 @@ export default new Router({
         {
             path:'/index',
             component:Index
-        }
+        },
+        {
+            path: '/LendingRank',
+            title:'借阅排行',
+            component: resolve => require(['./page/reader/LendingRank.vue'], resolve)
+        },
     ]
 })
