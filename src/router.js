@@ -17,7 +17,7 @@ export default new Router({
         {
             path: '/LendingRank',
             title:'借阅排行',
-            component: resolve => require(['./page/reader/LendingRank.vue'], resolve)
+            component: resolve => require(['./page/borrow/LendingRank.vue'], resolve)
         },
     ]
 })

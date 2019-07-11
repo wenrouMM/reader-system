@@ -13,3 +13,7 @@
     flex-direction: column;
     justify-content: space-between;
 }
+#lendingRank .el-input__inner {
+    border:1px solid #12B494;
+    height: 35px;
+}
