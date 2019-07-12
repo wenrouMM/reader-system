@@ -133,7 +133,7 @@
                 </el-form>
               </div>
               <div class="tableBox">
-                <el-table  :data="tableData" style="width: 100%">
+                <el-table height :data="tableData" style="width: 100%">
                   <el-table-column prop="date" label="条码号"></el-table-column>
                   <el-table-column prop="name" label="索书号"></el-table-column>
                   <el-table-column prop="address" label="所属分馆"></el-table-column>
@@ -157,7 +157,7 @@ export default {
   data() {
     return {
       sortValue: "",
-      tableData:[],
+      tableData: [],
       sortOptions: [
         {
           label: "匹配度升序",
@@ -352,6 +352,8 @@ export default {
       }
     }
   }
+}
+.selectBox {
 }
 </style>
 

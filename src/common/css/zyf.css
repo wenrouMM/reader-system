@@ -1,0 +1,19 @@
+.outerDiv{
+    width: 1200px;
+    margin: 0 auto;
+    border: 1px solid #8080801a;
+}
+.flexLayoutRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.flexLayoutColumn{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#lendingRank .el-input__inner {
+    border:1px solid #12B494;
+    height: 35px;
+}
