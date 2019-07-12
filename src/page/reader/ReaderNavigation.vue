@@ -1,0 +1,95 @@
+<template>
+    <div class="outerDiv flexLayoutRow">
+        <div style="width: 280px">
+            <el-menu
+                    :default-active="$route.path"
+                    router
+                    unique-opened
+                    class="el-menu-vertical-demo"
+                    >
+                <el-submenu index="1">
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>用户信息</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item index="/BasicInfo" >基本信息</el-menu-item>
+                        <el-menu-item index="1-2">借阅权限查询</el-menu-item>
+                        <el-menu-item index="1-3">证件挂失/恢复</el-menu-item>
+                        <el-menu-item index="1-4">修改密码</el-menu-item>
+                        <el-menu-item index="1-5">修改登录名</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-submenu index="2">
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>我的借阅</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item index="2-1" >图书续借</el-menu-item>
+                        <el-menu-item index="2-2">当前借阅查询</el-menu-item>
+                        <el-menu-item index="2-3">历史借阅查询</el-menu-item>
+                        <el-menu-item index="2-4">我的收藏</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-submenu index="3">
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>我的预约</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item index="3-1" >当前预约查询</el-menu-item>
+                        <el-menu-item index="3-2">历史预约查询</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-submenu index="4">
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>财经管理</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item index="4-1" >财经管理</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-submenu index="5">
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>我的荐购</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item index="5-1" >读者自荐</el-menu-item>
+                        <el-menu-item index="5-2">征订荐购</el-menu-item>
+                        <el-menu-item index="5-3">历史荐购</el-menu-item>
+                        <el-menu-item index="5-4">荐购排行</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+            </el-menu>
+        </div>
+        <router-view></router-view>
+
+    </div>
+</template>
+
+<script>
+    export default {
+        data(){
+            return {
+
+            }
+        },
+        created(){
+            this.fetchNavData();
+        },
+        methods:{
+            fetchNavData (){
+                //var cur_path = this.$route.path; //获取当前路由
+
+
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

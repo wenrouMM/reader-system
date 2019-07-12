@@ -1,6 +1,7 @@
 .outerDiv{
     width: 1200px;
     margin: 0 auto;
+    height: 540px;
     border: 1px solid #8080801a;
 }
 .flexLayoutRow{
@@ -13,7 +14,77 @@
     flex-direction: column;
     justify-content: space-between;
 }
-#lendingRank .el-input__inner {
+.haveTablePage .el-input__inner {
     border:1px solid #12B494;
-    height: 35px;
+    height: 30px;
+    width: 180px;
+}
+.haveTablePage  .el-table th, .el-table tr {
+    background-color: #12B494;
+    color: white;
+}
+.haveTablePage .el-table td, .el-table th{
+    padding: 5px 0;
+}
+.outerDiv ol, ul {
+    width: 200px;
+}
+.outerDiv .el-submenu {
+    margin-bottom: 1px;
+}
+.outerDiv .el-submenu__title{
+    background-color: #12B494;
+    color: white;
+    font-size: 16px;
+}
+.outerDiv .el-menu-item-group{
+    background-color:#E7FFFA ;
+
+}
+.outerDiv .el-submenu .el-menu-item{
+    color: #12B494;
+}
+.outerDiv .el-submenu .el-menu-item:hover{
+    color: white;
+    background-color: #5DDBC2;
+    width: 220px;
+    margin-left: -10px;
+}
+.outerDiv .el-menu-item.is-active{
+    color: white;
+    background-color: #5DDBC2;
+    width: 220px;
+    margin-left: -10px;
+}
+.outerDiv .el-menu-item-group__title {
+    display: none;
+}
+.el-table th>.cell{
+    text-align: center;
+}
+.el-table td, .el-table th{
+    text-align: center;
+    color: #2a2a2a;
+    background-color: white;
+}
+.el-table--fit {
+    border: 1px solid #ebeef5;
+}
+.ReaderCenter{
+    width: 100%;
+}
+.title{
+    width:85px;
+    margin-bottom: 10px;
+}
+.titleImg{
+    width: 16px;
+    height: 16px;
+}
+.titleFont{
+    color: #12B494;
+    font-size:16px
+}
+.ReaderCenter{
+    padding: 5px 0px;
 }

@@ -8,9 +8,16 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@vue/cli-shared-utils": "^3.9.0",
     "core-js": "^2.6.5",
     "element-ui": "^2.10.1",
-    "vue": "^2.6.10"
+    "js-message": "^1.0.5",
+    "lru-cache": "^5.1.1",
+    "node-ipc": "^9.1.1",
+    "semver": "^6.2.0",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.7",
+    "yallist": "^3.0.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",
