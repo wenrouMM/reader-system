@@ -12,7 +12,16 @@ export default new Router({
         },
         {
             path:'/index',
-            component:Index
+            component:Index,
+            children:[{
+                path:'/searchList',
+                component:() => import('./page/search/searchMore/searchList.vue')
+            }
+               
+            ]
+        },{
+            path:'/test',
+            component:() => import('./components/SearchInput.vue')
         }
     ]
 })
