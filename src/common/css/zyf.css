@@ -26,7 +26,7 @@
 .haveTablePage .el-table td, .el-table th{
     padding: 5px 0;
 }
-.outerDiv ol, ul {
+.outerDiv ol,.outerDiv ul {
     width: 200px;
 }
 .outerDiv .el-submenu {

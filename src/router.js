@@ -17,12 +17,15 @@ export default new Router({
             children:[{
                 path:'/searchList',
                 component:() => import('./page/search/searchMore/searchList.vue')
+            },{
+                path:'/searchDetail',
+                component:() => import('./page/search/searchMore/searchDetail.vue') 
             }
                
             ]
         },{
             path:'/test',
-            component:() => import('./components/SearchInput.vue')
+            component:() => import('./components/bookBlock.vue')
         }
     ]
 })

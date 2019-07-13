@@ -24,7 +24,7 @@
     </section>
     <!-- logo图片 -->
     <section class="imgLogoBox">
-      <img src="../common/img/libLogo.png" />
+      <img src="@/common/img/libLogo.png" />
     </section>
     <!-- 搜索框 -->
     <section class="searchBox">

@@ -13,7 +13,7 @@
             </nav>
         </section>
         <section class="content">
-            <div class="centerBox">
+·            <div class="centerBox">
                 <router-view></router-view>
             </div>
         </section>
@@ -24,6 +24,8 @@
 
 <script>
 export default {
+
+    
     
 }
 </script>
