@@ -1,10 +1,10 @@
 <template>
-    <div id="BasicInfo" class="zyfPage ReaderCenter flexLayoutColumn">
-        <div class="title flexLayoutRow">
-            <img :src="titleIcon" class="titleImg" style="">
-            <div class="titleFont">基本信息</div>
+    <div id="documentProcessing" class="zyfPage ReaderCenter flexLayoutColumn">
+        <div class="title flexLayoutRow" style="width: 120px">
+            <img :src="titleIcon" class="titleImg">
+            <div class="titleFont">证件挂失/恢复</div>
         </div>
-        <div class="flexLayoutRow" style="padding:0px 0px 595px">
+        <div class="flexLayoutRow">
             <div class="headIcon"></div>
             <div>
                 <p>读者卡号： <span>{{readerInfo.cardNum}}</span></p>
@@ -13,17 +13,20 @@
                 <p>押金： <span>{{readerInfo.deposit}}</span></p>
             </div>
             <div>
-                <p>姓名： <span>{{readerInfo.name}}</span></p>
-                <p>证件类别： <span>{{readerInfo.idCardType}}</span></p>
                 <p>有效日期： <span>{{readerInfo.effectiveDate}}</span></p>
-                <p>逾期费用： <span>{{readerInfo.demurrageFee}}</span></p>
-            </div>
-            <div>
-                <p>读者卡状态： <span>{{readerInfo.cardState}}</span></p>
-                <p>证件号码： <span>{{readerInfo.idCard}}</span></p>
-                <p>可借阅次数： <span>{{readerInfo.borrowNum}}</span></p>
             </div>
         </div>
+        <div class="processing flexLayoutColumn">
+            <el-button type="primary" @click="dialogVisible = true">挂 &nbsp; &nbsp; 失</el-button>
+            <p style="width: 500px">* 读者卡遗失时,可在此办理挂失,以确保您的合法权益不受侵害</p>
+        </div>
+        <!--弹窗-->
+        <el-dialog
+                :visible.sync="dialogVisible"
+                width="10%"
+                :before-close="handleClose">
+            <span>挂失成功！</span>
+        </el-dialog>
     </div>
 </template>
 
@@ -37,14 +40,14 @@
                     userLib:'夔牛图书馆',
                     createTime:'2019-4-4',
                     deposit:50,
-                    name:'刘老三',
-                    idCardType:'居民身份证',
                     effectiveDate:"2019-5-5",
-                    demurrageFee:20,
-                    cardState:"启用",
-                    idCard:"343847389473893442",
-                    borrowNum:10
-                }
+                },
+                dialogVisible: false
+            }
+        },
+        methods:{
+            handleClose(done) {
+                this.dialogVisible=false
             }
         }
     }
@@ -66,5 +69,9 @@
     }
     span{
         color: #12B494;
+    }
+    .processing p{
+        color: red;
+        margin-top: 10px;
     }
 </style>

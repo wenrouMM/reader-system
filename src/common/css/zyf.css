@@ -1,19 +1,23 @@
+/*读者中心的页面大小*/
 .outerDiv{
     width: 1200px;
     margin: 0 auto;
-    height: 540px;
-    border: 1px solid #8080801a;
+    height: 810px;
+    /*border: 1px solid #8080801a;*/
 }
+/*弹性布局横向布局*/
 .flexLayoutRow{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
+/*弹性布局纵向布局*/
 .flexLayoutColumn{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
+/*有边框的表格样式*/
 .haveTablePage .el-input__inner {
     border:1px solid #12B494;
     height: 30px;
@@ -26,8 +30,24 @@
 .haveTablePage .el-table td, .el-table th{
     padding: 5px 0;
 }
+.haveTablePage .el-table th>.cell{
+    text-align: center;
+}
+.haveTablePage .el-table td, .el-table th{
+    text-align: center;
+    color: #2a2a2a;
+    background-color: white;
+}
+.haveTablePage .el-table--fit {
+    border: 1px solid #ebeef5;
+}
+/*读者中心导航栏的样式设置*/
 .outerDiv ol, ul {
     width: 200px;
+}
+
+ .el-menu{
+    border:1px solid  #12B494;
 }
 .outerDiv .el-submenu {
     margin-bottom: 1px;
@@ -36,6 +56,7 @@
     background-color: #12B494;
     color: white;
     font-size: 16px;
+
 }
 .outerDiv .el-menu-item-group{
     background-color:#E7FFFA ;
@@ -43,6 +64,7 @@
 }
 .outerDiv .el-submenu .el-menu-item{
     color: #12B494;
+    text-align: center;
 }
 .outerDiv .el-submenu .el-menu-item:hover{
     color: white;
@@ -55,36 +77,103 @@
     background-color: #5DDBC2;
     width: 220px;
     margin-left: -10px;
+    text-align: center;
 }
 .outerDiv .el-menu-item-group__title {
     display: none;
 }
-.el-table th>.cell{
-    text-align: center;
-}
-.el-table td, .el-table th{
-    text-align: center;
-    color: #2a2a2a;
-    background-color: white;
-}
-.el-table--fit {
-    border: 1px solid #ebeef5;
-}
-.ReaderCenter{
+/*读者中心页面的宽度设置*/
+#documentProcessing{
     width: 100%;
 }
-.title{
+/*挂失补办页面的按钮设置*/
+.processing{
+    padding:0px 0px 530px;
+}
+.processing .el-button--primary{
+    margin-top: 15px;
+    width: 130px;
+    border-radius: 5px;
+}
+/*挂失补办页面的弹窗样式设置*/
+.v-modal{
+    display: none;
+}
+/*挂失补办页面的弹窗设置*/
+#BasicInfo{
+    width: 100%;
+}
+
+/*修改密码，修改登录名的页面样式设置*/
+#changePassword{
+    width: 100%;
+}
+#changePassword .el-button{
+    border-radius: 5px;
+}
+#changePassword .el-button--primary{
+    width: 150px;
+}
+#changePassword .el-button--info{
+    width: 150px;
+    background: #b7b7b7;
+    border-color:#b7b7b7 ;
+}
+/*读者中心页面的内边距设置*/
+.ReaderCenter{
+    padding: 5px 0px;
+}
+/*读者中心 新书通报 借阅排行的标题*/
+.zyfPage .title{
     width:85px;
     margin-bottom: 10px;
 }
-.titleImg{
+.zyfPage .titleImg{
     width: 16px;
     height: 16px;
 }
-.titleFont{
+.zyfPage .titleFont{
     color: #12B494;
     font-size:16px
 }
+/*读者中心 新书通报 借阅排行的弹窗*/
+.zyfPage .el-dialog {
+    position: relative;
+    margin: 0 auto 50px;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 10px #12b4944a;
+    box-shadow: 0 1px 10px #12b4944a;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 50%;
+}
+.zyfPage .el-dialog__body{
+    text-align: center;
+    padding: 40px 20px;
+}
+.zyfPage .el-dialog__header{
+    padding: 0px;
+}
+.zyfPage .el-dialog__headerbtn{
+    top: 5px;
+    right: 5px;
+}
+/**
+读者中心页面渐入的动画
+***/
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translate3d(20%, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
 .ReaderCenter{
-    padding: 5px 0px;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-name: fadeInLeft;
 }
