@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from 'page/index.vue'
 import Search from 'page/search.vue'
-import book from 'page/borrow/NewBooksBulletins'
+
 Vue.use(Router)
 
 export default new Router({
@@ -17,6 +17,9 @@ export default new Router({
             children:[{
                 path:'/searchList',
                 component:() => import('./page/search/searchMore/searchList.vue')
+            },{
+                path:'/searchDetail',
+                component:() => import('./page/search/searchMore/searchDetail.vue')
             }
 
             ]
@@ -58,5 +61,7 @@ export default new Router({
                 }
             ]
         },
+            component:() => import('./components/bookBlock.vue')
+        }
     ]
 })

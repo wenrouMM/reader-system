@@ -106,7 +106,8 @@
         <!-- 分页器 -->
         <section class="pagation"></section>
         <section class="bookBox">
-          <div class="book-block">
+          <book-block></book-block>
+          <!-- <div class="book-block">
             <div class="bookCtx">
               <div class="imgBox"></div>
               <div class="textBox">
@@ -133,7 +134,7 @@
                 </el-form>
               </div>
               <div class="tableBox">
-                <el-table height :data="tableData" style="width: 100%">
+                <el-table :data="tableData" style="width: 100%">
                   <el-table-column prop="date" label="条码号"></el-table-column>
                   <el-table-column prop="name" label="索书号"></el-table-column>
                   <el-table-column prop="address" label="所属分馆"></el-table-column>
@@ -144,7 +145,7 @@
                 </el-table>
               </div>
             </div>
-          </div>
+          </div> -->
         </section>
       </div>
     </section>
@@ -153,6 +154,7 @@
 
 <script>
 import SearchInput from "@/components/SearchInput";
+import BookBlock from '@/components/bookBlock'
 export default {
   data() {
     return {
@@ -171,7 +173,8 @@ export default {
     };
   },
   components: {
-    SearchInput
+    SearchInput,
+    BookBlock
   }
 };
 </script>
@@ -282,7 +285,7 @@ export default {
       .pagation {
       }
       .bookBox {
-        .book-block {
+        /* .book-block {
           position: relative;
           .bookCtx {
             padding-left: 38px;
@@ -334,8 +337,6 @@ export default {
                     content: "";
                     width: 0;
                     height: 0;
-
-                    /* #0d984b */
                   }
                 }
                 .active {
@@ -348,7 +349,7 @@ export default {
           }
         }
         .book-detail {
-        }
+        } */
       }
     }
   }
