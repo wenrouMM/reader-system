@@ -1,8 +1,8 @@
 /*读者中心的页面大小*/
 .outerDiv{
-    width: 1200px;
+    width: 1300px;
     margin: 0 auto;
-    height: 810px;
+    height: 600px;
     /*border: 1px solid #8080801a;*/
 }
 /*弹性布局横向布局*/
@@ -28,26 +28,24 @@
     color: white;
 }
 .haveTablePage .el-table td, .el-table th{
+    text-align: center;
+    color: #2a2a2a;
+    background-color: white;
     padding: 5px 0;
 }
 .haveTablePage .el-table th>.cell{
     text-align: center;
-}
-.haveTablePage .el-table td, .el-table th{
-    text-align: center;
-    color: #2a2a2a;
-    background-color: white;
 }
 .haveTablePage .el-table--fit {
     border: 1px solid #ebeef5;
 }
 /*读者中心导航栏的样式设置*/
 .outerDiv ol, ul {
-    width: 200px;
+    width: 250px;
 }
 
  .el-menu{
-    border:1px solid  #12B494;
+     border: 1px solid #12B494;
 }
 .outerDiv .el-submenu {
     margin-bottom: 1px;
@@ -55,8 +53,9 @@
 .outerDiv .el-submenu__title{
     background-color: #12B494;
     color: white;
-    font-size: 16px;
-
+    font-size: 17px;
+    padding: 6px 20px;
+    height: 70px;
 }
 .outerDiv .el-menu-item-group{
     background-color:#E7FFFA ;
@@ -65,17 +64,20 @@
 .outerDiv .el-submenu .el-menu-item{
     color: #12B494;
     text-align: center;
+    height: 60px;
+    padding: 6px 45px;
+    font-size: 17px;
 }
 .outerDiv .el-submenu .el-menu-item:hover{
     color: white;
     background-color: #5DDBC2;
-    width: 220px;
+    width: 270px;
     margin-left: -10px;
 }
 .outerDiv .el-menu-item.is-active{
     color: white;
     background-color: #5DDBC2;
-    width: 220px;
+    width: 270px;
     margin-left: -10px;
     text-align: center;
 }
@@ -87,9 +89,6 @@
     width: 100%;
 }
 /*挂失补办页面的按钮设置*/
-.processing{
-    padding:0px 0px 530px;
-}
 .processing .el-button--primary{
     margin-top: 15px;
     width: 130px;
@@ -121,7 +120,7 @@
 }
 /*读者中心页面的内边距设置*/
 .ReaderCenter{
-    padding: 5px 0px;
+    padding: 5px 0px 0px 40px;
 }
 /*读者中心 新书通报 借阅排行的标题*/
 .zyfPage .title{
@@ -157,6 +156,50 @@
 .zyfPage .el-dialog__headerbtn{
     top: 5px;
     right: 5px;
+}
+#BookRenewal{
+    width: 100%;
+}
+.zyfPage .pagingBut .el-button{
+    padding: 1px 10px ;
+    border:1px solid #12B494;
+    border-radius: 2px;
+   height: 20px;
+}
+.zyfPage .pageInput{
+    border: 1px solid #12B494;
+    border-radius: 2px;
+    width: 40px;
+    margin:0px 10px 0px 10px;
+    text-align: center;
+    height: 16px;
+}
+#BookRenewal .tableStyle .el-button--text{
+    color: #FF3B31;
+    font-size: 15px;
+}
+#BookRenewal .el-button--small, .el-button--small.is-round {
+    padding: 4px 15px;
+}
+#CurrentBorrowing{
+    width: 100%;
+}
+#CurrentBorrowing .dateInput .el-input__inner{
+    width: 120px;
+    padding: 0px 5px 0px 25px;
+}
+#CurrentBorrowing .textInput .el-input__inner{
+    width: 150px;
+    padding: 0px 5px 0px 25px;
+}
+#CurrentBorrowing .el-date-editor.el-input, .el-date-editor.el-input__inner {
+    width: 123px;
+}
+.zyfPage .el-col-2 {
+    width: 3.33333%;
+}
+.zyfPage .el-col-11 {
+    width: 50.83333%;
 }
 /**
 读者中心页面渐入的动画

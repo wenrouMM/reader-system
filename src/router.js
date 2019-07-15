@@ -45,23 +45,36 @@ export default new Router({
             children:[
                 {
                     path:'/BasicInfo',
+                    title:'基本信息',
                     component:() => import('page/reader/BasicInfo.vue'),
                 },
                 {
                     path:'/DocumentProcessing',
+                    title:'证件挂失/恢复',
                     component:() => import('page/reader/DocumentProcessing.vue'),
                 },
                 {
                     path:'/ChangePassword',
+                    title:'修改密码',
                     component:() => import('page/reader/ChangePassword.vue'),
                 },
                 {
                     path:'/ModifyLoginName',
+                    title:'修改登录名',
                     component:() => import('page/reader/ModifyLoginName.vue'),
+                },
+                {
+                    path:'/BookRenewal',
+                    title:'图书续借',
+                    component:() => import('page/reader/BookRenewal.vue')
+                },
+                {
+                    path:'/CurrentBorrowingQueries',
+                    title:'当前借阅查询',
+                    component:() =>import('page/reader/CurrentBorrowingQueries.vue')
                 }
             ]
         },
-            component:() => import('./components/bookBlock.vue')
-        }
+
     ]
 })

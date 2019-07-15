@@ -126,6 +126,7 @@
         border-radius: 3px;
         margin-left: 10px;
         font-size: 15px;
+        text-align: center;
     }
 </style>
 

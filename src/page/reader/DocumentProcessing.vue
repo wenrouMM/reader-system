@@ -1,5 +1,5 @@
 <template>
-    <div id="documentProcessing" class="zyfPage ReaderCenter flexLayoutColumn">
+    <div id="documentProcessing" class="zyfPage ReaderCenter">
         <div class="title flexLayoutRow" style="width: 120px">
             <img :src="titleIcon" class="titleImg">
             <div class="titleFont">证件挂失/恢复</div>

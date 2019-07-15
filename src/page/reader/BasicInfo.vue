@@ -1,10 +1,10 @@
 <template>
-    <div id="BasicInfo" class="zyfPage ReaderCenter flexLayoutColumn">
+    <div id="BasicInfo" class="zyfPage ReaderCenter">
         <div class="title flexLayoutRow">
             <img :src="titleIcon" class="titleImg" style="">
             <div class="titleFont">基本信息</div>
         </div>
-        <div class="flexLayoutRow" style="padding:0px 0px 595px">
+        <div class="flexLayoutRow">
             <div class="headIcon"></div>
             <div>
                 <p>读者卡号： <span>{{readerInfo.cardNum}}</span></p>
