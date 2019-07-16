@@ -4,7 +4,7 @@
             <div class="headImg"></div>
             <nav>
                 <ul class="navCtx">
-                    <router-link tag="li" to="/">首页</router-link>
+                    <router-link tag="li" to="/search">首页</router-link>
                     <li>书目检索</li>
                     <li>首页</li>
                     <li>首页</li>
@@ -13,7 +13,7 @@
             </nav>
         </section>
         <section class="content">
-·            <div class="centerBox">
+            <div class="centerBox">
                 <router-view></router-view>
             </div>
         </section>
@@ -25,7 +25,9 @@
 <script>
 export default {
     data(){
-        
+        return{
+
+        }
     }
     
     

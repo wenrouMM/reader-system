@@ -1,5 +1,8 @@
 <template>
   <div id="search">
+    <transition name="fade">
+      <div class="mask" v-if="isMask"></div>
+    </transition>
     <!-- 导航 -->
     <section class="header">
       <nav class="nav">
@@ -28,8 +31,8 @@
     </section>
     <!-- 搜索框 -->
     <section class="searchBox">
-      <search-input></search-input>
-      <!-- <el-input @blur="blurVali" placeholder="请输入搜索内容" v-model="search" class="input-with-select">
+      
+      <el-input @focus="isMask = true" @blur="isMask = false" placeholder="请输入搜索内容" v-model="search" class="input-with-select">
         <el-select v-model="select" slot="prepend" placeholder="请选择">
           <el-option
             v-for="(item,index) of optionsArr"
@@ -40,11 +43,9 @@
         </el-select>
         <el-button @click="searchBtn" slot="append" icon="el-icon-search"></el-button>
       </el-input>
-      <p v-if="isPlay" class="tips">{{tips}}</p> -->
+      
     </section>
-    <div class="mask">
-
-    </div>
+    
     <div class="copyright">版权所有 copyright © www.kuiniu.com 智慧图书馆</div>
   </div>
 </template>
@@ -56,6 +57,7 @@ export default {
       search: "",
       select: "",
       tips: "搜索条件不得为空",
+      isMask:false,
       isPlay: false,
       optionsArr: [
         {
@@ -110,21 +112,15 @@ export default {
   methods: {
     blurVali() {
       let value = this.search;
-      if (value) {
-        this.isPlay = false;
-      } else {
-        this.isPlay = true;
-        console.log("请输入搜索条件");
-      }
     },
     searchBtn() {
       let value = this.search;
       if (value) {
-        this.isPlay = false;
+        
         this.$router.push({ path: "/index" });
       } else {
-        this.isPlay = true;
-        console.log("请输入搜索条件");
+        this.$message.error('请输入搜索条件')
+        
       }
     }
   }
@@ -186,13 +182,15 @@ export default {
     color: #ffffff;
     font-size: 13px;
   }
-  /* .mask{
+   .mask{
     height: 100%;
     width: 100%;
-    background-color: rgba($color: #000000, $alpha: 0.7);
+    background-color: rgba($color: #000000, $alpha: 0.4);
     position: absolute;
-    z-index: 1;
-  } */
+    z-index: 2;
+    
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  } 
 }
 </style>
 <style>
