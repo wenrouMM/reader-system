@@ -89,7 +89,7 @@
         color: #12B494;
     }
     .placeholderFont{
-        color: red;
+        color: #FF3B31;
         width: 560px;
         margin-left: 270px;
     }

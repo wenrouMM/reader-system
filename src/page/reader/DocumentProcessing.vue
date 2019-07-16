@@ -71,7 +71,7 @@
         color: #12B494;
     }
     .processing p{
-        color: red;
+        color:  #FF3B31;
         margin-top: 10px;
     }
 </style>

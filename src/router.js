@@ -31,7 +31,7 @@ export default new Router({
                     component: () => import('page/borrow/NewBooksBulletins.vue')
                 },
             ]
-        }, 
+        },
         {
             path: '/test',
             component: () => import('./layout/share.vue')
@@ -70,6 +70,16 @@ export default new Router({
                     path: '/CurrentBorrowingQueries',
                     title: '当前借阅查询',
                     component: () => import('page/reader/CurrentBorrowingQueries.vue')
+                },
+                {
+                    path: '/HistoryLoanEnquiry',
+                    title: '当前借阅查询',
+                    component: () => import('page/reader/HistoryLoanEnquiry.vue')
+                },
+                {
+                    path: '/MyCollection',
+                    title: '当前借阅查询',
+                    component: () => import('page/reader/MyCollection.vue')
                 }
             ]
         },

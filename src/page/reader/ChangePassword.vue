@@ -90,7 +90,7 @@
         color: #12B494;
     }
     .placeHolderFont{
-        color: red;
+        color: #FF3B31;
         width: 640px;
         margin-left: 200px;
     }
