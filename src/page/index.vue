@@ -4,8 +4,8 @@
             <div class="headImg"></div>
             <nav>
                 <ul class="navCtx">
-                    <li>首页</li>
-                    <li>首页</li>
+                    <router-link tag="li" to="/">首页</router-link>
+                    <li>书目检索</li>
                     <li>首页</li>
                     <li>首页</li>
                     <li>首页</li>
@@ -24,7 +24,9 @@
 
 <script>
 export default {
-
+    data(){
+        
+    }
     
     
 }
@@ -54,6 +56,7 @@ export default {
                     line-height: 50px;
                     text-align: center;
                     color: #2a2a2a;
+                    cursor: pointer;
                 }
             }
         }
