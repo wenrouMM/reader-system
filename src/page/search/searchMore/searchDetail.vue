@@ -51,7 +51,7 @@
         <!-- 侧边组件警告 -->
         <div class="operateBox">
           <div class="iconBox">
-            <div class="share">
+            <div  class="share">
               <div class="shareIcon">
                 <p class="size">
                   <i class="size el-icon-share"></i>
@@ -62,12 +62,12 @@
               </div>
               <div class="select"></div>
             </div>
-            <div class="collect">
+            <div class="collect" @click="isCollect=!isCollect">
               <p class="size">
-                <i class="el-icon-star-off"></i>
+                <i :style="{color:isCollect?'#f15a4a':'#757575'}" class="el-icon-star-on"></i>
               </p>
               <p>
-                <span>收藏</span>
+                <span :style="{color:isCollect?'#f15a4a':'#757575'}">收藏</span>
               </p>
             </div>
           </div>
@@ -77,8 +77,8 @@
     </section>
     <!-- 馆藏信息 -->
     <section class="book-detail">
-      <div @click="toggleShow" class="touchBox">
-        <span class="clickBox">馆藏信息</span>
+      <div  class="touchBox">
+        <span @click="toggleShow" class="clickBox">馆藏信息</span>
         <span class="tranle"></span>
       </div>
       <div v-if="toggleValue" class="book-detail">
@@ -116,13 +116,18 @@ export default {
       selectForm: {
         region: "1"
       },
+      
+      isCollect:false, // 控制收藏点击事件
+      shareShow:false, // 控制分享框的显隐
       toggleValue: false
     };
   },
   methods: {
+    
     toggleShow() {
       this.toggleValue = !this.toggleValue;
-    }
+    },
+    
   }
 };
 </script>
@@ -192,7 +197,12 @@ export default {
             width: 64px;
             height: 64px;
             position: relative;
-
+            &:hover{
+              .select{
+                width: 140px;
+                opacity: 1;
+              }
+            }
             .shareIcon {
               width: 64px;
               height: 64px;
@@ -212,10 +222,13 @@ export default {
             .select {
               position: absolute;
               background-color: rgba(0, 0, 0, 0.2);
-              width: 140px;
+              width: 0px;
+              opacity: 0;
+              overflow: hidden;
               height: 64px;
               z-index: 1;
               right: 56px;
+              transition: all 1s cubic-bezier(0.77, 0, 0.175, 1)
             }
           }
           .collect {
@@ -230,6 +243,7 @@ export default {
             .size {
               font-size: 40px;
             }
+            
           }
         }
         .order {

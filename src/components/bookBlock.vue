@@ -7,8 +7,8 @@
           <p @click="toDetail" class="title">百年孤独</p>
           <p class="info">马尔克斯著 广西：漓江出版社，1990.10 I775.45/12</p>
           <p class="buy"></p>
-          <div @click="toggleShow" class="touchBox">
-            <span class="clickBox">馆藏信息</span>
+          <div  class="touchBox">
+            <span @click="toggleShow" class="clickBox">馆藏信息</span>
             <span class="tranle"></span>
           </div>
         </div>

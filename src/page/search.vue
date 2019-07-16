@@ -5,10 +5,10 @@
       <nav class="nav">
         <ul class="navCtx">
           <li>
-            <span>首页</span>
+            <router-link to="/">首页</router-link>
           </li>
           <li>
-            <span>书目检索</span>
+            <router-link to="/searchEasy">书籍检索</router-link>
           </li>
           <li>
             <span>借阅管理</span>
@@ -28,7 +28,8 @@
     </section>
     <!-- 搜索框 -->
     <section class="searchBox">
-      <el-input @blur="blurVali" placeholder="请输入搜索内容" v-model="search" class="input-with-select">
+      <search-input></search-input>
+      <!-- <el-input @blur="blurVali" placeholder="请输入搜索内容" v-model="search" class="input-with-select">
         <el-select v-model="select" slot="prepend" placeholder="请选择">
           <el-option
             v-for="(item,index) of optionsArr"
@@ -39,8 +40,11 @@
         </el-select>
         <el-button @click="searchBtn" slot="append" icon="el-icon-search"></el-button>
       </el-input>
-      <p v-if="isPlay" class="tips">{{tips}}</p>
+      <p v-if="isPlay" class="tips">{{tips}}</p> -->
     </section>
+    <div class="mask">
+
+    </div>
     <div class="copyright">版权所有 copyright © www.kuiniu.com 智慧图书馆</div>
   </div>
 </template>
@@ -129,6 +133,7 @@ export default {
 <style lang="scss" scoped>
 #search {
   background-image: url("../common/img/bg.jpg");
+  
   background-size: cover;
   height: 100vh;
   background-position: center;
@@ -136,6 +141,7 @@ export default {
     .nav {
       width: 1200px;
       margin: 0 auto;
+      
       .navCtx {
         display: flex;
         flex-direction: row;
@@ -180,6 +186,13 @@ export default {
     color: #ffffff;
     font-size: 13px;
   }
+  /* .mask{
+    height: 100%;
+    width: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+    position: absolute;
+    z-index: 1;
+  } */
 }
 </style>
 <style>

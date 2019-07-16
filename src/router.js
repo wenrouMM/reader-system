@@ -12,8 +12,9 @@ export default new Router({
             component:Search
         },
         {
-            path:'/index',
+            path:'/indexTest',
             component:Index,
+            
             children:[{
                 path:'/searchList',
                 component:() => import('./page/search/searchMore/searchList.vue')
@@ -25,7 +26,7 @@ export default new Router({
             ]
         },{
             path:'/test',
-            component:() => import('./components/bookBlock.vue')
+            component:() => import('./layout/share.vue')
         }
     ]
 })
