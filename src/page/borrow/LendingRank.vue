@@ -1,5 +1,5 @@
 <template>
-    <div class="outerDiv flexLayoutColumn haveTablePage">
+    <div class="zyfPage outerDiv flexLayoutColumn haveTablePage">
         <div class="flexLayoutRow title">
             <img :src="titleIcon" class="titleImg">
             <div  class="titleFont">借阅排行</div>
@@ -115,5 +115,6 @@
         border-radius: 3px;
         margin-left: 10px;
         font-size: 15px;
+        text-align: center;
     }
 </style>
