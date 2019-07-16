@@ -8,18 +8,29 @@ Vue.use(Router)
 export default new Router({
     routes: [{
             path: '/',
+            redirect:'/search'
+        },
+        {
+            path: '/search',
             component: Search
         },
         {
             path: '/indexTest',
             component: Index,
-
             children: [{
                     path: '/searchList',
                     component: () => import('./page/search/searchMore/searchList.vue')
                 }, {
                     path: '/searchDetail',
                     component: () => import('./page/search/searchMore/searchDetail.vue')
+                },
+                {
+                    path:'/esaySearch',
+                    component:() => import('./page/search/searchMore/searchEasy.vue')
+                },
+                {
+                    path:'/hardSearch',
+                    component:() => import('./page/search/searchMore/searchHard.vue')
                 },
                 //借阅管理
                 {

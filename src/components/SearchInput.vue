@@ -1,8 +1,5 @@
 <template>
   <div id="searchInput">
-    
-    
-    
     <!-- 搜索框 -->
     
       <el-input @blur="blurVali" placeholder="请输入搜索内容" v-model="search" class="input-with-select">
@@ -15,7 +12,7 @@
       <p v-if="isPlay" class="tips">
         {{tips}}
       </p>
-    
+      <slot></slot>
   </div>
 </template>
 <script>
