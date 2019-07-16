@@ -40,14 +40,14 @@
     border: 1px solid #ebeef5;
 }
 /*读者中心导航栏的样式设置*/
-.outerDiv ol, ul {
+.outerDiv ol,.outerDiv ul {
     width: 250px;
 }
 
- .el-menu{
+.el-menu{
      border: 1px solid #12B494;
 }
-.outerDiv .el-submenu {
+ .outerDiv .el-submenu {
     margin-bottom: 1px;
 }
 .outerDiv .el-submenu__title{
