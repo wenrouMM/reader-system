@@ -55,7 +55,7 @@
     color: white;
     font-size: 17px;
     padding: 6px 20px;
-    height: 70px;
+    height: 65px;
 }
 .outerDiv .el-menu-item-group{
     background-color:#E7FFFA ;
@@ -178,8 +178,12 @@
     color: #FF3B31;
     font-size: 15px;
 }
-#BookRenewal .el-button--small, .el-button--small.is-round {
-    padding: 4px 15px;
+#MyCollection .tableStyle .el-button--text{
+    color: #FF3B31;
+    font-size: 15px;
+}
+.zyfPage .el-button--small, .el-button--small.is-round {
+    padding: 1px 15px;
 }
 #CurrentBorrowing{
     width: 100%;
@@ -195,11 +199,35 @@
 #CurrentBorrowing .el-date-editor.el-input, .el-date-editor.el-input__inner {
     width: 123px;
 }
+#HistoryLoanEnquiry {
+    width: 100%;
+}
+#HistoryLoanEnquiry .dateInput .el-input__inner{
+    width: 120px;
+    padding: 0px 5px 0px 25px;
+}
+#HistoryLoanEnquiry .textInput .el-input__inner{
+    width: 150px;
+    padding: 0px 5px 0px 25px;
+}
+#HistoryLoanEnquiry .el-date-editor.el-input, .el-date-editor.el-input__inner {
+    width: 123px;
+}
 .zyfPage .el-col-2 {
     width: 3.33333%;
 }
 .zyfPage .el-col-11 {
     width: 50.83333%;
+}
+#MyCollection{
+    width: 100%;
+}
+#MyCollection .el-input__inner{
+    width: 100%;
+}
+#MyCollection .el-form-item{
+    margin-bottom: 0px;
+    width: 300px;
 }
 /**
 读者中心页面渐入的动画

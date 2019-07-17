@@ -27,8 +27,8 @@
                     <el-menu-item-group>
                         <el-menu-item index="/BookRenewal" >图书续借</el-menu-item>
                         <el-menu-item index="/CurrentBorrowingQueries">当前借阅查询</el-menu-item>
-                        <el-menu-item index="2-3">历史借阅查询</el-menu-item>
-                        <el-menu-item index="2-4">我的收藏</el-menu-item>
+                        <el-menu-item index="/HistoryLoanEnquiry">历史借阅查询</el-menu-item>
+                        <el-menu-item index="/MyCollection">我的收藏</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-submenu index="3">

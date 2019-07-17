@@ -1,8 +1,8 @@
 <template>
-    <div id="CurrentBorrowing" class="ReaderCenter zyfPage haveTablePage">
+    <div id="HistoryLoanEnquiry" class="ReaderCenter zyfPage haveTablePage">
         <div class="title flexLayoutRow" style="width: 115px">
             <img :src="titleIcon" class="titleImg">
-            <div class="titleFont">当前借阅查询</div>
+            <div class="titleFont">历史借阅查询</div>
         </div>
         <div class="flexLayoutRow">
             <el-form :model="ruleForm" status-icon  class="demo-ruleForm flexLayoutRow" style="height: 35px">
@@ -51,11 +51,10 @@
                         label="借阅归还时间">
                 </el-table-column>
                 <el-table-column
-                        label="状态"
-                        prop="state">
+                        label="可借阅次数"
+                        prop="borrowNum">
                     <template slot-scope="scope">
-                        <span v-if="scope.row.state=='续借成功'" style="color: #12B457">续借成功</span>
-                        <span v-if="scope.row.state=='续借失败'" style="color: #FF3B31">续借失败</span>
+                        <span>{{scope.row.borrowNum}}次</span>
                     </template>
                 </el-table-column>
             </el-table>
@@ -74,20 +73,19 @@
                     bookName:''//书名
                 },
                 tableData:[
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
+                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',borrowNum:5},
                 ]
             }
         }
