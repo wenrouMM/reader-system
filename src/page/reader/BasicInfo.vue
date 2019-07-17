@@ -1,9 +1,13 @@
 <template>
     <div id="BasicInfo" class="zyfPage ReaderCenter">
-        <div class="title flexLayoutRow">
-            <img :src="titleIcon" class="titleImg" style="">
-            <div class="titleFont">基本信息</div>
+        <div class="flexLayoutRow">
+            <div class="title flexLayoutRow">
+                <img :src="titleIcon" class="titleImg">
+                <div class="titleFont">基本信息</div>
+            </div>
+            <div></div>
         </div>
+
         <div class="flexLayoutRow">
             <div class="headIcon"></div>
             <div>
@@ -55,14 +59,14 @@
         width: 130px;
         height: 180px;
         background-color: #DADADA;
-        margin-right: 30px;
+        margin-right: 70px;
     }
     p{
         color: #2a2a2a;
         height: 45px;
         line-height: 40px;
         font-size: 15px;
-        width: 250px;
+        width: 300px;
     }
     span{
         color: #12B494;

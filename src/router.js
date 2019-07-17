@@ -84,13 +84,28 @@ export default new Router({
                 },
                 {
                     path: '/HistoryLoanEnquiry',
-                    title: '当前借阅查询',
+                    title: '历史借阅查询',
                     component: () => import('page/reader/HistoryLoanEnquiry.vue')
                 },
                 {
                     path: '/MyCollection',
-                    title: '当前借阅查询',
+                    title: '历史借阅查询',
                     component: () => import('page/reader/MyCollection.vue')
+                },
+                {
+                    path: '/CurrentAppointment',
+                    title: '当前预约',
+                    component: () => import('page/reader/CurrentAppointment.vue')
+                },
+                {
+                    path: '/HistoricalAppointment',
+                    title: '历史预约查询',
+                    component: () => import('page/reader/HistoricalAppointment.vue')
+                },
+                {
+                    path: '/ReaderRecommendation',
+                    title: '读者自荐',
+                    component: () => import('page/reader/ReaderRecommendation.vue')
                 }
             ]
         },

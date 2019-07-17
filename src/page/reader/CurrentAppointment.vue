@@ -1,9 +1,9 @@
 <template>
-    <div id="BookRenewal" class="zyfPage ReaderCenter haveTablePage">
+    <div id="CurrentAppointmenr" class="zyfPage ReaderCenter haveTablePage">
         <div class="flexLayoutRow">
             <div class="title flexLayoutRow">
                 <img :src="titleIcon" class="titleImg">
-                <div class="titleFont">修改密码</div>
+                <div class="titleFont">当前预约</div>
             </div>
             <div></div>
         </div>
@@ -24,7 +24,7 @@
             <el-table
                     :data="tableData"
                     style="width: 100%"
-                   >
+            >
                 <el-table-column
                         prop="name"
                         label="书名">
