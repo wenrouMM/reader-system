@@ -48,7 +48,7 @@
                     </template>
                     <el-menu-item-group>
                         <el-menu-item index="/ReaderRecommendation" >读者自荐</el-menu-item>
-                        <el-menu-item index="5-2">征订荐购</el-menu-item>
+                        <el-menu-item index="/Order">征订荐购</el-menu-item>
                         <el-menu-item index="5-3">历史荐购</el-menu-item>
                         <el-menu-item index="5-4">荐购排行</el-menu-item>
                     </el-menu-item-group>

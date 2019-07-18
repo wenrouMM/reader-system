@@ -106,7 +106,12 @@ export default new Router({
                     path: '/ReaderRecommendation',
                     title: '读者自荐',
                     component: () => import('page/reader/ReaderRecommendation.vue')
-                }
+                },
+                {
+                    path: '/Order',
+                    title: '征订荐购',
+                    component: () => import('page/reader/Order.vue')
+                },
             ]
         },
 
