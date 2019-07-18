@@ -1,11 +1,15 @@
 <template>
     <div id="changePassword" class="zyfPage ReaderCenter">
-        <div class="title flexLayoutRow" style="width: 85px">
-            <img :src="titleIcon" class="titleImg">
-            <div class="titleFont">修改密码</div>
+        <div class="flexLayoutRow">
+            <div class="title flexLayoutRow">
+                <img :src="titleIcon" class="titleImg">
+                <div class="titleFont">修改密码</div>
+            </div>
+            <div></div>
         </div>
+
         <div class="formStyle">
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="140px" class="demo-ruleForm">
                 <el-form-item label="原密码：" prop="passWord">
                     <el-input v-model="ruleForm.passWord"></el-input>
                 </el-form-item>
@@ -91,7 +95,7 @@
     }
     .placeHolderFont{
         color: #FF3B31;
-        width: 640px;
+        width: 720px;
         margin-left: 200px;
     }
 </style>

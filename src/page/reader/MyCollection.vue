@@ -1,10 +1,14 @@
 <template>
     <div id="MyCollection" class="ReaderCenter zyfPage haveTablePage">
-        <div class="title flexLayoutRow" style="width: 83px">
-            <img :src="titleIcon" class="titleImg">
-            <div class="titleFont">我的收藏</div>
+        <div class="flexLayoutRow">
+            <div class="title flexLayoutRow">
+                <img :src="titleIcon" class="titleImg">
+                <div class="titleFont">我的收藏</div>
+            </div>
+            <div></div>
         </div>
-        <el-form label-width="60px" :model="formLabelAlign" class="flexLayoutRow" >
+
+        <el-form label-width="80px" :model="formLabelAlign" class="flexLayoutRow" >
             <el-form-item label="书名：">
                 <el-input v-model="formLabelAlign.name"></el-input>
             </el-form-item>
@@ -51,7 +55,7 @@
                 <el-table-column
                         label="操作">
                     <template slot-scope="scope">
-                        <el-button @click="renewalBtn(scope.row)" type="text" size="small">删除收藏</el-button>
+                        <el-button @click="deleteCollection(scope.row)" type="text" size="small">删除收藏</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -69,6 +73,7 @@
                     author:'',//作者
                     isbn:''//Isbn
                 },
+                pageNum:'',//跳转的页数
                 tableData:[
                     {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',isbn:"456456345345"},
                     {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',isbn:"456456345345"},
@@ -85,6 +90,11 @@
                     {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',isbn:"456456345345"},
                     {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',isbn:"456456345345"},
                 ]
+            }
+        },
+        methods:{
+            deleteCollection(){
+                //删除收藏
             }
         }
     }

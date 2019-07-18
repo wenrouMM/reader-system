@@ -32,22 +32,13 @@
                     </el-menu-item-group>
                 </el-submenu>
                 <el-submenu index="3">
-                <template slot="title">
-                    <i class="el-icon-location"></i>
-                    <span>我的预约</span>
-                </template>
-                <el-menu-item-group>
-                    <el-menu-item index="3-1" >当前预约查询</el-menu-item>
-                    <el-menu-item index="3-2">历史预约查询</el-menu-item>
-                </el-menu-item-group>
-            </el-submenu>
-                <el-submenu index="4">
                     <template slot="title">
                         <i class="el-icon-location"></i>
-                        <span>财经管理</span>
+                        <span>我的预约</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="4-1" >财经管理</el-menu-item>
+                        <el-menu-item index="/CurrentAppointment" >当前预约</el-menu-item>
+                        <el-menu-item index="/HistoricalAppointment">历史预约查询</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-submenu index="5">
@@ -56,10 +47,19 @@
                         <span>我的荐购</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="5-1" >读者自荐</el-menu-item>
+                        <el-menu-item index="/ReaderRecommendation" >读者自荐</el-menu-item>
                         <el-menu-item index="5-2">征订荐购</el-menu-item>
                         <el-menu-item index="5-3">历史荐购</el-menu-item>
                         <el-menu-item index="5-4">荐购排行</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+                <el-submenu index="4">
+                    <template slot="title">
+                        <i class="el-icon-location"></i>
+                        <span>财经管理</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item index="4-1" >财经管理</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
             </el-menu>

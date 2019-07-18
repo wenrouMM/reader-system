@@ -1,10 +1,10 @@
 /*读者中心的页面大小*/
-.outerDiv{
-    width: 1300px;
-    margin: 0 auto;
-    height: 600px;
-    /*border: 1px solid #8080801a;*/
-}
+    .outerDiv{
+        width: 1300px;
+        margin: 0 auto;
+        height: 600px;
+        /*border: 1px solid #8080801a;*/
+    }
 /*弹性布局横向布局*/
 .flexLayoutRow{
     display: flex;
@@ -81,7 +81,7 @@
     margin-left: -10px;
     text-align: center;
 }
-.outerDiv .el-menu-item-group__title {
+.outerDiv .el-menu-item-group__title{
     display: none;
 }
 /*读者中心页面的宽度设置*/
@@ -107,13 +107,14 @@
 #changePassword{
     width: 100%;
 }
-#changePassword .el-button{
+/*主要按钮和信息按钮的设置*/
+.zyfPage .el-button{
     border-radius: 5px;
 }
-#changePassword .el-button--primary{
+.zyfPage .el-button--primary{
     width: 150px;
 }
-#changePassword .el-button--info{
+.zyfPage .el-button--info{
     width: 150px;
     background: #b7b7b7;
     border-color:#b7b7b7 ;
@@ -122,9 +123,8 @@
 .ReaderCenter{
     padding: 5px 0px 0px 40px;
 }
-/*读者中心 新书通报 借阅排行的标题*/
+/*读者中心模块页面的标题样式设置*/
 .zyfPage .title{
-    width:85px;
     margin-bottom: 10px;
 }
 .zyfPage .titleImg{
@@ -136,7 +136,7 @@
     font-size:16px
 }
 /*读者中心 新书通报 借阅排行的弹窗*/
-.zyfPage .el-dialog {
+.zyfPage .el-dialog{
     position: relative;
     margin: 0 auto 50px;
     border-radius: 2px;
@@ -157,9 +157,7 @@
     top: 5px;
     right: 5px;
 }
-#BookRenewal{
-    width: 100%;
-}
+/*读者中心的分页样式设置*/
 .zyfPage .pagingBut .el-button{
     padding: 1px 10px ;
     border:1px solid #12B494;
@@ -174,17 +172,24 @@
     text-align: center;
     height: 16px;
 }
+/*图书续借的表格内按钮样式设置*/
+#BookRenewal{
+    width: 100%;
+}
 #BookRenewal .tableStyle .el-button--text{
     color: #FF3B31;
     font-size: 15px;
 }
+/*我的收藏的表格内按钮样式设置*/
 #MyCollection .tableStyle .el-button--text{
     color: #FF3B31;
     font-size: 15px;
 }
+/*读者中心的表格按钮内编剧设置*/
 .zyfPage .el-button--small, .el-button--small.is-round {
     padding: 1px 15px;
 }
+/*当前借阅查询的页面样式*/
 #CurrentBorrowing{
     width: 100%;
 }
@@ -199,6 +204,7 @@
 #CurrentBorrowing .el-date-editor.el-input, .el-date-editor.el-input__inner {
     width: 123px;
 }
+/*历史借阅查询的页面样式设置*/
 #HistoryLoanEnquiry {
     width: 100%;
 }
@@ -213,12 +219,14 @@
 #HistoryLoanEnquiry .el-date-editor.el-input, .el-date-editor.el-input__inner {
     width: 123px;
 }
+/**/
 .zyfPage .el-col-2 {
     width: 3.33333%;
 }
 .zyfPage .el-col-11 {
     width: 50.83333%;
 }
+/*我的收藏的页面样式的设置*/
 #MyCollection{
     width: 100%;
 }
@@ -229,6 +237,30 @@
     margin-bottom: 0px;
     width: 300px;
 }
+/*当前借阅查询的页面样式设置*/
+#CurrentAppointmenr{
+    width: 100%;
+}
+#CurrentAppointmenr .el-button--text {
+    color: #409EFF;
+    font-size: 15px;
+}
+/*读者自荐页面样式设置*/
+#ReaderRecommendation{
+    width: 100%;
+}
+#ReaderRecommendation .el-input__inner{
+    width: 300px;
+    border: 1px solid #12B494;
+}
+#ReaderRecommendation .el-textarea__inner{
+    border:1px solid #12B494;
+}
+#ReaderRecommendation .reasonInput .el-form-item__label{
+    font-weight: bold;
+    color:#2a2a2a;
+}
+
 /**
 读者中心页面渐入的动画
 ***/

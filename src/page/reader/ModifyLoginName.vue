@@ -1,11 +1,15 @@
 <template>
     <div id="changePassword" class="zyfPage ReaderCenter">
-        <div class="title flexLayoutRow" style="width: 100px">
-            <img :src="titleIcon" class="titleImg">
-            <div class="titleFont">修改登录名</div>
+        <div class="flexLayoutRow">
+            <div class="title flexLayoutRow">
+                <img :src="titleIcon" class="titleImg">
+                <div class="titleFont">修改登录名</div>
+            </div>
+            <div></div>
         </div>
+
         <div class="formStyle">
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
                 <el-form-item label="当前登录名：" prop="name">
                     <span>{{ruleForm.name}}</span>
                 </el-form-item>
@@ -90,7 +94,7 @@
     }
     .placeholderFont{
         color: #FF3B31;
-        width: 560px;
+        width: 630px;
         margin-left: 270px;
     }
 </style>

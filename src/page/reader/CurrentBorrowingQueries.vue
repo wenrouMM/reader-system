@@ -1,12 +1,16 @@
 <template>
     <div id="CurrentBorrowing" class="ReaderCenter zyfPage haveTablePage">
-        <div class="title flexLayoutRow" style="width: 115px">
-            <img :src="titleIcon" class="titleImg">
-            <div class="titleFont">当前借阅查询</div>
+        <div class="flexLayoutRow">
+            <div class="title flexLayoutRow">
+                <img :src="titleIcon" class="titleImg">
+                <div class="titleFont">当前借阅查询</div>
+            </div>
+            <div></div>
         </div>
+
         <div class="flexLayoutRow">
             <el-form :model="ruleForm" status-icon  class="demo-ruleForm flexLayoutRow" style="height: 35px">
-                <el-form-item label="起始时间：" label-width="85px" class="dateInput">
+                <el-form-item label="起始时间：" label-width="110px" class="dateInput">
                     <el-date-picker type="date" placeholder="开始时间" v-model="ruleForm.startTime"></el-date-picker>
                     <span style="padding:0px 5px 0px 2px">-</span>
                     <el-date-picker type="date" placeholder="结束时间" v-model="ruleForm.endTime"></el-date-picker>
@@ -73,6 +77,7 @@
                     endTime:'',//结束时间
                     bookName:''//书名
                 },
+                pageNum:'',//跳转的页数
                 tableData:[
                     {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
                     {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},

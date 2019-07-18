@@ -22,7 +22,7 @@ export default new Router({
                 {
                     path: '/searchList',
                     component: () => import('./page/search/searchMore/searchList.vue')
-                }, 
+                },
                 // 搜索详情
                 {
                     path: '/searchDetail',
@@ -40,8 +40,8 @@ export default new Router({
                 },
                 // 分类导航
                 {
-                    path:'/classify',
-                    component:() => import('./page/classify/classify.vue')
+                    path: '/classify',
+                    component: () => import('./page/classify/classify.vue')
                 },
                 // 借阅管理
                 {
@@ -52,7 +52,7 @@ export default new Router({
                     path: '/NewBooksBulletins',
                     component: () => import('page/borrow/NewBooksBulletins.vue')
                 },
-                // 读者中心
+                //读者中心
                 {
                     path: '/ReaderNavigation',
                     component: () => import('./components/ReaderNavigation.vue'),
@@ -88,13 +88,28 @@ export default new Router({
                         },
                         {
                             path: '/HistoryLoanEnquiry',
-                            title: '当前借阅查询',
+                            title: '历史借阅查询',
                             component: () => import('page/reader/HistoryLoanEnquiry.vue')
                         },
                         {
                             path: '/MyCollection',
-                            title: '当前借阅查询',
+                            title: '历史借阅查询',
                             component: () => import('page/reader/MyCollection.vue')
+                        },
+                        {
+                            path: '/CurrentAppointment',
+                            title: '当前预约',
+                            component: () => import('page/reader/CurrentAppointment.vue')
+                        },
+                        {
+                            path: '/HistoricalAppointment',
+                            title: '历史预约查询',
+                            component: () => import('page/reader/HistoricalAppointment.vue')
+                        },
+                        {
+                            path: '/ReaderRecommendation',
+                            title: '读者自荐',
+                            component: () => import('page/reader/ReaderRecommendation.vue')
                         }
                     ]
                 },
@@ -104,6 +119,7 @@ export default new Router({
             path: '/test',
             component: () => import('./components/SearchInput.vue')
         },
+
 
 
 

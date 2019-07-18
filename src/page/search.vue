@@ -32,18 +32,6 @@
     <!-- 搜索框 -->
     <section class="searchBox">
       <search-input @blur-son="blurMask" @focu-son="focuMask"  @emit-search="_searchto"></search-input>
-      <!-- <el-input @focus="isMask = true" @blur="isMask = false" placeholder="请输入搜索内容" v-model="search" class="input-with-select">
-        <el-select v-model="select" slot="prepend" placeholder="请选择">
-          <el-option
-            v-for="(item,index) of optionsArr"
-            :key="index"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-        <el-button @click="searchBtn" slot="append" icon="el-icon-search"></el-button>
-      </el-input> -->
-      
     </section>
     
     <div class="copyright">版权所有 copyright © www.kuiniu.com 智慧图书馆</div>
@@ -54,53 +42,7 @@ import SearchInput from "../components/SearchInput";
 export default {
   data() {
     return {
-      search: "",
-      select: "",
-      tips: "搜索条件不得为空",
       isMask:false,
-      isPlay: false,
-      optionsArr: [
-        {
-          label: "任意词",
-          value: "1"
-        },
-        {
-          label: "ISBN",
-          value: "2"
-        },
-        {
-          label: "控制号",
-          value: "3"
-        },
-        {
-          label: "题号",
-          value: "4"
-        },
-        {
-          label: "作者",
-          value: "5"
-        },
-        {
-          label: "主题",
-          value: "6"
-        },
-        {
-          label: "分类号",
-          value: "7"
-        },
-        {
-          label: "索取号",
-          value: "8"
-        },
-        {
-          label: "出版社",
-          value: "9"
-        },
-        {
-          label: "出版年",
-          value: "10"
-        }
-      ]
     };
   },
   computed: {
@@ -119,19 +61,6 @@ export default {
     blurMask(){
       this.isMask = false
     },
-    blurVali() {
-      let value = this.search;
-    },
-    searchBtn() {
-      let value = this.search;
-      if (value) {
-        
-        this.$router.push({ path: "/searchList" });
-      } else {
-        this.$message.error('请输入搜索条件')
-        
-      }
-    }
   }
 };
 </script>
