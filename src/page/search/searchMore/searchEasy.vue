@@ -37,7 +37,7 @@ export default {
 
 <style lang="scss" scoped>
 #easySearch {
-  padding-top: 50px;
+  
   .borderBox {
     padding-top: 40px;
     width: 1000px;

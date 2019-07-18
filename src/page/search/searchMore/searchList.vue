@@ -41,64 +41,25 @@
     <!-- 列表页 -->
     <section class="listPage">
       <div class="aside-left">
+        <launch></launch>
         <div class="aside-block">
           <div class="asideTitle">
             <i></i>
             <p>所属馆</p>
           </div>
+
           <div class="aside-content">
             <p class="text">南岸区图书馆 （22）</p>
             <p class="text">南岸区图书馆 （22）</p>
             <p class="text">南岸区图书馆 （22）</p>
-            <p class="more">显示全部>></p>
-          </div>
-        </div>
-        <div class="aside-block">
-          <div class="asideTitle">
-            <i></i>
-            <p>文献类型</p>
-          </div>
-          <div class="aside-content">
-            <p class="text">南岸区图书馆 （22）</p>
-            <p class="text">南岸区图书馆 （22）</p>
-            <p class="text">南岸区图书馆 （22）</p>
-            <p class="more">显示全部>></p>
-          </div>
-        </div>
-        <div class="aside-block">
-          <div class="asideTitle">
-            <i></i>
-            <p>著作者</p>
-          </div>
-          <div class="aside-content">
-            <p class="text">南岸区图书馆 （22）</p>
-            <p class="text">南岸区图书馆 （22）</p>
-            <p class="text">南岸区图书馆 （22）</p>
-            <p class="more">显示全部>></p>
-          </div>
-        </div>
-        <div class="aside-block">
-          <div class="asideTitle">
-            <i></i>
-            <p>出版日期</p>
-          </div>
-          <div class="aside-content">
-            <p class="text">南岸区图书馆 （22）</p>
-            <p class="text">南岸区图书馆 （22）</p>
-            <p class="text">南岸区图书馆 （22）</p>
-            <p class="more">显示全部>></p>
-          </div>
-        </div>
-        <div class="aside-block">
-          <div class="asideTitle">
-            <i></i>
-            <p>分类</p>
-          </div>
-          <div class="aside-content">
-            <p class="text">南岸区图书馆 （22）</p>
-            <p class="text">南岸区图书馆 （22）</p>
-            <p class="text">南岸区图书馆 （22）</p>
-            <p class="more">显示全部>></p>
+            <el-collapse-transition>
+              <div v-show="launch">
+                <p class="text">南岸区图书馆 （22）</p>
+                <p class="text">南岸区图书馆 （22）</p>
+                <p class="text">南岸区图书馆 （22）</p>
+              </div>
+            </el-collapse-transition>
+            <p class="more" @click="launch=!launch">{{launch?'点击收起':'点击展开'}}</p>
           </div>
         </div>
       </div>
@@ -145,7 +106,7 @@
                 </el-table>
               </div>
             </div>
-          </div> -->
+          </div>-->
         </section>
       </div>
     </section>
@@ -154,10 +115,12 @@
 
 <script>
 import SearchInput from "@/components/SearchInput";
-import BookBlock from '@/components/bookBlock'
+import BookBlock from "@/components/bookBlock";
+import launch from "@/components/launch"
 export default {
   data() {
     return {
+      launch: false,
       sortValue: "",
       tableData: [],
       sortOptions: [
@@ -174,14 +137,14 @@ export default {
   },
   components: {
     SearchInput,
-    BookBlock
+    BookBlock,
+    launch
   }
 };
 </script>
 
 <style lang="scss" scoped>
 #searchList {
-  padding-top: 50px;
   .searchBox {
     width: 1200px;
     margin-bottom: 30px;
@@ -256,7 +219,7 @@ export default {
           padding-left: 24px;
         }
         .aside-content {
-          min-height: 80px;
+          
           background-color: #e7fffa;
           padding-top: 17px;
           padding-bottom: 7px;
@@ -274,12 +237,13 @@ export default {
           .more {
             color: #686868;
             font-size: 16px;
+            cursor: pointer;
           }
         }
       }
     }
     .aside-right {
-      margin-left: 40px;
+      margin-left: 32px;
       position: relative;
       min-height: 143px;
       .pagation {

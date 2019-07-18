@@ -7,12 +7,12 @@
     <section class="header">
       <nav class="nav">
         <ul class="navCtx">
-          <li>
-            <router-link to="/">首页</router-link>
-          </li>
-          <li>
-            <router-link to="/searchEasy">书籍检索</router-link>
-          </li>
+          
+            <router-link tag="li" to="/">首页</router-link>
+          
+          
+            <router-link tag="li" to="/esaySearch">书籍检索</router-link>
+          
           <li>
             <span>借阅管理</span>
           </li>
@@ -31,19 +31,7 @@
     </section>
     <!-- 搜索框 -->
     <section class="searchBox">
-      
-      <el-input @focus="isMask = true" @blur="isMask = false" placeholder="请输入搜索内容" v-model="search" class="input-with-select">
-        <el-select v-model="select" slot="prepend" placeholder="请选择">
-          <el-option
-            v-for="(item,index) of optionsArr"
-            :key="index"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-        <el-button @click="searchBtn" slot="append" icon="el-icon-search"></el-button>
-      </el-input>
-      
+      <search-input @blur-son="blurMask" @focu-son="focuMask"  @emit-search="_searchto"></search-input>
     </section>
     
     <div class="copyright">版权所有 copyright © www.kuiniu.com 智慧图书馆</div>
@@ -54,53 +42,7 @@ import SearchInput from "../components/SearchInput";
 export default {
   data() {
     return {
-      search: "",
-      select: "",
-      tips: "搜索条件不得为空",
       isMask:false,
-      isPlay: false,
-      optionsArr: [
-        {
-          label: "任意词",
-          value: "1"
-        },
-        {
-          label: "ISBN",
-          value: "2"
-        },
-        {
-          label: "控制号",
-          value: "3"
-        },
-        {
-          label: "题号",
-          value: "4"
-        },
-        {
-          label: "作者",
-          value: "5"
-        },
-        {
-          label: "主题",
-          value: "6"
-        },
-        {
-          label: "分类号",
-          value: "7"
-        },
-        {
-          label: "索取号",
-          value: "8"
-        },
-        {
-          label: "出版社",
-          value: "9"
-        },
-        {
-          label: "出版年",
-          value: "10"
-        }
-      ]
     };
   },
   computed: {
@@ -110,23 +52,20 @@ export default {
     SearchInput
   },
   methods: {
-    blurVali() {
-      let value = this.search;
+    _searchto(val){
+      console.log(val)
     },
-    searchBtn() {
-      let value = this.search;
-      if (value) {
-        
-        this.$router.push({ path: "/index" });
-      } else {
-        this.$message.error('请输入搜索条件')
-        
-      }
-    }
+    focuMask(){
+      this.isMask = true
+    },
+    blurMask(){
+      this.isMask = false
+    },
   }
 };
 </script>
 <style lang="scss" scoped>
+@import '@/common/scss/variables.scss';
 #search {
   background-image: url("../common/img/bg.jpg");
   
@@ -146,8 +85,9 @@ export default {
         li {
           line-height: 60px;
           width: 140px;
+          cursor: pointer;
           span {
-            cursor: pointer;
+            
           }
         }
       }

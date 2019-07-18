@@ -1,76 +1,130 @@
 <template>
-    <div id="index">
-        <section class="header">
-            <div class="headImg"></div>
-            <nav>
-                <ul class="navCtx">
-                    <router-link tag="li" to="/search">首页</router-link>
-                    <li>书目检索</li>
-                    <li>首页</li>
-                    <li>首页</li>
-                    <li>首页</li>
-                </ul>
-            </nav>
-        </section>
-        <section class="content">
-            <div class="centerBox">
-                <router-view></router-view>
-            </div>
-        </section>
-        <div class="copyright">版权所有 copyright © www.kuiniu.com 智慧图书馆</div>
-    </div>
-    
+  <div id="index">
+    <section class="header">
+      <div class="headImg"></div>
+      <nav>
+        <ul class="navCtx">
+          <li>
+            <router-link tag="span" to="/search">首页</router-link>
+          </li>
+          <li>
+            <span class="father">
+              书籍检索
+              <div class="son">
+                <router-link tag="span" to="/esaySearch">简单检索</router-link>
+                <router-link tag="span" to="/hardSearch">高级检索</router-link>
+              </div>
+            </span>
+          </li>
+          <li>
+            <span class="father">
+              借阅管理
+             
+                <div class="son">
+                  <router-link tag="span" to="/LendingRank">借阅排行</router-link>
+                  <router-link tag="span" to="/NewBooksBulletins">新书快递</router-link>
+                </div>
+              
+            </span>
+          </li>
+          <li>
+            <router-link tag="span" to="/BasicInfo">读者中心</router-link>
+          </li>
+          <li>
+            <router-link tag="span" to="/login">读者登录</router-link>
+          </li>
+          <li>
+            <router-link tag="span" to="/classify">分类导航</router-link>
+          </li>
+        </ul>
+      </nav>
+    </section>
+    <section class="content">
+      <div class="centerBox">
+        <router-view></router-view>
+      </div>
+    </section>
+    <div class="copyright">版权所有 copyright © www.kuiniu.com 智慧图书馆</div>
+  </div>
 </template>
 
 <script>
 export default {
-    data(){
-        return{
-
-        }
-    }
-    
-    
-}
+  data() {
+    return {};
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-#index{
-    position: relative;
-    .header{
-        .headImg{
-            width: 100%;
-            background-image: url('../common/img/head.jpg');
-            height: 160px;
-        }
-        nav{
-            width: 100%;
+@import "../common/scss/variables.scss";
+#index {
+  position: relative;
+  .header {
+    .headImg {
+      width: 100%;
+      background-image: url("../common/img/head.jpg");
+      height: 160px;
+    }
+    nav {
+      width: 100%;
+      height: 50px;
+      background-color: $green;
+      .navCtx {
+        width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        li {
+          width: 20%;
+          height: 50px;
+          line-height: 50px;
+
+          color: #ffffff;
+          span {
+            display: inline-block;
+            cursor: pointer;
+            width: 140px;
             height: 50px;
-	        background-color: #12b494;
-            .navCtx{
-                width: 1200px;
-                margin: 0 auto;
-                display: flex;
-                flex-direction: row;
-                li{
-                    width: 20%;
-                    height: 50px;
-                    line-height: 50px;
-                    text-align: center;
-                    color: #2a2a2a;
-                    cursor: pointer;
-                }
+            text-align: center;
+            position: relative;
+
+            &:hover {
+              background-color: $highGreen;
             }
+          }
+          .father {
+            &:hover {
+              .son {
+                display: block;
+              }
+            }
+            .son {
+              position: absolute;
+              z-index: 2;
+              width: 140px;
+              display: none;
+              background-color: $highGreen;
+              span {
+                &:hover {
+                  color: #007f66;
+                }
+              }
+            }
+          }
         }
+      }
     }
-    .content{
-        .centerBox{
-            width: 1200px;
-            margin: 0 auto;
-            margin-bottom: 54px;
-        }
+  }
+  .content {
+    .centerBox {
+      width: 1200px;
+      margin: 0 auto;
+      padding-top: 50px;
+      margin-bottom: 54px;
     }
-    .copyright {
+  }
+  .copyright {
     padding-bottom: 48px;
     text-align: center;
     color: #ffffff;
