@@ -182,7 +182,7 @@ export default {
 
 <style lang="scss" scoped>
 #hardSearch {
-  padding-top: 50px;
+  
   .borderBox {
     width: 1000px;
     padding-bottom: 45px;

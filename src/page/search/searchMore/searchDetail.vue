@@ -51,7 +51,7 @@
         <!-- 侧边组件警告 -->
         <div class="operateBox">
           <div class="iconBox">
-            <div  class="share">
+            <div class="share">
               <div class="shareIcon">
                 <p class="size">
                   <i class="size el-icon-share"></i>
@@ -77,33 +77,35 @@
     </section>
     <!-- 馆藏信息 -->
     <section class="book-detail">
-      <div  class="touchBox">
+      <div class="touchBox">
         <span @click="toggleShow" class="clickBox">馆藏信息</span>
         <span class="tranle"></span>
       </div>
-      <div v-if="toggleValue" class="book-detail">
-        <div class="selectBox">
-          <el-form :model="selectForm" :inline="true">
-            <el-form-item label="分中心:">
-              <el-select style="width:160px;" v-model="selectForm.region" placeholder="请选择">
-                <el-option label="在馆" value="1"></el-option>
-                <el-option label="借出" value="2"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
+      <transition name="push">
+        <div v-if="toggleValue" class="book-content">
+          <div class="selectBox">
+            <el-form :model="selectForm" :inline="true">
+              <el-form-item label="分中心:">
+                <el-select style="width:160px;" v-model="selectForm.region" placeholder="请选择">
+                  <el-option label="在馆" value="1"></el-option>
+                  <el-option label="借出" value="2"></el-option>
+                </el-select>
+              </el-form-item>
+            </el-form>
+          </div>
+          <div class="tableBox">
+            <el-table :data="tableData" style="width: 100%">
+              <el-table-column prop="date" label="条码号"></el-table-column>
+              <el-table-column prop="name" label="索书号"></el-table-column>
+              <el-table-column prop="address" label="所属分馆"></el-table-column>
+              <el-table-column prop="date" label="馆藏所在地"></el-table-column>
+              <el-table-column prop="name" label="馆藏状态"></el-table-column>
+              <el-table-column prop="address" label="应还时间"></el-table-column>
+              <el-table-column prop="address" label="备注"></el-table-column>
+            </el-table>
+          </div>
         </div>
-        <div class="tableBox">
-          <el-table :data="tableData" style="width: 100%">
-            <el-table-column prop="date" label="条码号"></el-table-column>
-            <el-table-column prop="name" label="索书号"></el-table-column>
-            <el-table-column prop="address" label="所属分馆"></el-table-column>
-            <el-table-column prop="date" label="馆藏所在地"></el-table-column>
-            <el-table-column prop="name" label="馆藏状态"></el-table-column>
-            <el-table-column prop="address" label="应还时间"></el-table-column>
-            <el-table-column prop="address" label="备注"></el-table-column>
-          </el-table>
-        </div>
-      </div>
+      </transition>
     </section>
   </div>
 </template>
@@ -116,18 +118,16 @@ export default {
       selectForm: {
         region: "1"
       },
-      
-      isCollect:false, // 控制收藏点击事件
-      shareShow:false, // 控制分享框的显隐
+
+      isCollect: false, // 控制收藏点击事件
+      shareShow: false, // 控制分享框的显隐
       toggleValue: false
     };
   },
   methods: {
-    
     toggleShow() {
       this.toggleValue = !this.toggleValue;
-    },
-    
+    }
   }
 };
 </script>
@@ -197,8 +197,8 @@ export default {
             width: 64px;
             height: 64px;
             position: relative;
-            &:hover{
-              .select{
+            &:hover {
+              .select {
                 width: 140px;
                 opacity: 1;
               }
@@ -228,7 +228,7 @@ export default {
               height: 64px;
               z-index: 1;
               right: 56px;
-              transition: all 1s cubic-bezier(0.77, 0, 0.175, 1)
+              transition: all 1s cubic-bezier(0.77, 0, 0.175, 1);
             }
           }
           .collect {
@@ -243,7 +243,6 @@ export default {
             .size {
               font-size: 40px;
             }
-            
           }
         }
         .order {
@@ -263,7 +262,7 @@ export default {
   }
   .book-detail {
     padding-top: 20px;
-    height: 300px;
+    min-height: 300px;
     transition: height 3s;
     .touchBox {
       position: relative;
@@ -295,8 +294,10 @@ export default {
         background-color: #6ac9b6;
       }
     }
-    .book-detail {
+    .book-content {
+      padding-top: 20px;
     }
+
     .tableBox {
     }
   }

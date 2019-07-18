@@ -7,12 +7,12 @@
     <section class="header">
       <nav class="nav">
         <ul class="navCtx">
-          <li>
-            <router-link to="/">首页</router-link>
-          </li>
-          <li>
-            <router-link to="/searchEasy">书籍检索</router-link>
-          </li>
+          
+            <router-link tag="li" to="/">首页</router-link>
+          
+          
+            <router-link tag="li" to="/esaySearch">书籍检索</router-link>
+          
           <li>
             <span>借阅管理</span>
           </li>
@@ -31,8 +31,8 @@
     </section>
     <!-- 搜索框 -->
     <section class="searchBox">
-      
-      <el-input @focus="isMask = true" @blur="isMask = false" placeholder="请输入搜索内容" v-model="search" class="input-with-select">
+      <search-input @blur-son="blurMask" @focu-son="focuMask"  @emit-search="_searchto"></search-input>
+      <!-- <el-input @focus="isMask = true" @blur="isMask = false" placeholder="请输入搜索内容" v-model="search" class="input-with-select">
         <el-select v-model="select" slot="prepend" placeholder="请选择">
           <el-option
             v-for="(item,index) of optionsArr"
@@ -42,7 +42,7 @@
           ></el-option>
         </el-select>
         <el-button @click="searchBtn" slot="append" icon="el-icon-search"></el-button>
-      </el-input>
+      </el-input> -->
       
     </section>
     
@@ -110,6 +110,15 @@ export default {
     SearchInput
   },
   methods: {
+    _searchto(val){
+      console.log(val)
+    },
+    focuMask(){
+      this.isMask = true
+    },
+    blurMask(){
+      this.isMask = false
+    },
     blurVali() {
       let value = this.search;
     },
@@ -117,7 +126,7 @@ export default {
       let value = this.search;
       if (value) {
         
-        this.$router.push({ path: "/index" });
+        this.$router.push({ path: "/searchList" });
       } else {
         this.$message.error('请输入搜索条件')
         
@@ -127,6 +136,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+@import '@/common/scss/variables.scss';
 #search {
   background-image: url("../common/img/bg.jpg");
   
@@ -146,8 +156,9 @@ export default {
         li {
           line-height: 60px;
           width: 140px;
+          cursor: pointer;
           span {
-            cursor: pointer;
+            
           }
         }
       }
