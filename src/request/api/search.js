@@ -4,23 +4,37 @@ var url = window.url
 
 const searchUrl = {
     collet:`${url}serviceforreadermodule/query/selectAllBookType`, // 中途分类法
-    allSearch:`${url}serviceforreadermodule/query/baseSelect`
+    allSearch:`${url}serviceforreadermodule/query/baseSelect`,
+    detail:`${url}serviceforreadermodule/query/getTableTwo`,
+    select:`${url}serviceforreadermodule/query/getTableOne`
 }
 export const searchInt = {
     collectInt: collect,
     allSearchInt:allSearch,
 }
-
-
+export function detailInt(data) {
+    return axios.get(searchUrl.detail,{
+        params:data
+    }).then((res) =>{
+        return Promise.resolve(res)
+    })
+}
+export function selectInt(data){
+    return axios.get(searchUrl.select,{
+        params:data
+    }).then((res)=>{
+        return Promise.resolve(res)
+    })
+}
 function collect (){
     return axios.get(searchUrl.collet).then((res) => {
         return Promise.resolve(res)
     })
 }
 
-function allSearch(obj) {
+function allSearch(data) {
     return axios.get(searchUrl.allSearch,{
-        params:obj
+        params:data
     }).then((res) => {
         return Promise.resolve(res)
     })
