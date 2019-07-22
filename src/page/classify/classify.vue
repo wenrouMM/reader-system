@@ -44,7 +44,7 @@
           <el-scrollbar style="height:100%">
               <div class="treeBox" v-if="treeArr.length">
                   <div  class="tree-block" v-for="(item,index) of treeArr" :key="index">
-                      <p><i>图标</i><span>{{item.letter}}-</span>{{item.children[0]}}<span class="red">(7515)</span></p>
+                      <p><i>图标</i><span>{{item.letter}}-</span>{{item.title}}<span class="red">({{item.number}})</span></p>
                      <!-- <div class="hideSon">
                          <p v-for="(son,num) of item.children" :key="num">
                              {{son.code}}
@@ -67,6 +67,10 @@
 </template>
 
 <script>
+const typeArr = ['马列主义毛邓思想','哲学、宗教','社会科学总论','政治、法律','军事','经济','文化、科学、教育、体育',
+                  '语言、文字','文学','艺术','历史、地理','自然科学总论','数理科学和化学','天文学、地球科学','生物科学','医药、卫生',
+                  '农业科学','工业技术','交通运输','航空、航天','环境科学、安全科学','综合性图书'                
+                ]
 import { searchInt } from "@/request/api/search";
 import {getBigLetter} from '@/common/js/util'
 const classArr = ['']
@@ -79,7 +83,8 @@ export default {
       },
       treeArr:[],
       embassy: [],
-      indexOptions: []
+      indexOptions: [],
+      totalNumber:0
     };
   },
   methods: {
@@ -96,25 +101,29 @@ export default {
         let twoC = contrast.length
         let oneC = arr.length
         for(let i=0; i<oneC;i++){
+          this.totalNumber += arr[i].num
             for(let j=0; j<twoC;j++){
                 let str = arr[i].code
                 let conStr = contrast[j].letter
                 if(str.indexOf(conStr)!=-1){
-                  
+                    contrast[j].number += arr[i].num
                     contrast[j].children.push(arr[i])
                 }
             }
         }
+        console.log(this.totalNumber)
         console.log('过滤后',contrast)
         return contrast
     },
     initArr(){
         let arr = []
-
+        let type = typeArr
         let letter = getBigLetter()
         for (let i=0; i<letter.length;i++){
             let obj = {}
             obj.letter = letter[i]
+            obj.title = type[i]
+            obj.number = 0
             obj.children = []
             arr.push(obj)
             

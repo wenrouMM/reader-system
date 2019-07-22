@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from 'page/index.vue'
 import Search from 'page/search.vue'
+import { defaultCipherList } from 'constants';
 
 Vue.use(Router)
 
@@ -25,7 +26,8 @@ export default new Router({
                 },
                 // 搜索详情
                 {
-                    path: '/searchDetail',
+                    path: '/searchDetail/:id',
+                    name:'detail',
                     component: () => import('./page/search/searchMore/searchDetail.vue')
                 },
                 // 简单检索

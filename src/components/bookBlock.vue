@@ -4,11 +4,11 @@
       <div class="bookCtx">
         <div class="imgBox"></div>
         <div class="textBox">
-          <p @click="toDetail" class="title">百年孤独</p>
-          <p class="info">马尔克斯著 广西：漓江出版社，1990.10 I775.45/12</p>
+          <p @click="toDetail(data.fkCataBookId)" class="title"><span>{{data.name}}</span></p>
+          <p class="info">{{data.author}} {{data.fkPressName}}，1990.10 {{data.callNumber}}</p>
           <p class="buy"></p>
           <div class="touchBox">
-            <span @click="toggleShow" class="clickBox">馆藏信息</span>
+            <span @click="toggleShow(data.fkCataBookId)" class="clickBox">馆藏信息</span>
             <span class="tranle"></span>
           </div>
         </div>
@@ -16,7 +16,7 @@
           <p>
             <img src="@/common/img/searchList/07.png" />
           </p>
-          <p>馆藏总数：2本</p>
+          <p>馆藏总数：{{data.numOfSameCata}}本</p>
         </div>
       </div>
       <div class="bookself">
@@ -35,15 +35,15 @@
             </el-form>
           </div>
           <div class="tableBox">
-            <el-table :data="tableData" style="width: 100%">
-              <el-table-column prop="date" label="条码号"></el-table-column>
-              <el-table-column prop="name" label="索书号"></el-table-column>
-              <el-table-column prop="address" label="所属分馆"></el-table-column>
-              <el-table-column prop="date" label="馆藏所在地"></el-table-column>
-              <el-table-column prop="name" label="馆藏状态"></el-table-column>
-              <el-table-column prop="address" label="应还时间"></el-table-column>
-              <el-table-column prop="address" label="备注"></el-table-column>
-            </el-table>
+            <el-table header-cell-class-name="tableHead" :data="tableData" style="width: 100%">
+            <el-table-column align="center" prop="code" label="条码号"></el-table-column>
+            <el-table-column align="center" prop="name" label="索书号"></el-table-column>
+            <el-table-column align="center" prop="address" label="所属分馆"></el-table-column>
+            <el-table-column align="center" prop="place" label="馆藏所在地"></el-table-column>
+            <el-table-column align="center" prop="lendState" label="馆藏状态"></el-table-column>
+            <el-table-column align="center" prop="planReturnTime" label="应还时间"></el-table-column>
+            <el-table-column align="center" prop="renarks" label="备注"></el-table-column>
+          </el-table>
           </div>
         </div>
       </transition>
@@ -52,7 +52,13 @@
 </template>
 
 <script>
+import {selectInt} from '@/request/api/search'
 export default {
+  props:{
+    data:{
+      type:Object
+    }
+  },
   data() {
     return {
       selfImg: require("@/common/img/searchList/bookself.png"),
@@ -67,18 +73,36 @@ export default {
       selectForm: {
         region: "1"
       },
-      toggleValue: false
-    };
+      tableData:[],
+      toggleValue: false,
+      isRequest:false
+    }
   },
   methods: {
-    toggleShow() {
+    toggleShow(id) {
       this.toggleValue = !this.toggleValue;
+      
+      if(!this.isRequest){
+        let obj = {};
+        obj.fkCataBookId = id
+        this._select(obj)
+      }
     },
-    toDetail() {
-      this.$router.push({ path });
+    toDetail(id) {
+      let bookId = id
+      console.log(id)
+      this.$router.push({ path:`/searchDetail/${bookId}`});
+    },
+    _select(fkCataBookId) {
+      let data = fkCataBookId;
+      selectInt(data).then(res => {
+        console.log("下拉", res);
+        this.tableData = res.data.row;
+        this.isRequest = true
+      });
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -107,6 +131,9 @@ export default {
           color: #2a2a2a;
           font-size: 14px;
           font-weight: bold;
+          span{
+            cursor: pointer;
+          }
         }
         .info {
           margin-bottom: 21px;
@@ -161,4 +188,11 @@ export default {
   }
 }
 </style>
-
+<style>
+#bookBlock .tableHead {
+  height: 30px;
+  background-color: #efefef;
+  font-size: 14px;
+  color: #2a2a2a;
+}
+</style>

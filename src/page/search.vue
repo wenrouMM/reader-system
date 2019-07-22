@@ -38,7 +38,7 @@
   </div>
 </template>
 <script>
-import SearchInput from "../components/SearchInput";
+import SearchInput from "@/components/SearchInput";
 export default {
   data() {
     return {
@@ -53,7 +53,9 @@ export default {
   },
   methods: {
     _searchto(val){
-      console.log(val)
+      console.log('?',val)
+      this.$router.push({path:'searchList',query:val})
+      console.log('跳转？')
     },
     focuMask(){
       this.isMask = true
@@ -61,6 +63,9 @@ export default {
     blurMask(){
       this.isMask = false
     },
+  },
+  mounted(){
+   console.log(document.documentElement.clientHeight)
   }
 };
 </script>

@@ -2,7 +2,7 @@
   <div id="detail">
     <section class="titleBox">
       <div class="titleCtx">
-        <p class="title fl">百年孤独</p>
+        <p class="title fl">{{bookData.name}}</p>
         <p class="back fr">返回</p>
       </div>
     </section>
@@ -11,28 +11,35 @@
         <div class="imgBox"></div>
         <div class="info">
           <p class="stage">
-            <span class="distance">作者：</span>123
+            <span class="distance">作者：</span>
+            {{bookData.name}}
           </p>
           <p class="stage">
             <span class="distance">出版社：</span>
+            {{bookData.fkPressName}}
           </p>
           <p class="stage">
             <span class="distance">译者：</span>
           </p>
           <p class="stage">
             <span class="distance">出版日期：</span>
+            {{bookData.publishingTime}}
           </p>
           <p class="stage">
             <span class="distance">分类号：</span>
+            {{bookData.fkTypeCode}}
           </p>
           <p class="stage">
             <span class="distance">ISBN：</span>
+            {{bookData.isbn}}
           </p>
           <p class="stage">
             <span class="distance">索书号：</span>
+            {{bookData.codeNumber}}
           </p>
           <p class="stage">
             <span class="distance">价格：</span>
+            {{bookData.price}}
           </p>
         </div>
         <div class="context">
@@ -40,13 +47,7 @@
             <span class="distance">相关资源</span>
           </p>
           <p>内容简介</p>
-          <p class="content">
-            《百年孤独》内容复杂，人物众多，情节离奇，手法新颖。
-            马尔克斯在书中溶汇了南美洲特有的五彩缤纷的文化。他通
-            过描写小镇马孔多的产生、兴盛到衰落、消亡，表现了拉丁
-            美洲令人惊异的疯狂历史。小说以“汇集了不可思议的奇迹
-            和最纯粹的现实生活”荣获1982年诺贝尔文学奖。
-          </p>
+          <p class="content">{{bookData.introduction}}</p>
         </div>
         <!-- 侧边组件警告 -->
         <div class="operateBox">
@@ -78,56 +79,78 @@
     <!-- 馆藏信息 -->
     <section class="book-detail">
       <div class="touchBox">
-        <span @click="toggleShow" class="clickBox">馆藏信息</span>
+        <span class="clickBox">馆藏信息</span>
         <span class="tranle"></span>
       </div>
-      <transition name="push">
-        <div v-if="toggleValue" class="book-content">
-          <div class="selectBox">
-            <el-form :model="selectForm" :inline="true">
-              <el-form-item label="分中心:">
-                <el-select style="width:160px;" v-model="selectForm.region" placeholder="请选择">
-                  <el-option label="在馆" value="1"></el-option>
-                  <el-option label="借出" value="2"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-form>
-          </div>
-          <div class="tableBox">
-            <el-table :data="tableData" style="width: 100%">
-              <el-table-column prop="date" label="条码号"></el-table-column>
-              <el-table-column prop="name" label="索书号"></el-table-column>
-              <el-table-column prop="address" label="所属分馆"></el-table-column>
-              <el-table-column prop="date" label="馆藏所在地"></el-table-column>
-              <el-table-column prop="name" label="馆藏状态"></el-table-column>
-              <el-table-column prop="address" label="应还时间"></el-table-column>
-              <el-table-column prop="address" label="备注"></el-table-column>
-            </el-table>
-          </div>
+
+      <div class="book-content">
+        <div class="selectBox">
+          <el-form :model="selectForm" :inline="true">
+            <el-form-item label="馆内状态:">
+              <el-select style="width:160px;" v-model="selectForm.region" placeholder="请选择">
+                <el-option label="在馆" value="1"></el-option>
+                <el-option label="借出" value="2"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-form>
         </div>
-      </transition>
+        <div class="tableBox">
+          <el-table header-cell-class-name="tableHead" :data="tableData" style="width: 100%">
+            <el-table-column align="center" prop="code" label="条码号"></el-table-column>
+            <el-table-column align="center" prop="name" label="索书号"></el-table-column>
+            <el-table-column align="center" prop="address" label="所属分馆"></el-table-column>
+            <el-table-column align="center" prop="place" label="馆藏所在地"></el-table-column>
+            <el-table-column align="center" prop="lendState" label="馆藏状态"></el-table-column>
+            <el-table-column align="center" prop="planReturnTime" label="应还时间"></el-table-column>
+            <el-table-column align="center" prop="renarks" label="备注"></el-table-column>
+          </el-table>
+        </div>
+      </div>
     </section>
   </div>
 </template>
 
 <script>
+import { detailInt, selectInt } from "@/request/api/search";
 export default {
+  name: "detail",
   data() {
     return {
       tableData: [],
       selectForm: {
         region: "1"
       },
+      isOutput: true, // 控制是否渲染
+      bookData: {}, // 书籍数据
 
       isCollect: false, // 控制收藏点击事件
-      shareShow: false, // 控制分享框的显隐
-      toggleValue: false
+      shareShow: false // 控制分享框的显隐
     };
   },
   methods: {
-    toggleShow() {
-      this.toggleValue = !this.toggleValue;
+    _detail(id) {
+      let data = id;
+      detailInt(data).then(res => {
+        console.log("详情", res);
+        this.bookData = res.data.row;
+      });
+    },
+    _select(fkCataBookId) {
+      let data = fkCataBookId;
+      selectInt(data).then(res => {
+        console.log("下拉", res);
+        this.tableData = res.data.row;
+      });
     }
+  },
+  created() {
+    let id = this.$route.params;
+    let obj = {};
+    obj.fkCataBookId = id.id;
+    this._detail(id);
+    this._select(obj);
+    console.log(obj);
+    console.log(this.$route.params);
   }
 };
 </script>
@@ -305,3 +328,11 @@ export default {
 </style>
 
 
+<style>
+#detail .tableHead {
+  height: 30px;
+  background-color: #efefef;
+  font-size: 14px;
+  color: #2a2a2a;
+}
+</style>
