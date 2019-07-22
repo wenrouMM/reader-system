@@ -11,46 +11,61 @@
         <div class="flexLayoutRow">
             <div class="headIcon"></div>
             <div>
-                <p>读者卡号： <span>{{readerInfo.cardNum}}</span></p>
-                <p>开户馆： <span>{{readerInfo.userLib}}</span> </p>
-                <p>办卡日期： <span>{{readerInfo.createTime}}</span></p>
-                <p>押金： <span>{{readerInfo.deposit}}</span></p>
+                <p>读者卡号： <span>{{readerInfo.cardNumber}}</span></p>
+                <p>开户馆： <span>{{readerInfo.libraryName}}</span> </p>
+                <p>启用日期： <span>{{readerInfo.cardCreatTime}}</span></p>
+                <p>押金： <span>{{readerInfo.balance}}</span></p>
             </div>
             <div>
-                <p>姓名： <span>{{readerInfo.name}}</span></p>
-                <p>证件类别： <span>{{readerInfo.idCardType}}</span></p>
-                <p>有效日期： <span>{{readerInfo.effectiveDate}}</span></p>
-                <p>逾期费用： <span>{{readerInfo.demurrageFee}}</span></p>
+                <p>姓名： <span>{{readerInfo.readerName}}</span></p>
+                <p>证件类别： <span>{{readerInfo.fkPapersTypeName}}</span></p>
+                <p>终止日期： <span>{{readerInfo.cardExpireTime}}</span></p>
+                <p>逾期欠费金额： <span>{{readerInfo.overdueExpenses}}</span></p>
             </div>
             <div>
-                <p>读者卡状态： <span>{{readerInfo.cardState}}</span></p>
-                <p>证件号码： <span>{{readerInfo.idCard}}</span></p>
-                <p>可借阅次数： <span>{{readerInfo.borrowNum}}</span></p>
+                <p>读者卡状态： <span>{{readerInfo.cardState==0?'正常':'挂失'}}</span></p>
+                <p>证件编号： <span>{{readerInfo.readerCard}}</span></p>
+                <p>卡等级名称： <span>{{readerInfo.fkGradeName}}</span></p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import { readerInfoFun } from "@/request/api/readerCenter";
     export default {
         data(){
             return {
                 titleIcon:require('../../common/img/readerIcon/BasicInfo.png'),
                 readerInfo:{
-                    cardNum:"1221392390",
-                    userLib:'夔牛图书馆',
-                    createTime:'2019-4-4',
-                    deposit:50,
-                    name:'刘老三',
-                    idCardType:'居民身份证',
-                    effectiveDate:"2019-5-5",
-                    demurrageFee:20,
-                    cardState:"启用",
-                    idCard:"343847389473893442",
-                    borrowNum:10
+                    cardNumber:"",
+                    libraryName:'',
+                    cardCreatTime:'',
+                    balance:"",
+                    readerName:'',
+                    fkPapersTypeName:'',
+                    cardExpireTime:"",
+                    overdueExpenses:"",
+                    cardState:"",
+                    readerCard:"",
+                    fkGradeName:""
                 }
             }
-        }
+        },
+        created(){
+            this.initializeApi()
+        },
+        methods:{
+            //初始化用户
+            initializeApi(){
+                readerInfoFun().then((res)=>{
+                    console.log('初始化的读者基本信息',res)
+                    if(res.data.state==true){
+                        this.readerInfo=res.data.row
+                    }
+                })
+            }
+        },
     }
 </script>
 

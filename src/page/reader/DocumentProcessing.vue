@@ -10,17 +10,17 @@
         <div class="flexLayoutRow">
             <div class="headIcon"></div>
             <div>
-                <p>读者卡号： <span>{{readerInfo.cardNum}}</span></p>
-                <p>开户馆： <span>{{readerInfo.userLib}}</span> </p>
-                <p>办卡日期： <span>{{readerInfo.createTime}}</span></p>
-                <p>押金： <span>{{readerInfo.deposit}}</span></p>
+                <p>读者卡号： <span>{{readerInfo.cardNumber}}</span></p>
+                <p>开户馆： <span>{{readerInfo.libraryName}}</span> </p>
+                <p>启用日期： <span>{{readerInfo.cardCreatTime}}</span></p>
+                <p>押金： <span>{{readerInfo.balance}}</span></p>
             </div>
             <div>
-                <p>有效日期： <span>{{readerInfo.effectiveDate}}</span></p>
+                <p>终止日期： <span>{{readerInfo.cardExpireTime}}</span></p>
             </div>
         </div>
         <div class="processing flexLayoutColumn">
-            <el-button type="primary" @click="dialogVisible = true">挂 &nbsp; &nbsp; 失</el-button>
+            <el-button type="primary" id="primaryBtn" @click="isreportLossApi()"></el-button>
             <p style="width: 500px">* 读者卡遗失时,可在此办理挂失,以确保您的合法权益不受侵害</p>
         </div>
         <!--弹窗-->
@@ -28,37 +28,87 @@
                 :visible.sync="dialogVisible"
                 width="10%"
                 :before-close="handleClose">
-            <span>挂失成功！</span>
+            <span>{{successPointOut}}</span>
         </el-dialog>
     </div>
 </template>
 
 <script>
+    import { readerInfoFun, cardReportFun, cardReportCancelFun} from "@/request/api/readerCenter";
     export default {
         data(){
             return {
                 titleIcon:require('../../common/img/readerIcon/BasicInfo.png'),
                 readerInfo:{
-                    cardNum:"1221392390",
-                    userLib:'夔牛图书馆',
-                    createTime:'2019-4-4',
-                    deposit:50,
-                    effectiveDate:"2019-5-5",
+                    cardNumber:"",
+                    libraryName:'',
+                    cardCreatTime:'',
+                    balance:"",
+                    cardExpireTime:"",
+                    cardState:''
                 },
+                successPointOut:'',
                 dialogVisible: false
             }
         },
         methods:{
+            //初始化用户
+            initializeApi(){
+                let btnName=""
+                readerInfoFun().then((res)=>{
+                    console.log('初始化的读者基本信息',res)
+                    if(res.data.state==true){
+                        this.readerInfo=res.data.row;
+                        if(res.data.row.cardState==0){
+                            btnName='挂 &nbsp; &nbsp; 失'
+                        }else{
+                            btnName='取 &nbsp; &nbsp; 挂'
+                        }
+                        document.getElementById('primaryBtn').innerHTML=btnName
+                    }
+                })
+            },
+            //挂失按钮
+            isreportLossApi(){
+                if(this.readerInfo.cardState==0){
+                    cardReportFun().then((res)=>{
+                        console.log('挂失后返回的用户信息',res);
+                        if(res.data.state==true){
+                            this.initializeApi();
+                            this.successPointOut=res.data.msg;
+                            this.dialogVisible=true;
+                        }else{
+                            this.successPointOut=res.data.msg;
+                            this.dialogVisible=true;
+                        }
+                    })
+                }else{
+                    cardReportCancelFun().then((res)=>{
+                        console.log('取挂后返回的信息',res);
+                        if(res.data.state==true){
+                            this.initializeApi();
+                            this.successPointOut=res.data.msg;
+                            this.dialogVisible=true;
+                        }else{
+                            this.successPointOut=res.data.msg;
+                            this.dialogVisible=true;
+                        }
+                    })
+                }
+            },
             handleClose(done) {
                 this.dialogVisible=false
             }
+        },
+        created(){
+            this.initializeApi()
         }
     }
 </script>
 
 <style scoped>
     .headIcon{
-        width: 130px;
+        width: 150px;
         height: 180px;
         background-color: #DADADA;
         margin-right: 30px;

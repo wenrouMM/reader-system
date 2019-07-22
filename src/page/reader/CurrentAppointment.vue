@@ -101,7 +101,7 @@
 
 <style scoped>
     .pagingDiv{
-        margin-left: 580px;
+
     }
     span{
         color: #12B494;

@@ -7,7 +7,6 @@
             </div>
             <div></div>
         </div>
-
         <div class="flexLayoutRow">
             <div></div>
             <div class="flexLayoutRow pagingDiv pagingBut">
@@ -19,7 +18,6 @@
                 <el-button plain>跳转</el-button>
             </div>
         </div>
-
         <div style="margin-top: 5px" class="tableStyle">
             <el-table
                     :data="tableData"
@@ -101,7 +99,7 @@
 
 <style scoped>
     .pagingDiv{
-        margin-left: 580px;
+
     }
     span{
         color: #12B494;

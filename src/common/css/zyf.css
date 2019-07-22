@@ -23,11 +23,12 @@
     height: 30px;
     width: 180px;
 }
-.haveTablePage  .el-table th, .el-table tr {
+.haveTablePage .el-table th {
     background-color: #12B494;
     color: white;
+    padding: 5px 0;
 }
-.haveTablePage .el-table td, .el-table th{
+.haveTablePage .el-table td {
     text-align: center;
     color: #2a2a2a;
     background-color: white;
@@ -140,8 +141,8 @@
     position: relative;
     margin: 0 auto 50px;
     border-radius: 2px;
-    -webkit-box-shadow: 0 1px 10px #12b4944a;
-    box-shadow: 0 1px 10px #12b4944a;
+    -webkit-box-shadow: 0 1px 20px #12b4944a;
+    box-shadow: 0 1px 20px #12b4944a;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     width: 50%;
@@ -175,6 +176,9 @@
 /*图书续借的表格内按钮样式设置*/
 #BookRenewal{
     width: 100%;
+}
+#BookRenewal .el-form-item {
+    margin-bottom: 0px;
 }
 #BookRenewal .tableStyle .el-button--text{
     color: #FF3B31;
@@ -260,7 +264,61 @@
     font-weight: bold;
     color:#2a2a2a;
 }
-
+#OrderPage {
+    width:100%
+}
+#OrderPage .el-input__inner{
+    width: 220px;
+}
+#OrderPage .el-form-item{
+    margin-bottom: 0px;
+}
+#OrderPage .el-dialog__title {
+    line-height: 24px;
+    font-size: 15px;
+    color: #12b494c4;
+}
+#OrderPage .el-dialog__header{
+    padding: 7px 10px;
+    border-bottom: 2px solid #68e1c957;
+}
+#OrderPage .el-dialog__headerbtn{
+    top: 10px;
+}
+#OrderPage .el-dialog__body {
+    text-align: center;
+    padding: 20px 25px;
+}
+#OrderPage .el-textarea__inner{
+    border:1px solid #12b49499;
+}
+#OrderPage .tableStyle .el-button--text {
+    color: #FF3B31;
+    font-size: 15px;
+}
+/*登陆页面的样式设置*/
+#login .el-input__inner{
+    border: 1px solid #12B494;
+    width: 362px;
+}
+#login .el-form-item__label{
+    color: #12B494;
+}
+#login .el-form-item{
+    margin-bottom: 40px;
+}
+#login .el-button{
+    padding:12px 33px
+}
+#login .el-button--primary{
+    background-color: #12B494;
+    border-color: #12B494;
+}
+#login .el-button--info{
+    background-color: #b7b7b7;
+    border-color: #b7b7b7;
+    margin-left: 20px;
+}
 /**
 读者中心页面渐入的动画
 ***/
