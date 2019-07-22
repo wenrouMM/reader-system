@@ -2,7 +2,7 @@
   <div id="easySearch">
     <div class="borderBox">
       <div class="searchBox">
-        <search-input></search-input>
+        <search-input @emit-search="_searchto"></search-input>
       </div>
       <div class="searchTips">
         <p class="title">查 询 说 明</p>
@@ -31,6 +31,13 @@ export default {
   },
   components: {
     SearchInput
+  },
+  methods:{
+     _searchto(val){
+      console.log('?',val)
+      this.$router.push({path:'searchList',query:val})
+      console.log('跳转？')
+    }
   }
 };
 </script>

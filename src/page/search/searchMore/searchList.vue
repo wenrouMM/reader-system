@@ -1,7 +1,7 @@
 <template>
   <div id="searchList">
     <section class="searchBox">
-      <search-input></search-input>
+      <search-input @emit-search="_searchto"></search-input>
     </section>
     <section class="changeBox">
       <div class="leftBox">
@@ -114,10 +114,15 @@ export default {
       typeArr:[], // 出版时间
       initArr:[],
       condition:null // 搜索条件缓存
-      //
+      //分页器
     };
   },
   methods:{
+    // 普通检索
+      _searchto(val){
+      this.$router.push({path:'searchList',query:val})
+      this._allSearch(val)
+    },
     // 附加馆藏地搜索
     searchPlace(val){
       let obj = {}
@@ -178,9 +183,10 @@ export default {
     BookBlock,
     launch
   },
-  created(){
+  created(){ 
+    let container = this.$route.query
     
-    this.condition = this.$route.query
+    this.condition = container
     console.log('起始数据',this.condition)
     this._allSearch(this.condition)
     this.initArr = init
@@ -260,7 +266,9 @@ export default {
       .pagation {
       }
       .bookBox {
-        
+        .protect{
+          
+        }
       }
     }
   }

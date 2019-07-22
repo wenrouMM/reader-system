@@ -37,43 +37,78 @@
           </div>
           <P class="data">
             数据总数：
-            <span class="red">10000种</span>
+            <span class="red">{{totalNumber}}种</span>
           </P>
         </div>
         <div class="searchEnd">
           <el-scrollbar style="height:100%">
-              <div class="treeBox" v-if="treeArr.length">
-                  <div  class="tree-block" v-for="(item,index) of treeArr" :key="index">
-                      <p><i>图标</i><span>{{item.letter}}-</span>{{item.title}}<span class="red">({{item.number}})</span></p>
-                     <!-- <div class="hideSon">
-                         <p v-for="(son,num) of item.children" :key="num">
-                             {{son.code}}
-                         </p>
-                     </div> -->
+            <div class="treeBox" v-if="treeArr.length">
+              <div class="tree-block" v-for="(item,index) of treeArr" :key="index">
+                <div class="fatherBox">
+                  <i class="icon" @click="openBtn(index)">图标</i>
+                  <div @click="searchBtn(item)" class="flex">
+                    <span class="name">{{item.letter}}-{{item.title}}</span>
+                    <span class="red">({{item.number}})</span>
                   </div>
+                </div>
+                <el-collapse-transition>
+                  <div class="hideSon" v-show="launch == index">
+                    <p v-for="(son,num) of item.children" :key="num">
+                      <span @click="searchBtn(son)">{{son.code}}-{{son.name}}</span>
+                      <span class="red">({{son.num}})</span>
+                    </p>
+                  </div>
+                </el-collapse-transition>
               </div>
+            </div>
           </el-scrollbar>
         </div>
       </aside>
       <!-- 右边的盒子 -->
       <section class="rightBox">
-        <div class="pagation">
-
-        </div>
-        <div class="detailBox"></div>
+        <el-scrollbar style="height:100%">
+          <div class="pagation"></div>
+          <div v-if="collectionList.length" class="detailBox">
+            <div class="protect" v-for="(item,index) of collectionList" :key="index">
+              <book-block :data="item"></book-block>
+            </div>
+          </div>
+        </el-scrollbar>
       </section>
     </div>
   </div>
 </template>
 
 <script>
-const typeArr = ['马列主义毛邓思想','哲学、宗教','社会科学总论','政治、法律','军事','经济','文化、科学、教育、体育',
-                  '语言、文字','文学','艺术','历史、地理','自然科学总论','数理科学和化学','天文学、地球科学','生物科学','医药、卫生',
-                  '农业科学','工业技术','交通运输','航空、航天','环境科学、安全科学','综合性图书'                
-                ]
+const typeArr = [
+  "马列主义毛邓思想",
+  "哲学、宗教",
+  "社会科学总论",
+  "政治、法律",
+  "军事",
+  "经济",
+  "文化、科学、教育、体育",
+  "语言、文字",
+  "文学",
+  "艺术",
+  "历史、地理",
+  "自然科学总论",
+  "数理科学和化学",
+  "天文学、地球科学",
+  "生物科学",
+  "医药、卫生",
+  "农业科学",
+  "工业技术",
+  "交通运输",
+  "航空、航天",
+  "环境科学、安全科学",
+  "综合性图书"
+];
 import { searchInt } from "@/request/api/search";
-import {getBigLetter} from '@/common/js/util'
-const classArr = ['']
+import { getBigLetter } from "@/common/js/util";
+import launchVue from "@/components/launch.vue";
+import BookBlock from "@/components/bookBlock";
+const classArr = [""];
 export default {
   data() {
     return {
@@ -81,61 +116,94 @@ export default {
         embassyValue: "",
         indexValue: ""
       },
-      treeArr:[],
-      embassy: [],
-      indexOptions: [],
-      totalNumber:0
+      treeArr: [], // 树形菜单数组
+      embassy: [], // 文献下拉数据
+      indexOptions: [], // 索引下拉数据
+      totalNumber: 0, // 总本书缓存变量
+      launch: -1,
+      isOpen: false,
+      collectionList: [] //
     };
   },
+  components:{
+    BookBlock
+  },
   methods: {
+    /*------ opation ------*/
+    openBtn(index) {
+      if (this.launch == index) {
+        this.launch = -1;
+      } else {
+        this.launch = index;
+      }
+    },
+    searchBtn(val) {
+      let obj = {};
+      obj.typeCode = val.code;
+      console.log("传递的值", obj);
+      this._allSearch(obj);
+    },
     /*------ api ------*/
     // 中图分类法
     _collect() {
       searchInt.collectInt().then(res => {
         console.log("中图分类法", res.data.row);
-        this.treeArr = this._Fcollect(res.data.row)
+        this.treeArr = this._Fcollect(res.data.row);
       });
     },
-    _Fcollect(arr){
-        let contrast = this.initArr()
-        let twoC = contrast.length
-        let oneC = arr.length
-        for(let i=0; i<oneC;i++){
-          this.totalNumber += arr[i].num
-            for(let j=0; j<twoC;j++){
-                let str = arr[i].code
-                let conStr = contrast[j].letter
-                if(str.indexOf(conStr)!=-1){
-                    contrast[j].number += arr[i].num
-                    contrast[j].children.push(arr[i])
-                }
-            }
-        }
-        console.log(this.totalNumber)
-        console.log('过滤后',contrast)
-        return contrast
+    // 检索
+    _allSearch(data) {
+      let obj = data;
+      searchInt.allSearchInt(data).then(res => {
+        let data = res.data.row;
+        this.collectionList = data.dataList;
+        this.total = res.data.total;
+        console.log(res);
+      });
     },
-    initArr(){
-        let arr = []
-        let type = typeArr
-        let letter = getBigLetter()
-        for (let i=0; i<letter.length;i++){
-            let obj = {}
-            obj.letter = letter[i]
-            obj.title = type[i]
-            obj.number = 0
-            obj.children = []
-            arr.push(obj)
-            
+    /*------ 过滤 ------*/
+    _Fcollect(arr) {
+      let contrast = this.initArr();
+
+      let twoC = contrast.length;
+      let oneC = arr.length;
+      for (let i = 0; i < oneC; i++) {
+        this.totalNumber += arr[i].num;
+        for (let j = 0; j < twoC; j++) {
+          let str = arr[i].code;
+          let conStr = contrast[j].code;
+          if (str.indexOf(conStr) != -1) {
+            contrast[j].number += arr[i].num;
+            contrast[j].children.push(arr[i]);
+          }
         }
-        
-        return arr
-        
+      }
+      console.log(this.totalNumber);
+      console.log("过滤后", contrast);
+      return contrast;
+    },
+    initArr() {
+      let arr = [];
+      let type = typeArr;
+      let letter = getBigLetter(); // 26个初始字母
+      letter.splice(11, 1);
+      letter.splice(12, 1);
+      letter.splice(-2, 1);
+      letter.splice(-4, 1);
+      for (let i = 0; i < letter.length; i++) {
+        let obj = {};
+        obj.code = letter[i];
+        obj.title = type[i];
+        obj.number = 0;
+        obj.children = [];
+        arr.push(obj);
+      }
+
+      return arr;
     }
   },
   created() {
-    this._collect()
-    
+    this._collect();
   }
 };
 </script>
@@ -147,8 +215,9 @@ export default {
     display: flex;
     flex-direction: row;
     .leftBox {
-      width: 246px;
+      width: 260px;
       border: solid 1px $green;
+      margin-right: 20px;
       .title {
         background-color: $green;
         height: 66px;
@@ -177,7 +246,55 @@ export default {
       }
       .searchEnd {
         height: 500px;
+        .treeBox {
+          padding-top: 12px;
+          .tree-block {
+            margin-bottom: 12px;
+            .fatherBox {
+              padding-left: 14px;
+              margin-bottom: 12px;
+              display: flex;
+              flex-direction: row;
+              .flex {
+                cursor: pointer;
+                .name {
+                  font-size: 14px;
+                  color: $green;
+                }
+                .red {
+                  font-size: 14px;
+                  color: $red;
+                  margin-left: 5px;
+                }
+              }
+              .icon {
+                margin-right: 12px;
+                cursor: pointer;
+              }
+            }
+            .hideSon {
+              padding-left: 57px;
+              p {
+                margin-bottom: 10px;
+                font-size: 14px;
+                line-height: 18px;
+                color: $green;
+                cursor: pointer;
+                .red {
+                  color: $red;
+                  margin-left: 5px;
+                }
+              }
+            }
+          }
+        }
       }
+    }
+    /* 右侧盒子 */
+    .rightBox {
+      height: 733px;
+      border-bottom: 1px solid $green;
+      
     }
   }
 }

@@ -10,8 +10,9 @@ const searchUrl = {
 }
 export const searchInt = {
     collectInt: collect,
-    allSearchInt:allSearch,
+    allSearchInt:allSearch, // 检索接口
 }
+// 详情接口
 export function detailInt(data) {
     return axios.get(searchUrl.detail,{
         params:data

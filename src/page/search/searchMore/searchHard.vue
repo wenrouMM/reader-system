@@ -4,7 +4,7 @@
       <section class="search">
         <div class="inputBox">
           <el-input placeholder="请输入搜索内容" v-model="searchForm.one" class="input-with-select">
-            <el-select v-model="select2" slot="prepend" placeholder="请选择">
+            <el-select v-model="select" slot="prepend" placeholder="请选择">
               <el-option
                 v-for="(item,index) of optionsArr"
                 :key="index"
@@ -17,7 +17,7 @@
         </div>
         <div class="inputBox">
           <el-input placeholder="请输入搜索内容" v-model="searchForm.two" class="input-with-select">
-            <el-select v-model="select3" slot="prepend" placeholder="请选择">
+            <el-select v-model="select2" slot="prepend" placeholder="请选择">
               <el-option
                 v-for="(item,index) of optionsArr"
                 :key="index"
@@ -29,7 +29,7 @@
         </div>
         <div class="inputBox">
           <el-input placeholder="请输入搜索内容" v-model="searchForm.three" class="input-with-select">
-            <el-select v-model="select" slot="prepend" placeholder="请选择">
+            <el-select v-model="select3" slot="prepend" placeholder="请选择">
               <el-option
                 v-for="(item,index) of optionsArr"
                 :key="index"
@@ -45,29 +45,43 @@
         <div class="selectBox">
           <span class="text">语言种类：</span>
           <el-radio-group v-model="language">
-            <el-radio :label="3">备选项</el-radio>
-            <el-radio :label="6">备选项</el-radio>
-            <el-radio :label="9">备选项</el-radio>
+            <el-radio :label="''">全部</el-radio>
+            <el-radio :label="'汉语'">汉语</el-radio>
+            <el-radio :label="'英语'">英语</el-radio>
+            <el-radio :label="'法语'">法语</el-radio>
+            <el-radio :label="'德语'">德语</el-radio>
+            <el-radio :label="'日语'">日语</el-radio>
+            <el-radio :label="'俄语'">俄语</el-radio>
           </el-radio-group>
         </div>
         <div class="selectBox">
           <span class="text">文献类型：</span>
           <el-radio-group v-model="documentType">
-            <el-radio :label="3">备选项</el-radio>
-            <el-radio :label="6">备选项</el-radio>
-            <el-radio :label="9">备选项</el-radio>
-            <el-radio :label="6">备选项</el-radio>
-            <el-radio :label="9">备选项</el-radio>
+            <el-radio :label="''">全部</el-radio>
+            <el-radio :label="'图书'">图书</el-radio>
+            <el-radio :label="'期刊'">期刊</el-radio>
+            <el-radio :label="'古籍'">古籍</el-radio>
+            <el-radio :label="'音像'">音像</el-radio>
           </el-radio-group>
         </div>
-        <div class="selectBox">
+        <div class="selectBox nomalFlex">
           <span class="text">出版年份：</span>
+          <div class="timeBox">
+            <el-input v-model="startTime" placeholder="请输入起始时间"></el-input>
+          </div>
+          <p class="divide">
+            ----
+          </p>
+          
+          <div class="timeBox">
+            <el-input v-model="endTime" placeholder="请输入结束时间"></el-input>
+          </div>
         </div>
         <div class="selectBox">
           <span class="text">每页显示行数：</span>
         </div>
       </section>
-      <section class="house">
+      <!-- <section class="house">
         <p class="title">基本条件</p>
         <div class="checkBox">
           <div class="check">
@@ -83,7 +97,7 @@
             </el-checkbox-group>
           </div>
         </div>
-      </section>
+      </section>-->
     </div>
   </div>
 </template>
@@ -93,17 +107,21 @@ export default {
   data() {
     return {
       // 多连搜索框
-      searchForm:{
-          one:'',
-          two:'',
-          three:''
+      searchForm: {
+        one: "",
+        two: "",
+        three: ""
       },
-      select: "1",
-      select2:"2",
-      select3:"3",
+      select: "name",
+      select2: "author",
+      select3: "isbn",
       // 二层选择框
       language: "", // 语言
       documentType: "", // 文献类型
+      startTime:'',
+      endTime:'',
+      pageSize:'20',
+      // 阉割的分中心
       checkAll: false,
       checkedCities: [],
       isIndeterminate: false,
@@ -111,59 +129,91 @@ export default {
       optionsArr: [
         {
           label: "任意词",
-          value: "1"
+          value: "anyWord",
+          index: "0"
         },
         {
           label: "ISBN",
-          value: "2"
+          value: "isbn",
+          index: "1"
         },
         {
-          label: "控制号",
-          value: "3"
+          label: "馆藏码",
+          value: "code",
+          index: "2"
         },
         {
-          label: "题号",
-          value: "4"
+          label: "题名",
+          value: "name",
+          index: "3"
         },
         {
           label: "作者",
-          value: "5"
+          value: "author",
+          index: "4"
         },
         {
           label: "主题",
-          value: "6"
+          value: "themeWord",
+          index: "5"
         },
         {
           label: "分类号",
-          value: "7"
+          value: "fkTypeName",
+          index: "6"
         },
         {
           label: "索取号",
-          value: "8"
+          value: "callNumber",
+          index: "7"
         },
         {
           label: "出版社",
-          value: "9"
+          value: "fkPressName",
+          index: "8"
         },
         {
           label: "出版年",
-          value: "10"
+          value: "publishingTime"
         }
       ]
     };
   },
+  computed: {
+    submitTimeForm() {
+      let obj = {
+        condition2:'and',
+        condition3:'and',
+      };
+      obj.language = this.language
+      obj.literatureType = this.documentType
+      obj.startTime = this.startTime
+      obj.endTime = this.endTime
+      let key1 = this.select
+      let key2 = this.select2 + '2'
+      let key3 = this.select3 + '3'
+      obj[key1] = this.searchForm.one
+      obj[key2] = this.searchForm.two
+      obj[key3] = this.searchForm.three
+
+      return obj
+    }
+  },
   methods: {
     searchBtn() {
-        let arr = Object.values(this.searchForm)
-        let juge = arr.findIndex(function(value, index, arr){
-            return value != ""
-        })
-        console.log(juge)
-        if( juge != -1){
-            console.log('索引',this.searchForm)
-        } else {
-            this.$message.error('请至少输入一个搜索条件')
-        }
+      let arr = Object.values(this.searchForm);
+      let juge = arr.findIndex(function(value, index, arr) {
+        return value != "";
+      });
+      console.log(juge);
+      if (juge != -1) {
+        console.log("索引", this.searchForm);
+        let val = this.submitTimeForm
+        console.log('跳转',val)
+        this.$router.push({path:'searchList',query:val})
+      } else {
+        this.$message.error("请至少输入一个搜索条件");
+      }
     },
     // 全选按钮
     handleCheckAllChange(val) {
@@ -182,7 +232,6 @@ export default {
 
 <style lang="scss" scoped>
 #hardSearch {
-  
   .borderBox {
     width: 1000px;
     padding-bottom: 45px;
@@ -193,9 +242,9 @@ export default {
     .search {
       width: 840px;
       margin: 0 auto;
-      
-      .inputBox{
-          margin-bottom: 20px;
+
+      .inputBox {
+        margin-bottom: 20px;
       }
     }
     .basicReason {
@@ -220,6 +269,20 @@ export default {
           color: #2a2a2a;
           display: inline-block;
           width: 120px;
+        }
+      }
+      .nomalFlex{
+        display: flex;
+        flex-direction: row;
+        .text{
+          line-height: 26px;
+        }
+        .timeBox{
+          width: 130px;
+        }
+        .divide{
+          padding: 0 6px; 
+          line-height: 24px;
         }
       }
     }
@@ -251,5 +314,8 @@ export default {
 }
 #hardSearch .input-with-select .el-input-group__prepend {
   background-color: #fff;
+}
+#hardSearch .timeBox .el-input__inner{
+  height: 26px;
 }
 </style>

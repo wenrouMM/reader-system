@@ -101,7 +101,7 @@ export default {
             }
             .son {
               position: absolute;
-              z-index: 2;
+              z-index: 10;
               width: 140px;
               display: none;
               background-color: $highGreen;
