@@ -49,8 +49,8 @@
                     <el-menu-item-group>
                         <el-menu-item index="/ReaderRecommendation" >读者自荐</el-menu-item>
                         <el-menu-item index="/Order">征订荐购</el-menu-item>
-                        <el-menu-item index="5-3">历史荐购</el-menu-item>
-                        <el-menu-item index="5-4">荐购排行</el-menu-item>
+                        <el-menu-item index="/HisRecommendation">历史荐购</el-menu-item>
+                        <el-menu-item index="/RecommendRanking">荐购排行</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-submenu index="4">
@@ -59,7 +59,7 @@
                         <span>财经管理</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="4-1" >财经管理</el-menu-item>
+                        <el-menu-item index="/FinancialManagement" >财经查询</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
             </el-menu>

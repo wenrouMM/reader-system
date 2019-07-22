@@ -30,12 +30,13 @@
                 :visible.sync="dialogVisible"
                 width="10%"
                 :before-close="handleClose">
-            <span>密码修改成功！</span>
+            <span>{{popContent}}</span>
         </el-dialog>
     </div>
 </template>
 
 <script>
+    import { changePassWordFun } from "@/request/api/readerCenter";
     export default {
         data(){
             return {
@@ -46,19 +47,11 @@
                     newPassWord:'',//新密码
                     confirmPassWord:''//新密码确认
                 },
+                popContent:"",//弹窗内容
                 rules: {
-                    passWord: [
-                        { required: true, message: '原密码不能为空', trigger: 'blur' },
-                        { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-                    ],
-                    newPassWord: [
-                        { required: true, message: '新密码不能为空', trigger: 'blur' },
-                        { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-                    ],
-                    confirmPassWord: [
-                        { required: true, message: '确认密码不能为空', trigger: 'blur' },
-                        { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-                    ],
+                    passWord: [{ required: true, message: '原密码不能为空', trigger: 'blur' },],
+                    newPassWord: [{ required: true, message: '新密码不能为空', trigger: 'blur' },],
+                    confirmPassWord: [{ required: true, message: '确认密码不能为空', trigger: 'blur' },],
                 },
             }
         },
@@ -69,7 +62,21 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.dialogVisible=true
+                        if(this.ruleForm.newPassWord==this.ruleForm.confirmPassWord){
+                            changePassWordFun(this.ruleForm.passWord,this.ruleForm.newPassWord).then((res)=>{
+                                console.log('修改密码后返回的结果',res)
+                                if(res.data.state==true){
+                                    this.popContent=res.data.msg;
+                                    this.dialogVisible=true
+                                }else{
+                                    this.popContent=res.data.msg;
+                                    this.dialogVisible=true
+                                }
+                            })
+                        }else{
+                            this.popContent='您的确认密码与新密码不相符，请重新输入！';
+                            this.dialogVisible=true
+                        }
                     } else {
                         return false;
                     }

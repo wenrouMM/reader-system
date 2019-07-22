@@ -18,7 +18,7 @@
                 </el-form-item>
                 <span class="serchBtn">搜索</span>
             </el-form>
-            <div class="flexLayoutRow pagingDiv pagingBut" style="margin-top: 10px">
+            <div class="flexLayoutRow pagingDiv pagingBut" style="margin-top: 15px">
                 <el-button plain>首页</el-button>
                 <el-button plain>上一页</el-button>
                 <el-button plain>下一页</el-button>
