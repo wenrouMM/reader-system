@@ -34,8 +34,8 @@
         <div class="pointOut">
             <p class="pointTitle">登陆提示</p>
             <p class="pointFont">• 图书图书馆提供读者个性化的服务空间，默认已经开通读者空间服务，请输入读者证号和密码进入系统。</p>
-            <p class="pointFont">• 初始密码为出生年月日，如1988年8月8日，用军官证等其他身份证件办理，初始密码为12345678。</p>
-            <p class="pointFont">• 读者可登录个人空间修改登录密码。</p>
+            <p class="pointFont">• 初始密码为身份证后6位。</p>
+            <p class="pointFont">• 读者可登录个人空间修改登录密码。如忘记密码请联系管理员</p>
         </div>
     </div>
 
@@ -63,11 +63,24 @@
         methods:{
             //登陆按钮
             landingBtn(){
+                /* this.$store.dispatch('login',this.form).then(()=>{
+                    this.$message.success('登录成功')
+                    //this.$router.push('/ReaderNavigation');
+                    console.log('???')
+                }).catch((err) => {
+                    this.$message.error(err)
+                }) */
                 loginInt.loginFun(this.form.name,this.form.password).then((res)=>{
                     console.log('登录后返回的信息',res)
                     if(res.data.state==true){
+                        /* var userInfo = JSON.stringify(res.data.row.nowLoginUser)
                         var authorization=res.data.row.authorization;
-                        localStorage.setItem('authorization',authorization);
+                        sessionStorage.setItem('userInfo',userInfo);
+                        sessionStorage.setItem('authorization',authorization); */
+                        
+                        this.$store.dispatch('login',res)
+
+                        this.$message.success(res.data.msg)
                         this.$router.push('/ReaderNavigation');
                     }else{
                         console.log(res.data.msg)

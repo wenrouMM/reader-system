@@ -1,9 +1,19 @@
 <template>
   <div id="index">
     <section class="header">
-      <div class="headImg"></div>
+      <div class="headImg">
+        <div class="userInfo">
+          <p class="pos">
+            <router-link v-if="!userName" tag="span" to="/login">读者登录</router-link>
+            <span class="userName">{{userName}}</span>
+            <span v-if="userName" @click="cancel">退出登录</span>
+            <router-link tag="span" to="/search">返回</router-link>
+          </p>
+        </div>
+      </div>
       <nav>
         <ul class="navCtx">
+          <div></div>
           <li>
             <router-link tag="span" to="/search">首页</router-link>
           </li>
@@ -19,20 +29,18 @@
           <li>
             <span class="father">
               借阅管理
-             
-                <div class="son">
-                  <router-link tag="span" to="/LendingRank">借阅排行</router-link>
-                  <router-link tag="span" to="/NewBooksBulletins">新书快递</router-link>
-                </div>
-              
+              <div class="son">
+                <router-link tag="span" to="/LendingRank">借阅排行</router-link>
+                <router-link tag="span" to="/NewBooksBulletins">新书快递</router-link>
+              </div>
             </span>
           </li>
           <li>
-            <router-link tag="span" to="/BasicInfo">读者中心</router-link>
+            <router-link tag="span" to="/ReaderNavigation">读者中心</router-link>
           </li>
-          <li>
+          <!-- <li>
             <router-link tag="span" to="/login">读者登录</router-link>
-          </li>
+          </li> -->
           <li>
             <router-link tag="span" to="/classify">分类导航</router-link>
           </li>
@@ -49,9 +57,26 @@
 </template>
 
 <script>
+import {getInfo} from '../request/api/login'
 export default {
   data() {
-    return {};
+    return {
+      
+    };
+  },
+  methods:{
+    cancel(){
+      this.$store.dispatch('logout')
+      this.$message.success('退出成功')
+    },
+  },
+  computed:{
+    userName () {
+      return this.$store.state.name
+    }
+  },
+  created(){
+     
   }
 };
 </script>
@@ -61,6 +86,22 @@ export default {
 #index {
   position: relative;
   .header {
+    .userInfo{
+      width: 1000px;
+      margin: 0 auto;
+      height: 160px;
+      position: relative;
+      .pos{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        span{
+          display: inline-block;
+          cursor: pointer;
+          padding: 0 4px;
+        }
+      }
+    }
     .headImg {
       width: 100%;
       background-image: url("../common/img/head.jpg");
@@ -72,6 +113,7 @@ export default {
       background-color: $green;
       .navCtx {
         width: 1200px;
+        position: relative;
         margin: 0 auto;
         display: flex;
         flex-direction: row;

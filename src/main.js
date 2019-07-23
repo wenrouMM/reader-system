@@ -4,14 +4,11 @@ import '../src/common/css/reset.css'
 import '../src/common/css/common.css'
 import '../src/common/scss/index.scss'
 import router from './router'
-import axios from 'axios'
-axios.interceptors.request.use(function (config) {
-    let token = localStorage.getItem('authorization');
-    if (token) {
-        config.headers['Authorization'] = token;
-    }
-    return config;
-})
+import store from '../src/store/store'
+
+import './permission' 
+import '@/request/api/http'
+
 
 //css
 import ElementUI from 'element-ui'
@@ -21,7 +18,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './common/css/zyf.css'
 
 
-new Vue({
+window.vm=new Vue({
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
