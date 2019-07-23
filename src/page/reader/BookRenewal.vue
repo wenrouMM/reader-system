@@ -10,12 +10,12 @@
         <div class="flexLayoutRow">
             <div></div>
             <div class="flexLayoutRow pagingDiv pagingBut">
-                <el-button plain>首页</el-button>
-                <el-button plain>上一页</el-button>
-                <el-button plain>下一页</el-button>
-                <el-button plain>尾页</el-button>
-                <input type="text" class="pageInput" v-model="pageNum">
-                <el-button plain>跳转</el-button>
+                <el-button plain @click="homePageBtn">首页</el-button>
+                <el-button plain @click="previousPageBtn">上一页</el-button>
+                <el-button plain @click="nextPageBtn">下一页</el-button>
+                <el-button plain @click="lastPageBtn">尾页</el-button>
+                <input type="text" class="pageInput" v-model="currentPage">
+                <el-button plain @click="jumpBtn">跳转</el-button>
             </div>
         </div>
         <div style="margin-top: 5px" class="tableStyle">
@@ -24,23 +24,33 @@
                     style="width: 100%"
                    >
                 <el-table-column
-                        prop="name"
+                        prop="bookName"
+                        :show-overflow-tooltip="true"
                         label="书名">
                 </el-table-column>
                 <el-table-column
-                        prop="author"
-                        label="著作者">
+                        prop="libraryBookCode"
+                        :show-overflow-tooltip="true"
+                        label="馆内码">
                 </el-table-column>
                 <el-table-column
-                        prop="publish"
-                        label="出版社">
+                        prop="barcode"
+                        :show-overflow-tooltip="true"
+                        label="ISBN">
                 </el-table-column>
                 <el-table-column
-                        prop="startTime"
+                        prop="renewCount"
+                        :show-overflow-tooltip="true"
+                        label="续借次数">
+                </el-table-column>
+                <el-table-column
+                        prop="createTime"
+                        :show-overflow-tooltip="true"
                         label="借阅开始时间">
                 </el-table-column>
                 <el-table-column
-                        prop="endTime"
+                        prop="planReturnTime"
+                        :show-overflow-tooltip="true"
                         label="借阅归还时间">
                 </el-table-column>
                 <el-table-column
@@ -55,44 +65,106 @@
                 :visible.sync="dialogVisible"
                 width="10%"
                 :before-close="handleClose">
-            <span>图书续借成功！</span>
+            <span>{{popCentent}}</span>
         </el-dialog>
     </div>
 </template>
 
 <script>
+    import {renewTableFun , renewBookFun} from "@/request/api/readerCenter";
+
     export default {
         data(){
             return {
                 dialogVisible:false,
                 titleIcon:require('../../common/img/readerIcon/BasicInfo.png'),
-                pageNum:'',//跳转的页数
-                tableData:[
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12'},
-                ]
+                tableData:[],
+                popCentent:'',//弹窗内容
+                pageSize:13,
+                currentPage:1,
+                Total:0
             }
         },
         methods:{
             //续借按钮
-            renewalBtn(){
+            renewalBtn(row){
+                let ids=[]
+                console.log(row)
+                ids.push(row.id)
+                renewBookFun(ids).then((res)=>{
+                    console.log('书籍续借后返回的数据',res)
+                    if(res.data.state==true){
+                        this.popCentent=res.data.msg;
+                        this.dialogVisible
+                    }else{
+                        this.popCentent=res.data.msg;
+                        this.dialogVisible
+                    }
+
+                })
                 this.dialogVisible=true
             },
             handleClose(){
                 this.dialogVisible=false
-            }
+            },
+            searchApi(){
+                renewTableFun(
+                    this.pageSize,
+                    this.currentPage
+                ).then((res)=>{
+                    console.log('查询续借列表数据',res)
+                    if(res.data.state==true){
+                        this.tableData=res.data.row
+                        this.Total=res.data.total
+                    }
+                })
+            },
+            //首页跳转按钮
+            homePageBtn(){
+                this.tableData.length=0
+                this.currentPage=1
+                this.searchApi(this.currentPage)
+            },
+            //尾页跳转按钮
+            lastPageBtn(){
+                this.tableData.length=0
+                if(this.Total>13){
+                    this.currentPage=Math.ceil(this.Total/13)
+                }else{
+                    this.currentPage=1
+                }
+                this.searchApi(this.currentPage)
+            },
+            //上一页跳转按钮
+            previousPageBtn(){
+                this.tableData.length=0
+                if(this.currentPage==1){
+                    return
+                }else{
+                    this.currentPage--;
+                    this.searchApi(this.currentPage)
+                }
+            },
+            //下一页跳转按钮
+            nextPageBtn(){
+                this.tableData.length=0
+                if(this.currentPage===Math.ceil(this.Total/13)){
+                    console.log('页面不进行跳转')
+                }else{
+                    this.currentPage++;
+                    this.searchApi(this.currentPage)
+                }
+
+            },
+            //依据页码跳转的按钮
+            jumpBtn(){
+                this.tableData.length=0
+                this.searchApi(this.currentPage)
+            },
+        },
+
+        created(){
+            this.searchApi(this.currentPage)
         }
     }
 </script>

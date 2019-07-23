@@ -20,7 +20,7 @@
                 <p>姓名： <span>{{readerInfo.readerName}}</span></p>
                 <p>证件类别： <span>{{readerInfo.fkPapersTypeName}}</span></p>
                 <p>终止日期： <span>{{readerInfo.cardExpireTime}}</span></p>
-                <p>逾期欠费金额： <span>{{readerInfo.overdueExpenses}}</span></p>
+                <p>总欠款： <span>{{readerInfo.overdueExpenses}}</span></p>
             </div>
             <div>
                 <p>读者卡状态： <span>{{readerInfo.cardState==0?'正常':'挂失'}}</span></p>
