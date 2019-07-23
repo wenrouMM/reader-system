@@ -7,25 +7,24 @@ const readerInfo = {
     cardReport: `${url}serviceforreadermodule/readerInfo/cardReport`,//用户信息》挂失
     cardReportCancel: `${url}serviceforreadermodule/readerInfo/cardReportCancel`,//用户信息》取挂
     changePassWord: `${url}serviceforreadermodule/readerInfo/editPassword`,//用户信息》修改密码
+    Finance: `${url}serviceforreadermodule/readerInfo/selectFinance`,//用户信息》财经查询
+    renewTable: `${url}serviceforreadermodule/reader/renew/getReaderLog`,//用户信息》续借
+    renewBook:`${url}serviceforreadermodule/reader/renew/renewBooks`,//用户信息》图书续借》续借书籍
+    nowRenew:`${url}`
+
 }
 //用户信息》基本信息
 export function readerInfoFun (){
-    return axios.get(readerInfo.select).then((res) => {
-        return Promise.resolve(res)
-    })
+    return axios.get(readerInfo.select)
 }
 //用户信息》挂失
 export function cardReportFun (){
-    return axios.put(readerInfo.cardReport).then((res) => {
-        return Promise.resolve((res))
-    })
+    return axios.put(readerInfo.cardReport)
 }
 
 //用户信息》取挂
 export function cardReportCancelFun (){
-    return axios.put(readerInfo.cardReportCancel).then((res) => {
-        return Promise.resolve((res))
-    })
+    return axios.put(readerInfo.cardReportCancel)
 }
 
 //用户信息》修改密码
@@ -33,8 +32,29 @@ export function changePassWordFun (pastPwd,newPwd){
     return axios.put(readerInfo.changePassWord,{
         password:pastPwd,
         newPassword:newPwd
-    }).then((res) =>{
-        return Promise.resolve((res))
     })
+}
+
+//用户信息》财经查询
+export function FinanceFun (sT,eT,pS,cP) {
+    return axios.get(readerInfo.Finance,{params:{
+            beginTime:sT,
+            endTime:eT,
+            pageSize:pS,
+            currentPage:cP
+        }})
+}
+
+//用户信息》图书续借
+export function renewTableFun (pS,cP) {
+    return axios.get(readerInfo.renewTable,{params:{
+            pageSize:pS,
+            currentPage:cP
+        }})
+}
+
+//用户信息》图书续借》续借书籍
+export function renewBookFun (bookId){
+    return axios.post(readerInfo.renewBook,{logids:bookId})
 }
 
