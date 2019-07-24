@@ -1,5 +1,5 @@
 <template>
-    <div id="BasicInfo" class="zyfPage ReaderCenter">
+    <div id="BasicInfo" class="outerDiv zyfPage ReaderCenter">
         <div class="flexLayoutRow">
             <div class="title flexLayoutRow">
                 <img :src="titleIcon" class="titleImg">
@@ -62,6 +62,8 @@
                     console.log('初始化的读者基本信息',res)
                     if(res.data.state==true){
                         this.readerInfo=res.data.row
+                    }else{
+                        this.message.error('错了哦，这是一条错误消息');
                     }
                 })
             }
@@ -81,7 +83,7 @@
         height: 45px;
         line-height: 40px;
         font-size: 15px;
-        width: 300px;
+        width: 243px;
     }
     span{
         color: #12B494;

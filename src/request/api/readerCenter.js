@@ -7,10 +7,10 @@ const readerInfo = {
     cardReport: `${url}serviceforreadermodule/readerInfo/cardReport`,//用户信息》挂失
     cardReportCancel: `${url}serviceforreadermodule/readerInfo/cardReportCancel`,//用户信息》取挂
     changePassWord: `${url}serviceforreadermodule/readerInfo/editPassword`,//用户信息》修改密码
-    Finance: `${url}serviceforreadermodule/readerInfo/selectFinance`,//用户信息》财经查询
-    renewTable: `${url}serviceforreadermodule/reader/renew/getReaderLog`,//用户信息》续借
-    renewBook:`${url}serviceforreadermodule/reader/renew/renewBooks`,//用户信息》图书续借》续借书籍
-    nowRenew:`${url}`
+    Finance: `${url}serviceforreadermodule/readerInfo/selectFinance`,//财经管理》财经查询
+    renewTable: `${url}serviceforreadermodule/reader/renew/getReaderLog`,//我的借阅》续借
+    renewBook:`${url}serviceforreadermodule/reader/renew/renewBooks`,//我的借阅》图书续借》续借书籍
+    nowRenew:`${url}serviceforreadermodule/reader/myborrow/log/log/getReaderLog`,//我的借阅》当前借阅查询
 
 }
 //用户信息》基本信息
@@ -21,12 +21,10 @@ export function readerInfoFun (){
 export function cardReportFun (){
     return axios.put(readerInfo.cardReport)
 }
-
 //用户信息》取挂
 export function cardReportCancelFun (){
     return axios.put(readerInfo.cardReportCancel)
 }
-
 //用户信息》修改密码
 export function changePassWordFun (pastPwd,newPwd){
     return axios.put(readerInfo.changePassWord,{
@@ -34,8 +32,7 @@ export function changePassWordFun (pastPwd,newPwd){
         newPassword:newPwd
     })
 }
-
-//用户信息》财经查询
+//财经管理》财经查询
 export function FinanceFun (sT,eT,pS,cP) {
     return axios.get(readerInfo.Finance,{params:{
             beginTime:sT,
@@ -44,17 +41,18 @@ export function FinanceFun (sT,eT,pS,cP) {
             currentPage:cP
         }})
 }
-
-//用户信息》图书续借
+//我的借阅》图书续借
 export function renewTableFun (pS,cP) {
     return axios.get(readerInfo.renewTable,{params:{
             pageSize:pS,
             currentPage:cP
         }})
 }
-
-//用户信息》图书续借》续借书籍
+//我的借阅》图书续借》续借书籍
 export function renewBookFun (bookId){
     return axios.post(readerInfo.renewBook,{logids:bookId})
 }
+//我的借阅》当前借阅查询
+export function nowRenewFun (){
 
+}

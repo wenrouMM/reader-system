@@ -147,8 +147,6 @@ export default new Router({
             path: '/test',
             component: () => import('./layout/share.vue')
         },
-
-
         {
             path: '/test',
             component: () => import('./components/SearchInput.vue')

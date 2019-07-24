@@ -118,7 +118,7 @@
         height: 45px;
         line-height: 40px;
         font-size: 15px;
-        width: 250px;
+        width: 380px;
     }
     span{
         color: #12B494;

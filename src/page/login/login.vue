@@ -77,7 +77,7 @@
                         var authorization=res.data.row.authorization;
                         sessionStorage.setItem('userInfo',userInfo);
                         sessionStorage.setItem('authorization',authorization); */
-                        
+
                         this.$store.dispatch('login',res)
 
                         this.$message.success(res.data.msg)
@@ -99,7 +99,7 @@
 
 <style lang="scss" scoped>
     #login{
-        margin: 70px auto 0px;
+        margin: 0px auto;
         width: 815px;
         height: 600px;
     }

@@ -93,13 +93,11 @@
             },
             //首页跳转按钮
             homePageBtn(){
-                this.tableData.length=0
                 this.currentPage=1
                 this.searchApi(this.currentPage)
             },
             //尾页跳转按钮
             lastPageBtn(){
-                this.tableData.length=0
                 if(this.Total>13){
                     this.currentPage=Math.ceil(this.Total/13)
                 }else{
@@ -109,7 +107,6 @@
             },
             //上一页跳转按钮
             previousPageBtn(){
-                this.tableData.length=0
                 if(this.currentPage==1){
                     return
                 }else{
@@ -119,7 +116,6 @@
             },
             //下一页跳转按钮
             nextPageBtn(){
-                this.tableData.length=0;
                 if(this.currentPage===Math.ceil(this.Total/13)){
                     console.log('页面不进行跳转')
                 }else{
@@ -129,7 +125,6 @@
             },
             //依据页码跳转的按钮
             jumpBtn(){
-                this.tableData.length=0
                 this.searchApi(this.currentPage)
             },
             //搜索按钮

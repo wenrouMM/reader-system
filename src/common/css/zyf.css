@@ -1,6 +1,6 @@
 /*读者中心的页面大小*/
     .outerDiv{
-        width: 1300px;
+        width: 1200px;
         margin: 0 auto;
         height: 600px;
         /*border: 1px solid #8080801a;*/
@@ -42,7 +42,7 @@
 }
 /*读者中心导航栏的样式设置*/
 .outerDiv ol,.outerDiv ul {
-    width: 250px;
+    width: 220px;
 }
 
 .el-menu{
@@ -54,9 +54,9 @@
 .outerDiv .el-submenu__title{
     background-color: #12B494;
     color: white;
-    font-size: 17px;
-    padding: 6px 20px;
-    height: 65px;
+    font-size: 16px;
+    padding: 0px 20px;
+    height: 55px;
 }
 .outerDiv .el-menu-item-group{
     background-color:#E7FFFA ;
@@ -65,20 +65,20 @@
 .outerDiv .el-submenu .el-menu-item{
     color: #12B494;
     text-align: center;
-    height: 60px;
-    padding: 6px 45px;
-    font-size: 17px;
+    height: 50px;
+    padding: 2px 45px;
+    font-size: 15px;
 }
 .outerDiv .el-submenu .el-menu-item:hover{
     color: white;
     background-color: #5DDBC2;
-    width: 270px;
+    width: 240px;
     margin-left: -10px;
 }
 .outerDiv .el-menu-item.is-active{
     color: white;
     background-color: #5DDBC2;
-    width: 270px;
+    width: 240px;
     margin-left: -10px;
     text-align: center;
 }
@@ -147,6 +147,9 @@
     box-sizing: border-box;
     width: 50%;
 }
+.zyfPage .el-dialog__wrapper{
+    top:280px
+}
 .zyfPage .el-dialog__body{
     text-align: center;
     padding: 40px 20px;
@@ -198,30 +201,30 @@
     width: 100%;
 }
 #CurrentBorrowing .dateInput .el-input__inner{
-    width: 120px;
-    padding: 0px 5px 0px 25px;
-}
-#CurrentBorrowing .textInput .el-input__inner{
     width: 150px;
     padding: 0px 5px 0px 25px;
 }
-#CurrentBorrowing .el-date-editor.el-input, .el-date-editor.el-input__inner {
-    width: 123px;
+#CurrentBorrowing .textInput .el-input__inner{
+    width: 200px;
+    padding: 0px 5px 0px 25px;
+}
+#CurrentBorrowing .el-date-editor.el-input{
+    width: 153px;
 }
 /*历史借阅查询的页面样式设置*/
 #HistoryLoanEnquiry {
     width: 100%;
 }
 #HistoryLoanEnquiry .dateInput .el-input__inner{
-    width: 120px;
-    padding: 0px 5px 0px 25px;
-}
-#HistoryLoanEnquiry .textInput .el-input__inner{
     width: 150px;
     padding: 0px 5px 0px 25px;
 }
+#HistoryLoanEnquiry .textInput .el-input__inner{
+    width: 200px;
+    padding: 0px 5px 0px 25px;
+}
 #HistoryLoanEnquiry .el-date-editor.el-input, .el-date-editor.el-input__inner {
-    width: 123px;
+    width: 153px;
 }
 /**/
 .zyfPage .el-col-2 {
