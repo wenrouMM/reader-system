@@ -75,6 +75,7 @@
 </template>
 
 <script>
+    import {nowRenewFun} from "@/request/api/readerCenter"
     export default {
         data(){
             return {
@@ -82,26 +83,29 @@
                 ruleForm:{
                     startTime:'',//开始时间
                     endTime:'',//结束时间
-                    bookName:''//书名
+                    bookName:'',//书名
                 },
+                pageSize:13,//页面条数
+                currentPage:1,//页码
                 pageNum:'',//跳转的页数
-                tableData:[
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                ]
+                tableData:[]
             }
+        },
+        methods:{
+            searchApi(){
+                nowRenewFun(
+                    this.ruleForm.bookName,
+                    this.ruleForm.startTime,
+                    this.ruleForm.endTime,
+                    this.pageSize,
+                    this.currentPage
+                ).then((res)=>{
+                    console.log('查询借阅记录返回的数据',res)
+                })
+            }
+        },
+        created(){
+            this.searchApi()
         }
     }
 </script>

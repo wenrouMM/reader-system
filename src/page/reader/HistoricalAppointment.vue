@@ -24,12 +24,12 @@
             <div class="flexLayoutRow">
                 <div></div>
                 <div class="flexLayoutRow pagingDiv pagingBut" style="margin-top: 15px">
-                    <el-button plain>首页</el-button>
-                    <el-button plain>上一页</el-button>
-                    <el-button plain>下一页</el-button>
-                    <el-button plain>尾页</el-button>
-                    <input type="text" class="pageInput" v-model="pageNum">
-                    <el-button plain>跳转</el-button>
+                    <el-button plain @click="homePageBtn">首页</el-button>
+                    <el-button plain @click="previousPageBtn">上一页</el-button>
+                    <el-button plain @click="nextPageBtn">下一页</el-button>
+                    <el-button plain @click="lastPageBtn">尾页</el-button>
+                    <input type="text" class="pageInput" v-model="currentPage">
+                    <el-button plain @click="jumpBtn">跳转</el-button>
                 </div>
             </div>
 
@@ -40,32 +40,44 @@
                     style="width: 100%"
             >
                 <el-table-column
-                        prop="name"
+                        prop="fkBookName"
+                        :show-overflow-tooltip="true"
                         label="书名">
                 </el-table-column>
                 <el-table-column
-                        prop="author"
+                        prop="fkBookAuthor"
+                        :show-overflow-tooltip="true"
                         label="著作者">
                 </el-table-column>
                 <el-table-column
-                        prop="publish"
+                        prop="fkLibraryName"
+                        :show-overflow-tooltip="true"
                         label="取书馆">
                 </el-table-column>
                 <el-table-column
-                        prop="startTime"
-                        label="预约登记日期">
+                        prop="subscribeEfficientTime"
+                        :show-overflow-tooltip="true"
+                        label="预约生效时间">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.subscribeEfficientTime == null || scope.row.subscribeEfficientTime=='' ?'---':scope.row.subscribeEfficientTime}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
-                        prop="endTime"
-                        label="最迟取书日期">
+                        prop="subscribeEndTime"
+                        :show-overflow-tooltip="true"
+                        label="预约结束时间">
                 </el-table-column>
                 <el-table-column
                         label="状态"
                         prop="state">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.state == 0?'成功':'失败'}}</span>
+                    </template>
                 </el-table-column>
                 <el-table-column
-                        label="取书人"
-                        prop="receptionist">
+                        label="读者名称"
+                        :show-overflow-tooltip="true"
+                        prop="fkReaderName">
                 </el-table-column>
             </el-table>
         </div>
@@ -73,6 +85,7 @@
 </template>
 
 <script>
+    import {hisSubscribeFun} from '@/request/api/readerCenter'
     export default {
         data(){
             return {
@@ -81,23 +94,69 @@
                     startTime:'',//登记日期
                     endTime:'',//取书日期
                 },
-                pageNum:'',//跳转的页数
-                tableData:[
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'已取',receptionist:'张倩怡'},
-                ]
+                currentPage:1,
+                pageSize:13,
+                Total:0,
+                tableData:[]
             }
+        },
+        methods:{
+            searchApi(){
+                hisSubscribeFun(
+                    this.pageSize,
+                    this.currentPage
+                ).then((res)=>{
+                    console.log('查询历史预约记录返回的数据',res)
+                    if(res.data.state==true){
+                        this.tableData=res.data.row;
+                        this.Total=res.data.total
+                    }else{
+                        this.$message.error(res.data.msg);
+                    }
+                })
+            },
+            //首页跳转按钮
+            homePageBtn(){
+                this.currentPage=1
+                this.searchApi(this.currentPage)
+            },
+            //尾页跳转按钮
+            lastPageBtn(){
+                if(this.Total>13){
+                    this.currentPage=Math.ceil(this.Total/13)
+                }else{
+                    this.currentPage=1
+                }
+                this.searchApi(this.currentPage)
+            },
+            //上一页跳转按钮
+            previousPageBtn(){
+                if(this.currentPage==1){
+                    return
+                }else{
+                    this.currentPage--;
+                    this.searchApi(this.currentPage)
+                }
+            },
+            //下一页跳转按钮
+            nextPageBtn(){
+                console.log(this.currentPage)
+                console.log(Math.ceil(this.Total/13))
+                if(this.currentPage===Math.ceil(this.Total/13)){
+                    console.log('页面不进行跳转')
+                }else{
+                    this.currentPage++;
+                    this.searchApi(this.currentPage)
+                }
+
+            },
+            //依据页码跳转的按钮
+            jumpBtn(){
+                this.searchApi(this.currentPage)
+            },
+        },
+        created(){
+            this.searchApi()
         }
     }
 </script>
