@@ -41,7 +41,60 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { loginInt } from "@/request/api/login";
+=======
+    import {loginInt} from "@/request/api/login";
+
+    export default {
+        data(){
+            return {
+                form:{
+                    name:'',//用户名
+                    password:'',//密码
+                    center:'',//分中心
+                },
+                rules: {
+                    name: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                    password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+                    center: [{ required: true, message: '请选择分中心', trigger: 'change' }],
+                },
+                userIcon:require('../../common/img/readerIcon/BasicInfo.png')
+            }
+        },
+        methods:{
+            //登陆按钮
+            landingBtn(){
+                /* this.$store.dispatch('login',this.form).then(()=>{
+                    this.$message.success('登录成功')
+                    //this.$router.push('/ReaderNavigation');
+                    console.log('???')
+                }).catch((err) => {
+                    this.$message.error(err)
+                }) */
+                loginInt.loginFun(this.form.name,this.form.password).then((res)=>{
+                    console.log('登录后返回的信息',res)
+                    if(res.data.state==true){
+                        /* var userInfo = JSON.stringify(res.data.row.nowLoginUser)
+                        var authorization=res.data.row.authorization;
+                        sessionStorage.setItem('userInfo',userInfo);
+                        sessionStorage.setItem('authorization',authorization); */
+
+                        this.$store.dispatch('login',res)
+
+                        this.$message.success(res.data.msg)
+                        this.$router.push('/ReaderNavigation');
+                    }else{
+                        console.log(res.data.msg)
+                    }
+
+                })
+            },
+            //取消按钮
+            cancelBtn(formName){
+                this.$refs[formName].resetFields();
+            },
+>>>>>>> 87ed1bc3128c941153963edbe42bb293b24a89fb
 
 export default {
   data() {
@@ -92,35 +145,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#login {
-  margin: 70px auto 0px;
-  width: 815px;
-  height: 600px;
-}
-.loginBack {
-  background-image: url("../../common/img/login/login.png");
-  width: 475px;
-  height: 220px;
-  padding: 90px 170px;
-}
-.iconStyle {
-  width: 20px;
-  height: 20px;
-  margin-top: 10px;
-}
-.pointOut {
-  padding: 20px 20px;
-}
-.pointTitle {
-  color: #12b494;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-.pointFont {
-  color: #2a2a2a;
-  margin-bottom: 20px;
-  margin-left: 20px;
-  font-size: 15px;
-}
+    #login{
+        margin: 0px auto;
+        width: 815px;
+        height: 600px;
+    }
+    .loginBack{
+        background-image: url("../../common/img/login/login.png");
+        width: 475px;
+        height: 220px;
+        padding: 90px 170px;
+    }
+    .iconStyle{
+        width: 20px;
+        height: 20px;
+        margin-top: 10px;
+    }
+    .pointOut{
+        padding: 20px 20px;
+    }
+    .pointTitle{
+        color: #12b494;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    .pointFont{
+        color: #2a2a2a;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        font-size: 15px;
+    }
 </style>
 

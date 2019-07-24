@@ -8,25 +8,32 @@
             <div></div>
         </div>
 
-        <div class="flexLayoutRow">
-            <el-form :model="ruleForm" status-icon  class="demo-ruleForm flexLayoutRow" style="height: 35px">
-                <el-form-item label="起始时间：" label-width="110px" class="dateInput">
-                    <el-date-picker type="date" placeholder="开始时间" v-model="ruleForm.startTime"></el-date-picker>
-                    <span style="padding:0px 5px 0px 2px">-</span>
-                    <el-date-picker type="date" placeholder="结束时间" v-model="ruleForm.endTime"></el-date-picker>
-                </el-form-item>
-                <el-form-item>
-                    <el-input v-model="ruleForm.bookName" placeholder="请输入书名" class="textInput"></el-input>
-                </el-form-item>
-                <span class="serchBtn">搜索</span>
-            </el-form>
-            <div class="flexLayoutRow pagingDiv pagingBut" style="margin-top: 15px">
-                <el-button plain>首页</el-button>
-                <el-button plain>上一页</el-button>
-                <el-button plain>下一页</el-button>
-                <el-button plain>尾页</el-button>
-                <input type="text" class="pageInput" v-model="pageNum">
-                <el-button plain>跳转</el-button>
+        <div class="flexLayoutColumn">
+            <div class="flexLayoutRow">
+                <div></div>
+                <el-form :model="ruleForm" status-icon  class="demo-ruleForm flexLayoutRow" style="height: 35px">
+                    <el-form-item label="起始时间：" label-width="110px" class="dateInput">
+                        <el-date-picker type="date" placeholder="开始时间" v-model="ruleForm.startTime"></el-date-picker>
+                        <span style="padding:0px 5px 0px 2px">-</span>
+                        <el-date-picker type="date" placeholder="结束时间" v-model="ruleForm.endTime"></el-date-picker>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-input v-model="ruleForm.bookName" placeholder="请输入书名" class="textInput"></el-input>
+                    </el-form-item>
+                    <span class="serchBtn">搜索</span>
+                </el-form>
+            </div>
+
+            <div class="flexLayoutRow">
+                <div></div>
+                <div class="flexLayoutRow pagingDiv pagingBut" style="margin-top: 15px">
+                    <el-button plain>首页</el-button>
+                    <el-button plain>上一页</el-button>
+                    <el-button plain>下一页</el-button>
+                    <el-button plain>尾页</el-button>
+                    <input type="text" class="pageInput" v-model="pageNum">
+                    <el-button plain>跳转</el-button>
+                </div>
             </div>
         </div>
         <div style="margin-top: 5px" class="tableStyle">
@@ -68,6 +75,7 @@
 </template>
 
 <script>
+    import {nowRenewFun} from "@/request/api/readerCenter"
     export default {
         data(){
             return {
@@ -75,26 +83,29 @@
                 ruleForm:{
                     startTime:'',//开始时间
                     endTime:'',//结束时间
-                    bookName:''//书名
+                    bookName:'',//书名
                 },
+                pageSize:13,//页面条数
+                currentPage:1,//页码
                 pageNum:'',//跳转的页数
-                tableData:[
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借失败'},
-                    {name:"红楼梦",author:"曹雪芹",publish:'重庆夔牛出版社',startTime:"2019-09-09",endTime:'2019-12-12',state:'续借成功'},
-                ]
+                tableData:[]
             }
+        },
+        methods:{
+            searchApi(){
+                nowRenewFun(
+                    this.ruleForm.bookName,
+                    this.ruleForm.startTime,
+                    this.ruleForm.endTime,
+                    this.pageSize,
+                    this.currentPage
+                ).then((res)=>{
+                    console.log('查询借阅记录返回的数据',res)
+                })
+            }
+        },
+        created(){
+            this.searchApi()
         }
     }
 </script>

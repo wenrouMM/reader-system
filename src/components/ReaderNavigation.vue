@@ -1,6 +1,6 @@
 <template>
     <div id="NavigationPage" class="outerDiv flexLayoutRow">
-        <div >
+        <div style="width: 220px">
             <el-menu
                     :default-active="$route.path"
                     router
