@@ -3,7 +3,7 @@
     <section class="titleBox">
       <div class="titleCtx">
         <p class="title fl">{{bookData.name}}</p>
-        <p class="back fr">返回</p>
+        <p class="back fr" @click="back">返回</p>
       </div>
     </section>
     <section class="bookBox">
@@ -63,7 +63,7 @@
               </div>
               <div class="select"></div>
             </div>
-            <div class="collect" @click="isCollect=!isCollect">
+            <div class="collect" @click="collectBtn">
               <p class="size">
                 <i :style="{color:isCollect?'#f15a4a':'#757575'}" class="el-icon-star-on"></i>
               </p>
@@ -103,6 +103,11 @@
             <el-table-column align="center" prop="lendState" label="馆藏状态"></el-table-column>
             <el-table-column align="center" prop="planReturnTime" label="应还时间"></el-table-column>
             <el-table-column align="center" prop="renarks" label="备注"></el-table-column>
+            <el-table-column align="center" prop="renarks" label="操作">
+              <template slot-scope="scope">
+                <span @click="orderBtn(scope.row)" style="margin-left: 10px">预约</span>
+              </template>
+            </el-table-column>
           </el-table>
         </div>
       </div>
@@ -112,6 +117,7 @@
 
 <script>
 import { detailInt, selectInt } from "@/request/api/search";
+import {orderInt} from '@/request/api/collect'
 export default {
   name: "detail",
   data() {
@@ -127,7 +133,35 @@ export default {
       shareShow: false // 控制分享框的显隐
     };
   },
+  computed:{
+    hasLogin(){
+      return this.$store.token?true:false
+    }
+  },
   methods: {
+    collectBtn() {
+      if(isCollect ){
+
+      }else {
+
+      }
+
+      this.isCollect = !this.isCollect
+    },
+    // 预约
+    orderBtn(row) {
+      console.log('预约',row)
+    },
+    back() {
+      this.$router.go(-1)
+    },
+    /*------ api ------*/
+    _order(obj) {
+      let data = obj
+      orderInt(data).then((res) =>{
+        console.log()
+      })
+    },
     _detail(id) {
       let data = id;
       detailInt(data).then(res => {
@@ -144,13 +178,13 @@ export default {
     }
   },
   created() {
+    console.log('让我康康',this.hasLogin)
     let id = this.$route.params;
     let obj = {};
     obj.fkCataBookId = id.id;
     this._detail(id);
     this._select(obj);
-    console.log(obj);
-    console.log(this.$route.params);
+    
   }
 };
 </script>
@@ -169,6 +203,7 @@ export default {
       .back {
         font-size: 13px;
         color: #040404;
+        cursor: pointer;
       }
     }
   }

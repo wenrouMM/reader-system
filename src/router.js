@@ -63,76 +63,121 @@ export default new Router({
                     children: [{
                             path: '/BasicInfo',
                             title: '基本信息',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/BasicInfo.vue'),
                         },
                         {
                             path: '/DocumentProcessing',
                             title: '证件挂失/恢复',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/DocumentProcessing.vue'),
                         },
                         {
                             path: '/ChangePassword',
                             title: '修改密码',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/ChangePassword.vue'),
                         },
                         {
                             path: '/ModifyLoginName',
                             title: '修改登录名',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/ModifyLoginName.vue'),
                         },
                         {
                             path: '/BookRenewal',
                             title: '图书续借',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/BookRenewal.vue')
                         },
                         {
                             path: '/CurrentBorrowingQueries',
                             title: '当前借阅查询',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/CurrentBorrowingQueries.vue')
                         },
                         {
                             path: '/HistoryLoanEnquiry',
                             title: '历史借阅查询',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/HistoryLoanEnquiry.vue')
                         },
                         {
                             path: '/MyCollection',
                             title: '历史借阅查询',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/MyCollection.vue')
                         },
                         {
                             path: '/CurrentAppointment',
                             title: '当前预约',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/CurrentAppointment.vue')
                         },
                         {
                             path: '/HistoricalAppointment',
                             title: '历史预约查询',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/HistoricalAppointment.vue')
                         },
                         {
                             path: '/ReaderRecommendation',
                             title: '读者自荐',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/ReaderRecommendation.vue')
                         },
                         {
                             path: '/Order',
                             title: '征订荐购',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/Order.vue')
                         },
                         {
                             path: '/HisRecommendation',
                             title: '历史荐购',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/HisRecommendation.vue')
                         },
                         {
                             path: '/RecommendRanking',
                             title: '荐购排行',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/RecommendRanking.vue')
                         },
                         {
                             path: '/FinancialManagement',
                             title: '财务管理',
+                            meta:{
+                                permission:true
+                            },
                             component: () => import('page/reader/FinancialManagement.vue')
                         },
                     ]
@@ -145,14 +190,9 @@ export default new Router({
         },
         {
             path: '/test',
-            component: () => import('./layout/share.vue')
+            component: () => import('../src/components/animate/listFade.vue')
         },
 
-
-        {
-            path: '/test',
-            component: () => import('./components/SearchInput.vue')
-        },
 
 
 

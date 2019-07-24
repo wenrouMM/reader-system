@@ -67,16 +67,23 @@ export default {
   methods:{
     cancel(){
       this.$store.dispatch('logout')
+      if(this.$route.meta.permission){
+        this.$router.push('/search')
+      }
+      
       this.$message.success('退出成功')
     },
   },
   computed:{
     userName () {
       return this.$store.state.name
+    },
+    token () {
+      return this.$store.token
     }
   },
   created(){
-     
+     console.log(this.$route)
   }
 };
 </script>

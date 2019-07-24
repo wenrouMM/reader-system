@@ -40,10 +40,14 @@ const actions= {
         })
     }, */
     login({commit},res){
-        const data = res.data.row
-        commit('SET_TOKEN',data.authorization)
-        setToken(data.authorization)
-        commit('SET_NAME',data.name)
+        return new Promise((resolve,reject) => {
+            const data = res.data.row
+            commit('SET_TOKEN',data.authorization)
+            commit('SET_NAME',data.name)
+            setToken(data.authorization)
+            resolve()
+        })
+        
     },
     
     getInfo({commit}) {
@@ -52,24 +56,30 @@ const actions= {
                 if(res.data.state == true) {
                     const name = res.data.row.readerName
                     commit('SET_NAME',name)
-                    
+                    resolve()
                 } else {
                     Message.error(res.data.msg)
                     resolve()
                 }
                 
                 // 非空判断？ 不是这样的
+            }).catch(error =>{
+                console.log('你执行了吗')
+                console.log(error)
+                reject(error)
             })
-        }).catch(error =>{
-            console.log('你执行了吗')
+        })/* .catch(error =>{
+            console.log('如果这样的话吗')
             console.log(error)
-        })
+            
+        }) */
     },
 
     // 退出登录
     logout({commit}){
         return new Promise((resolve,reject) => {
             commit('SET_TOKEN', '')
+            commit('SET_NAME','')
             removeToken()
             resolve()
         }).catch( error => {
@@ -80,6 +90,7 @@ const actions= {
     resetToken({commit}) {
         return new  Promise((resolve) => {
             commit('SET_TOKEN','')
+            commit('SET_NAME','')
             removeToken()
             resolve()
         })
