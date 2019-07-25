@@ -39,108 +39,54 @@
     </div>
   </div>
 </template>
-
+s
 <script>
-<<<<<<< HEAD
 import { loginInt } from "@/request/api/login";
-=======
-    import {loginInt} from "@/request/api/login";
-
-    export default {
-        data(){
-            return {
-                form:{
-                    name:'',//用户名
-                    password:'',//密码
-                    center:'',//分中心
-                },
-                rules: {
-                    name: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-                    password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-                    center: [{ required: true, message: '请选择分中心', trigger: 'change' }],
-                },
-                userIcon:require('../../common/img/readerIcon/BasicInfo.png')
-            }
-        },
-        methods:{
-            //登陆按钮
-            landingBtn(){
-                /* this.$store.dispatch('login',this.form).then(()=>{
-                    this.$message.success('登录成功')
-                    //this.$router.push('/ReaderNavigation');
-                    console.log('???')
-                }).catch((err) => {
-                    this.$message.error(err)
-                }) */
-                loginInt.loginFun(this.form.name,this.form.password).then((res)=>{
-                    console.log('登录后返回的信息',res)
-                    if(res.data.state==true){
-                        /* var userInfo = JSON.stringify(res.data.row.nowLoginUser)
-                        var authorization=res.data.row.authorization;
-                        sessionStorage.setItem('userInfo',userInfo);
-                        sessionStorage.setItem('authorization',authorization); */
-
-                        this.$store.dispatch('login',res)
-
-                        this.$message.success(res.data.msg)
-                        this.$router.push('/ReaderNavigation');
-                    }else{
-                        console.log(res.data.msg)
-                    }
-
-                })
-            },
-            //取消按钮
-            cancelBtn(formName){
-                this.$refs[formName].resetFields();
-            },
->>>>>>> 87ed1bc3128c941153963edbe42bb293b24a89fb
-
 export default {
-  data() {
-    return {
-      form: {
-        name: "", //用户名
-        password: "", //密码
-        center: "" //分中心
-      },
-      rules: {
-        name: [{ required: true, message: "请输入用户名", trigger: "blur" }],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }],
-        center: [{ required: true, message: "请选择分中心", trigger: "change" }]
-      },
-      userIcon: require("../../common/img/readerIcon/BasicInfo.png")
-    };
-  },
-  methods: {
-    //登陆按钮
-    landingBtn() {
-      loginInt.loginFun(this.form.name, this.form.password).then(res => {
-        console.log("登录后返回的信息", res);
-        if (res.data.state == true) {
-          var userInfo = JSON.stringify(res.data.row.nowLoginUser);
-          const data = res.data.row;
-          var authorization = res.data.row.authorization;
-          sessionStorage.setItem("userInfo", userInfo);
-          sessionStorage.setItem("authorization", authorization);
-          this.$store.commit("SET_TOKEN", data.authorization);
-          this.$store.commit("SET_NAME", data.nowLoginUser.name);
-          this.$message.success('登录成功')
-          this.$router.push("/BasicInfo");
-        } else {
-          console.log(res.data.msg);
-        }
-      });
-      /* sessionStorage.setItem("authorization", "123456");
-      this.$store.commit("SET_TOKEN", "123456");
-      this.$store.commit("SET_NAME", "啥啥啥");
-      this.$router.push("/BasicInfo"); */
+    data() {
+        return {
+            form: {
+                name: "", //用户名
+                password: "", //密码
+                center: "" //分中心
+            },
+            rules: {
+                name: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+                password: [{ required: true, message: "请输入密码", trigger: "blur" }],
+                center: [{ required: true, message: "请选择分中心", trigger: "change" }]
+            },
+            userIcon: require("../../common/img/readerIcon/BasicInfo.png")
+        };
     },
-    //取消按钮
-    cancelBtn(formName) {
-      this.$refs[formName].resetFields();
+    methods: {
+        //登陆按钮
+        landingBtn() {
+            loginInt.loginFun(this.form.name, this.form.password).then(res => {
+                console.log("登录后返回的信息", res);
+                if (res.data.state == true) {
+                    var userInfo = JSON.stringify(res.data.row.nowLoginUser);
+                    const data = res.data.row;
+                    var authorization = res.data.row.authorization;
+                    sessionStorage.setItem("userInfo", userInfo);
+                    sessionStorage.setItem("authorization", authorization);
+                    this.$store.commit("SET_TOKEN", data.authorization);
+                    this.$store.commit("SET_NAME", data.nowLoginUser.name);
+                    this.$message.success('登录成功')
+                    this.$router.push("/BasicInfo");
+                } else {
+                    console.log(res.data.msg);
+                }
+            });
+            /* sessionStorage.setItem("authorization", "123456");
+            this.$store.commit("SET_TOKEN", "123456");
+            this.$store.commit("SET_NAME", "啥啥啥");
+            this.$router.push("/BasicInfo"); */
+        },
+        //取消按钮
+        cancelBtn(formName) {
+            this.$refs[formName].resetFields();
+        }
     }
-  }
 };
 </script>
 

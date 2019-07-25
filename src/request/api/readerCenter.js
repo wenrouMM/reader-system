@@ -82,11 +82,13 @@ export function cencalSubscribeFun(bookId){
     })
 }
 /******我的预约》历史预约记录 *****/
-export function hisSubscribeFun(pS,cP){
+export function hisSubscribeFun(pS,cP,bT,eT){
     return axios.get(readerInfo.hisSubscribe,{
         params:{
             pageSize:pS,
-            currentPage:cP
+            currentPage:cP,
+            beginTime:bT,
+            endTime:eT
         }
     })
 }

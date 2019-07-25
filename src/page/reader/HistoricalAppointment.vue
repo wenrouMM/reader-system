@@ -8,29 +8,22 @@
             <div></div>
         </div>
 
-        <div class="flexLayoutColumn">
-            <div class="flexLayoutRow">
-                <div></div>
-                <el-form :model="ruleForm" status-icon  class="demo-ruleForm flexLayoutRow" style="height: 35px">
-                    <el-form-item label="登记日期：" label-width="110px" class="dateInput">
-                        <el-date-picker type="date" v-model="ruleForm.startTime"></el-date-picker>
-                    </el-form-item>
-                    <el-form-item  label="取书日期：" label-width="110px" class="dateInput">
-                        <el-date-picker type="date" v-model="ruleForm.endTime"></el-date-picker>
-                    </el-form-item>
-                    <span class="serchBtn">搜索</span>
-                </el-form>
-            </div>
-            <div class="flexLayoutRow">
-                <div></div>
-                <div class="flexLayoutRow pagingDiv pagingBut" style="margin-top: 15px">
-                    <el-button plain @click="homePageBtn">首页</el-button>
-                    <el-button plain @click="previousPageBtn">上一页</el-button>
-                    <el-button plain @click="nextPageBtn">下一页</el-button>
-                    <el-button plain @click="lastPageBtn">尾页</el-button>
-                    <input type="text" class="pageInput" v-model="currentPage">
-                    <el-button plain @click="jumpBtn">跳转</el-button>
-                </div>
+        <div class="flexLayoutRow">
+            <el-form :model="ruleForm" status-icon  class="demo-ruleForm flexLayoutRow" style="height: 35px">
+                <el-form-item label="预约开始日期：" label-width="130px" class="dateInput">
+                    <el-date-picker type="date" v-model="ruleForm.startTime" value-format="yyyy-MM-dd"></el-date-picker>
+                    <span style="padding: 0px 6px 0px 2px">-</span>
+                    <el-date-picker type="date" v-model="ruleForm.endTime" value-format="yyyy-MM-dd"></el-date-picker>
+                </el-form-item>
+                <span class="serchBtn" @click="searchApi">搜索</span>
+            </el-form>
+            <div class="flexLayoutRow pagingDiv pagingBut" style="margin-top: 15px">
+                <el-button plain @click="homePageBtn">首页</el-button>
+                <el-button plain @click="previousPageBtn">上一页</el-button>
+                <el-button plain @click="nextPageBtn">下一页</el-button>
+                <el-button plain @click="lastPageBtn">尾页</el-button>
+                <input type="text" class="pageInput" v-model="currentPage">
+                <el-button plain @click="jumpBtn">跳转</el-button>
             </div>
 
         </div>
@@ -53,6 +46,11 @@
                         prop="fkLibraryName"
                         :show-overflow-tooltip="true"
                         label="取书馆">
+                </el-table-column>
+                <el-table-column
+                        prop="subscribeBeginTime"
+                        :show-overflow-tooltip="true"
+                        label="预约开始时间">
                 </el-table-column>
                 <el-table-column
                         prop="subscribeEfficientTime"
@@ -104,7 +102,9 @@
             searchApi(){
                 hisSubscribeFun(
                     this.pageSize,
-                    this.currentPage
+                    this.currentPage,
+                    this.ruleForm.startTime,
+                    this.ruleForm.endTime
                 ).then((res)=>{
                     console.log('查询历史预约记录返回的数据',res)
                     if(res.data.state==true){
@@ -173,5 +173,6 @@
         margin-left: 5px;
         font-size: 15px;
         text-align: center;
+        cursor: default;
     }
 </style>
