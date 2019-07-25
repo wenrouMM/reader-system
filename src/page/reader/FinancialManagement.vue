@@ -15,7 +15,7 @@
                     <span style="padding:0px 5px 0px 2px">-</span>
                     <el-date-picker type="date" placeholder="结束时间" value-format="yyyy-MM-dd" v-model="ruleForm.endTime"></el-date-picker>
                 </el-form-item>
-                <span class="serchBtn" @click="searchBtn">搜索</span>
+                <span class="serchBtn" @click="searchApi">搜索</span>
             </el-form>
             <div class="flexLayoutRow pagingDiv pagingBut" style="margin-top: 15px">
                 <el-button plain @click="homePageBtn">首页</el-button>
@@ -127,10 +127,6 @@
             jumpBtn(){
                 this.searchApi(this.currentPage)
             },
-            //搜索按钮
-            searchBtn(){
-                this.searchApi(this.currentPage)
-            }
         },
         created(){
             this.searchApi(this.currentPage)

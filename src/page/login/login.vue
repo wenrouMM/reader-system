@@ -39,7 +39,7 @@
     </div>
   </div>
 </template>
-
+s
 <script>
 import { loginInt } from "@/request/api/login";
 
@@ -83,11 +83,35 @@ export default {
       this.$store.commit("SET_NAME", "啥啥啥");
       this.$router.push("/BasicInfo"); */
     },
-    //取消按钮
-    cancelBtn(formName) {
-      this.$refs[formName].resetFields();
+    methods: {
+        //登陆按钮
+        landingBtn() {
+            loginInt.loginFun(this.form.name, this.form.password).then(res => {
+                console.log("登录后返回的信息", res);
+                if (res.data.state == true) {
+                    var userInfo = JSON.stringify(res.data.row.nowLoginUser);
+                    const data = res.data.row;
+                    var authorization = res.data.row.authorization;
+                    sessionStorage.setItem("userInfo", userInfo);
+                    sessionStorage.setItem("authorization", authorization);
+                    this.$store.commit("SET_TOKEN", data.authorization);
+                    this.$store.commit("SET_NAME", data.nowLoginUser.name);
+                    this.$message.success('登录成功')
+                    this.$router.push("/BasicInfo");
+                } else {
+                    console.log(res.data.msg);
+                }
+            });
+            /* sessionStorage.setItem("authorization", "123456");
+            this.$store.commit("SET_TOKEN", "123456");
+            this.$store.commit("SET_NAME", "啥啥啥");
+            this.$router.push("/BasicInfo"); */
+        },
+        //取消按钮
+        cancelBtn(formName) {
+            this.$refs[formName].resetFields();
+        }
     }
-  }
 };
 </script>
 
