@@ -2,9 +2,9 @@
 import axios from 'axios'
 var url = window.url
 const collectUrl = {
-    collectSe:`${url}serviceforreadermodule/SfrTbCollect/getSfrTbCollects`, // 收藏查询
-    collectAdd:`${url}serviceforreadermodule/SfrTbCollect/addSfrTbCollect`, // 收藏
-    collectDel:`${url}serviceforreadermodule/SfrTbCollect/deleteSfrTbCollect` // 取消收藏
+    search:`${url}serviceforreadermodule/SfrTbCollect/checkCollect`, // 判断是否收藏
+    add:`${url}serviceforreadermodule/SfrTbCollect/addSfrTbCollect`, // 收藏
+    delete:`${url}serviceforreadermodule/SfrTbCollect/deleteSfrTbCollect` // 取消收藏
 }
 
 const orderUrl = {
@@ -12,17 +12,34 @@ const orderUrl = {
 }
 
 export const collectInt ={
-
+    check:search,
+    collect:collect,
+    delect:delectCo
 }
 
 export function orderInt(obj) {
-    return axios.post(orderInt,{
-        data:obj
+    return axios.post(orderUrl.order,obj
+    ).then((res) => {
+        return Promise.resolve(res)
+    })
+}
+// 收藏查询
+function search(obj) {
+    return axios.get(collectUrl.search,{
+        params:obj
     }).then((res) => {
         return Promise.resolve(res)
     })
 }
-
-function search() {
-    
+// 点击收藏
+function collect(data) {
+    return axios.post(collectUrl.add,data).then((res) => {
+        return Promise.resolve(res)
+    })
+}
+// 取消收藏
+function delectCo(data) {
+    return axios.post(collectUrl.delete,data).then((res) => {
+        return Promise.resolve(res)
+    })
 }

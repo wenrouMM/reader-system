@@ -49,11 +49,16 @@
       </div>
       <div class="aside-right">
         <!-- 分页器 -->
-        <section class="pagation"></section>
+        <section class="pagation">
+          <pagation></pagation>
+        </section>
         <section class="bookBox">
-          <div class="protect" v-for="(item,index) of collectionList" :key="index">
+          <animation>
+            <div  class="protect" :data-index="index" v-for="(item,index) of collectionList" :key="index">
             <book-block :data="item" ></book-block>
           </div>
+          </animation>
+          
         </section>
       </div>
     </section>
@@ -86,23 +91,21 @@ const init = [
 import SearchInput from "@/components/SearchInput";
 import BookBlock from "@/components/bookBlock";
 import launch from "@/components/launch"
+import animation from "@/components/animate/listFade"
+import pagation from "@/components/pagation"
 import {searchInt} from '@/request/api/search'
 export default {
   data() {
     return {
-      launch: false,
-      sortValue: "",
-      tableData: [],
+      launch: false, // 是否分类
+      sortValue: "", // 数据排序
+      tableData: [], // 渲染数据
       sortOptions: [
         {
           label: "匹配度升序",
           value: "1"
         }
       ],
-
-      selectForm: {
-        region: "1"
-      },
       // 
       total:0,
       // 组件传递数据 馆藏列表
@@ -181,7 +184,9 @@ export default {
   components: {
     SearchInput,
     BookBlock,
-    launch
+    launch,
+    animation,
+    pagation
   },
   created(){ 
     let container = this.$route.query
@@ -264,6 +269,10 @@ export default {
       position: relative;
       min-height: 143px;
       .pagation {
+        height: 40px;
+        width: 100%;
+        display: flex;
+        flex-direction: row-reverse;
       }
       .bookBox {
         .protect{

@@ -72,7 +72,7 @@
               </p>
             </div>
           </div>
-          <div class="order">书籍预约</div>
+          
         </div>
       </div>
     </section>
@@ -100,12 +100,13 @@
             <el-table-column align="center" prop="name" label="索书号"></el-table-column>
             <el-table-column align="center" prop="address" label="所属分馆"></el-table-column>
             <el-table-column align="center" prop="place" label="馆藏所在地"></el-table-column>
-            <el-table-column align="center" prop="lendState" label="馆藏状态"></el-table-column>
+            <el-table-column align="center" prop="lendState" label="馆藏状态">
+            </el-table-column>
             <el-table-column align="center" prop="planReturnTime" label="应还时间"></el-table-column>
             <el-table-column align="center" prop="renarks" label="备注"></el-table-column>
             <el-table-column align="center" prop="renarks" label="操作">
               <template slot-scope="scope">
-                <span @click="orderBtn(scope.row)" style="margin-left: 10px">预约</span>
+                <span class="preBtn" @click="orderBtn(scope.row)" style="margin-left: 10px">预约</span>
               </template>
             </el-table-column>
           </el-table>
@@ -117,7 +118,8 @@
 
 <script>
 import { detailInt, selectInt } from "@/request/api/search";
-import {orderInt} from '@/request/api/collect'
+import {orderInt,collectInt} from '@/request/api/collect'
+
 export default {
   name: "detail",
   data() {
@@ -135,33 +137,54 @@ export default {
   },
   computed:{
     hasLogin(){
-      return this.$store.token?true:false
+      console.log(this.$store.state.token)
+      return this.$store.state.token?true:false
     }
   },
   methods: {
     collectBtn() {
-      if(isCollect ){
-
-      }else {
-
+      if(this.hasLogin){
+        if(this.isCollect){
+          this.isCollect = false
+          this.$message.success('取消收藏成功')
+        } else {
+          this.isCollect = true
+          this.$message.success('收藏成功')
+        }
+      } else {
+        this.$message.error('请先登录')
       }
 
-      this.isCollect = !this.isCollect
+      
     },
     // 预约
     orderBtn(row) {
+      if(this.hasLogin){
+        let obj = {}
+        obj.bookId = row.id
+        this._order(obj)
+      } else {
+        this.$message.error('请先登录')
+      }
       console.log('预约',row)
     },
     back() {
       this.$router.go(-1)
     },
     /*------ api ------*/
+    // 预约
     _order(obj) {
       let data = obj
       orderInt(data).then((res) =>{
-        console.log()
+        console.log(res)
+        if(res.data.state == true){
+          this.$message.success('预约成功')
+        } else {
+          this.$message.error(res.data.msg)
+        }
       })
     },
+    // 详情查询
     _detail(id) {
       let data = id;
       detailInt(data).then(res => {
@@ -169,12 +192,22 @@ export default {
         this.bookData = res.data.row;
       });
     },
+    // 简单查询
     _select(fkCataBookId) {
       let data = fkCataBookId;
       selectInt(data).then(res => {
         console.log("下拉", res);
-        this.tableData = res.data.row;
+        if(res.data.state == true) {
+          this.tableData = res.data.row;
+        }
+        
       });
+    },
+    _isCollect(id) {
+      let data = id;
+      collectInt.check(data).then((res) => {
+        console.log("是否收藏", res);
+      })
     }
   },
   created() {
@@ -184,7 +217,9 @@ export default {
     obj.fkCataBookId = id.id;
     this._detail(id);
     this._select(obj);
-    
+    if(this.hasLogin){
+      this._isCollect(id)
+    }
   }
 };
 </script>
@@ -357,6 +392,9 @@ export default {
     }
 
     .tableBox {
+      .preBtn{
+        cursor: pointer;
+      }
     }
   }
 }

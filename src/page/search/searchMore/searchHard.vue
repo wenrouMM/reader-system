@@ -69,16 +69,22 @@
           <div class="timeBox">
             <el-input v-model="startTime" placeholder="请输入起始时间"></el-input>
           </div>
-          <p class="divide">
-            ----
-          </p>
-          
+          <p class="divide">----</p>
+
           <div class="timeBox">
             <el-input v-model="endTime" placeholder="请输入结束时间"></el-input>
           </div>
         </div>
         <div class="selectBox">
           <span class="text">每页显示行数：</span>
+          <el-select v-model="pageSize" placeholder="请选择">
+            <el-option
+              v-for="(item,index) of pageOption"
+              :key="index"
+              :label="item"
+              :value="item"
+            ></el-option>
+          </el-select>
         </div>
       </section>
       <!-- <section class="house">
@@ -118,9 +124,10 @@ export default {
       // 二层选择框
       language: "", // 语言
       documentType: "", // 文献类型
-      startTime:'',
-      endTime:'',
-      pageSize:'20',
+      startTime: "",
+      endTime: "",
+      pageSize: "10",
+      pageOption:['10','20','30'],
       // 阉割的分中心
       checkAll: false,
       checkedCities: [],
@@ -182,21 +189,23 @@ export default {
   computed: {
     submitTimeForm() {
       let obj = {
-        condition2:'and',
-        condition3:'and',
+        condition2: "and",
+        condition3: "and",
+        currentPage:1
       };
-      obj.language = this.language
-      obj.literatureType = this.documentType
-      obj.startTime = this.startTime
-      obj.endTime = this.endTime
-      let key1 = this.select
-      let key2 = this.select2 + '2'
-      let key3 = this.select3 + '3'
-      obj[key1] = this.searchForm.one
-      obj[key2] = this.searchForm.two
-      obj[key3] = this.searchForm.three
+      obj.pageSize = this.pageSize
+      obj.language = this.language;
+      obj.literatureType = this.documentType;
+      obj.startTime = this.startTime;
+      obj.endTime = this.endTime;
+      let key1 = this.select;
+      let key2 = this.select2 + "2";
+      let key3 = this.select3 + "3";
+      obj[key1] = this.searchForm.one;
+      obj[key2] = this.searchForm.two;
+      obj[key3] = this.searchForm.three;
 
-      return obj
+      return obj;
     }
   },
   methods: {
@@ -208,9 +217,9 @@ export default {
       console.log(juge);
       if (juge != -1) {
         console.log("索引", this.searchForm);
-        let val = this.submitTimeForm
-        console.log('跳转',val)
-        this.$router.push({path:'searchList',query:val})
+        let val = this.submitTimeForm;
+        console.log("跳转", val);
+        this.$router.push({ path: "searchList", query: val });
       } else {
         this.$message.error("请至少输入一个搜索条件");
       }
@@ -271,17 +280,17 @@ export default {
           width: 120px;
         }
       }
-      .nomalFlex{
+      .nomalFlex {
         display: flex;
         flex-direction: row;
-        .text{
+        .text {
           line-height: 26px;
         }
-        .timeBox{
+        .timeBox {
           width: 130px;
         }
-        .divide{
-          padding: 0 6px; 
+        .divide {
+          padding: 0 6px;
           line-height: 24px;
         }
       }
@@ -315,7 +324,7 @@ export default {
 #hardSearch .input-with-select .el-input-group__prepend {
   background-color: #fff;
 }
-#hardSearch .timeBox .el-input__inner{
+#hardSearch .timeBox .el-input__inner {
   height: 26px;
 }
 </style>

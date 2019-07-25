@@ -55,7 +55,7 @@ export default {
     _searchto(val){
       console.log('?',val)
       this.$router.push({path:'searchList',query:val})
-      console.log('跳转？')
+      
     },
     focuMask(){
       this.isMask = true

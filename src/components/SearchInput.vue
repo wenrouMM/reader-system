@@ -67,6 +67,8 @@ export default {
       let key = this.select
       let obj = {}
       obj[key] = this.search
+      obj.pageSize = 10,
+      obj.currentPage = 1
       return obj
     }
   },

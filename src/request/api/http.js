@@ -29,21 +29,25 @@ axios.interceptors.response.use(
     // 还要其他的方法获得权限吗 这样是否有一些缺陷
     if (response.data.code == 3001) { // 没有登录 token失效
       sessionStorage.removeItem('authorization')
+      window.vm.$store.dispatch('logout')
       //window.vm.$router.push('/login')
       Message.error(response.data.msg);
-      console.log('拦截器')
+      console.log('未登录')
       console.log('当前页面路径', window.vm.$route.path)
     }
-    if ( response.data.code == 3003) { // 没有登录 token失效
+    if ( response.data.code == 3003) { //  token失效
       sessionStorage.removeItem('authorization')
+      window.vm.$store.dispatch('logout')
       window.vm.$router.push('/login')
       Message.error(response.data.msg);
       console.log('拦截器')
       console.log('当前页面路径', window.vm.$route.path)
     }
-    if (response.code == 3004) { // 已被挤下线
+    if (response.data.code == 3004) { // 已被挤下线
       sessionStorage.removeItem('authorization')
+      window.vm.$store.dispatch('logout')
       window.vm.$router.push('/login') // 进入404页面Or权限不够页面
+      console.log('token是否清楚')
       Message.error(response.data.msg);
     }
 
