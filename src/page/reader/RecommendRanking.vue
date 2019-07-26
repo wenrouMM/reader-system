@@ -54,6 +54,9 @@
                 <el-table-column
                         prop="num"
                         label="荐购次数">
+                    <template slot-scope="scope">
+                        <span style="color: #2a2a2a">{{scope.row.num}}次</span>
+                    </template>
                 </el-table-column>
             </el-table>
         </div>
