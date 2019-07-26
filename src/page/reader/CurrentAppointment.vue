@@ -53,14 +53,14 @@
                         <span style="color: #2a2a2a">{{scope.row.beginTime == null || scope.row.beginTime=='' ?'---':scope.row.beginTime}}</span>
                     </template>
                 </el-table-column>
-                <el-table-columniiiii
+                <el-table-column>
                         prop="subscribeState"
                         :show-overflow-tooltip="true"
                         label="预约状态">
                     <template slot-scope="scope">
                         <span style="color: #2a2a2a">{{scope.row.subscribeState == 0?'等待中':'生效中'}}</span>
                     </template>
-                </el-table-columniiiii>
+                </el-table-column>
                 <el-table-column
                         prop="subscribeState"
                         label="操作">
@@ -161,6 +161,12 @@
             },
             //依据页码跳转的按钮
             jumpBtn(){
+                if(!this.currentPage||this.currentPage==0){
+                    this.currentPage=1
+                }else{
+                    let ym=Math.round(this.currentPage)
+                    this.currentPage=ym
+                }
                 this.searchApi(this.currentPage)
             },
 

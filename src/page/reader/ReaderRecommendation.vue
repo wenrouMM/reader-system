@@ -19,8 +19,8 @@
                     <el-form-item label="出版社：">
                         <el-input v-model="ruleForm.publish"></el-input>
                     </el-form-item>
-                    <el-form-item label="分类号：">
-                        <el-input v-model="ruleForm.classifyNum"></el-input>
+                    <el-form-item label="类型名：">
+                        <el-input v-model="ruleForm.typeName"></el-input>
                     </el-form-item>
                 </div>
                 <div class="flexLayoutColumn">
@@ -44,44 +44,81 @@
                 </el-form-item>
             </div>
 
-            <el-form-item label-width="695px">
+            <el-form-item label-width="625px">
                     <el-button type="primary" @click="submitForm('ruleForm')">确 &nbsp; 认</el-button>
                     <el-button type="info" @click="resetForm('ruleForm')">重 &nbsp; 置</el-button>
             </el-form-item>
         </el-form>
+        <el-dialog
+                :visible.sync="dialogVisible"
+                width="10%"
+                :before-close="handleClose">
+            <span>{{popContent}}</span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
+    import {recommendation} from '@/request/api/readerCenter'
     export default {
         data(){
             return {
                 titleIcon:require('../../common/img/readerIcon/BasicInfo.png'),
                 ruleForm:{
-                    name:'',//书名
-                    author:'',//作者
+                    name:'',//书名*
+                    author:'',//作者*
                     publish:'',//出版社
-                    classifyNum:'',//分类号
-                    type:'',//文献类别
-                    isbn:'',//isbn
-                    time:'',//出版时间
-                    price:'',//价格
-                    reason:''//荐构理由
+                    typeName:'',//类型名
+                    type:'',//文献类别*
+                    isbn:'',//isbn*
+                    time:'',//出版时间*
+                    price:'',//价格*
+                    reason:''//荐构理由*
                 },
                 rules: {
                     name: [{ required: true, message: '请输入书名', trigger: 'blur' }],
                     author:[{required:true,message:'请输入作者名',trigger:'blur'}],
                     isbn:[{required:true,message:'请输入ISBN',trigger:'blur'}],
                     time:[{required:true,message:'请输入出版时间',trigger:'blue'}],
-                }
+                },
+                popContent:'',
+                dialogVisible:false
+            }
+        },
+        computed:{
+            addData(){
+                let newruleForm={
+                    bookName:this.ruleForm.name,
+                    literatureType:this.ruleForm.type,
+                    author:this.ruleForm.author,
+                    isbn:this.ruleForm.isbn,
+                    publishingTime:this.ruleForm.time,
+                    price:this.ruleForm.price,
+                    reason:this.ruleForm.reason,
+                    pressName:this.ruleForm.publish,
+                    typeName:this.ruleForm.typeName,
+                };
+                return newruleForm
             }
         },
         methods:{
+            handleClose(){
+                this.dialogVisible=false
+                for(const i in this.ruleForm){
+                    this.ruleForm[i]=""
+                }
+            },
             //表单确认按钮
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                        recommendation(this.addData).then((res)=>{
+                            console.log('添加读者自荐后返回的数据',res)
+                            if(res.data.state==true){
+                                this.popContent=res.data.msg;
+                                this.dialogVisible=true
+                            }
+                        })
                     } else {
                         console.log('error submit!!');
                         return false;

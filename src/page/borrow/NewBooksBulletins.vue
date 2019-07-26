@@ -1,9 +1,13 @@
 <template>
     <div class="zyfPage outerDiv flexLayoutColumn haveTablePage">
-        <div class="flexLayoutRow title">
-            <img :src="titleIcon" class="titleImg">
-            <div  class="titleFont">新书通报</div>
+        <div class="flexLayoutRow">
+            <div class="flexLayoutRow title">
+                <img :src="titleIcon" class="titleImg">
+                <div  class="titleFont">新书通报</div>
+            </div>
+            <div></div>
         </div>
+
         <el-form label-width="80px" :model="formLabelAlign" class="flexLayoutRow" style="width:870px">
             <el-form-item label="分馆筛选 :">
                 <el-select v-model="formLabelAlign.BranchScreening" placeholder="请选择活动区域">
@@ -104,18 +108,6 @@
 </script>
 
 <style scoped>
-    .title{
-        width:85px;
-        margin-bottom: 20px;
-    }
-    .titleImg{
-        width: 16px;
-        height: 16px;
-    }
-    .titleFont{
-        color: #12B494;
-        font-size:16px
-    }
     .serchBtn{
         height: 30px;
         width: 60px;
