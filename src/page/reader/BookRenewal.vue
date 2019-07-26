@@ -154,6 +154,12 @@
             },
             //依据页码跳转的按钮
             jumpBtn(){
+                if(!this.currentPage||this.currentPage==0){
+                    this.currentPage=1
+                }else{
+                    let ym=Math.round(this.currentPage)
+                    this.currentPage=ym
+                }
                 this.searchApi(this.currentPage)
             },
         },

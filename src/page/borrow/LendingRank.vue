@@ -1,9 +1,13 @@
 <template>
     <div class="zyfPage outerDiv flexLayoutColumn haveTablePage">
-        <div class="flexLayoutRow title">
-            <img :src="titleIcon" class="titleImg">
-            <div  class="titleFont">借阅排行</div>
+        <div class="flexLayoutRow">
+            <div class="flexLayoutRow title">
+                <img :src="titleIcon" class="titleImg">
+                <div  class="titleFont">借阅排行</div>
+            </div>
+            <div></div>
         </div>
+
         <el-form label-width="80px" :model="formLabelAlign" class="flexLayoutRow" style="width:870px">
             <el-form-item label="分馆筛选 :">
                 <el-select v-model="formLabelAlign.BranchScreening" placeholder="请选择活动区域">
