@@ -16,12 +16,7 @@
           <li>
             <span>借阅管理</span>
           </li>
-          <li>
-            <span>读者中心</span>
-          </li>
-          <li>
-            <span>读者登录</span>
-          </li>
+          <router-link tag="li" to="/login">读者登录</router-link>
         </ul>
       </nav>
     </section>
