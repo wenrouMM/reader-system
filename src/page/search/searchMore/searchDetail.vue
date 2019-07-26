@@ -72,7 +72,6 @@
               </p>
             </div>
           </div>
-          
         </div>
       </div>
     </section>
@@ -100,8 +99,7 @@
             <el-table-column align="center" prop="name" label="索书号"></el-table-column>
             <el-table-column align="center" prop="address" label="所属分馆"></el-table-column>
             <el-table-column align="center" prop="place" label="馆藏所在地"></el-table-column>
-            <el-table-column align="center" prop="lendState" label="馆藏状态">
-            </el-table-column>
+            <el-table-column align="center" prop="lendState" label="馆藏状态"></el-table-column>
             <el-table-column align="center" prop="planReturnTime" label="应还时间"></el-table-column>
             <el-table-column align="center" prop="renarks" label="备注"></el-table-column>
             <el-table-column align="center" prop="renarks" label="操作">
@@ -118,7 +116,8 @@
 
 <script>
 import { detailInt, selectInt } from "@/request/api/search";
-import {orderInt,collectInt} from '@/request/api/collect'
+import { orderInt, collectInt } from "@/request/api/collect";
+import { type } from "os";
 
 export default {
   name: "detail",
@@ -128,61 +127,59 @@ export default {
       selectForm: {
         region: "1"
       },
+
       isOutput: true, // 控制是否渲染
       bookData: {}, // 书籍数据
-
+      bokId: "", // 书籍ID
       isCollect: false, // 控制收藏点击事件
       shareShow: false // 控制分享框的显隐
     };
   },
-  computed:{
-    hasLogin(){
-      console.log(this.$store.state.token)
-      return this.$store.state.token?true:false
+  computed: {
+    hasLogin() {
+      console.log(this.$store.state.token);
+      return this.$store.state.token ? true : false;
     }
   },
   methods: {
     collectBtn() {
-      if(this.hasLogin){
-        if(this.isCollect){
-          this.isCollect = false
-          this.$message.success('取消收藏成功')
+      if (this.hasLogin) {
+        if (this.isCollect) {
+          this._outCollect(this.bookId);
         } else {
-          this.isCollect = true
-          this.$message.success('收藏成功')
+          this._collect(this.bookId);
+          console.log("??????");
         }
       } else {
-        this.$message.error('请先登录')
+        this.$message.error("请先登录");
       }
-
-      
     },
     // 预约
     orderBtn(row) {
-      if(this.hasLogin){
-        let obj = {}
-        obj.bookId = row.id
-        this._order(obj)
+      if (this.hasLogin) {
+        let obj = {};
+        obj.bookId = row.id;
+        this._order(obj);
       } else {
-        this.$message.error('请先登录')
+        this.$message.error("请先登录");
       }
-      console.log('预约',row)
+      console.log("预约", row);
     },
     back() {
-      this.$router.go(-1)
+      this.$router.go(-1);
     },
     /*------ api ------*/
     // 预约
     _order(obj) {
-      let data = obj
-      orderInt(data).then((res) =>{
-        console.log(res)
-        if(res.data.state == true){
-          this.$message.success('预约成功')
+      let data = obj;
+      orderInt(data).then(res => {
+        console.log(res);
+        if (res.data.state == true) {
+          this.$message.success("预约成功");
         } else {
-          this.$message.error(res.data.msg)
+          this.$message.error(res.data.msg);
         }
-      })
+      });
     },
     // 详情查询
     _detail(id) {
@@ -197,28 +194,66 @@ export default {
       let data = fkCataBookId;
       selectInt(data).then(res => {
         console.log("下拉", res);
-        if(res.data.state == true) {
+        if (res.data.state == true) {
           this.tableData = res.data.row;
         }
-        
       });
     },
+    // 用户是否收藏
     _isCollect(id) {
       let data = id;
-      collectInt.check(data).then((res) => {
-        console.log("是否收藏", res);
-      })
+      collectInt.check(data).then(res => {
+        console.log("是否收藏", res, typeof res.data.code);
+
+        if (res.data.state == true) {
+          if (res.data.code == 200) {
+            this.isCollect = true;
+          } else {
+            this.isCollect = false;
+          }
+        } else {
+        }
+        console.log(this.isCollect);
+      });
+    },
+    // 收藏
+    _collect(id) {
+      let obj = {
+        fkBookId: id
+      };
+      collectInt.collect(obj).then(res => {
+        console.log("收藏", res);
+        if (res.data.state) {
+          this.isCollect = true;
+          this.$message.success("收藏成功");
+        } else {
+        }
+      });
+    },
+    // 取消收藏
+    _outCollect(id) {
+      let arr = [];
+      arr.push(id);
+      collectInt.delect(arr).then(res => {
+        console.log("取消收藏", res);
+        if (res.data.state) {
+          this.isCollect = false;
+          this.$message.success("取消收藏成功");
+        } else {
+        }
+      });
     }
   },
   created() {
-    console.log('让我康康',this.hasLogin)
+    console.log("让我康康", this.hasLogin);
     let id = this.$route.params;
+    this.bookId = id.id;
     let obj = {};
     obj.fkCataBookId = id.id;
     this._detail(id);
     this._select(obj);
-    if(this.hasLogin){
-      this._isCollect(id)
+    if (this.hasLogin) {
+      this._isCollect(id);
     }
   }
 };
@@ -392,7 +427,7 @@ export default {
     }
 
     .tableBox {
-      .preBtn{
+      .preBtn {
         cursor: pointer;
       }
     }

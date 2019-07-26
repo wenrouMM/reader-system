@@ -2,6 +2,7 @@
   <div id="classify">
     <div class="classifyBox">
       <aside class="leftBox">
+        
         <div class="title">
           <i class="icon">图标</i>
           <span class="text">分类导航</span>
@@ -42,6 +43,8 @@
         </div>
         <div class="searchEnd">
           <el-scrollbar style="height:100%">
+            <div class="loadingBox"><loading :loading="loading"></loading></div>
+            
             <div class="treeBox" v-if="treeArr.length">
               <div class="tree-block" v-for="(item,index) of treeArr" :key="index">
                 <div class="fatherBox">
@@ -106,8 +109,8 @@ const typeArr = [
 ];
 import { searchInt } from "@/request/api/search";
 import { getBigLetter } from "@/common/js/util";
-import launchVue from "@/components/launch.vue";
 import BookBlock from "@/components/bookBlock";
+import loading from "@/layout/loading"
 const classArr = [""];
 export default {
   data() {
@@ -122,11 +125,13 @@ export default {
       totalNumber: 0, // 总本书缓存变量
       launch: -1,
       isOpen: false,
+      loading:true,
       collectionList: [] //
     };
   },
   components:{
-    BookBlock
+    BookBlock,
+    loading
   },
   methods: {
     /*------ opation ------*/
@@ -149,6 +154,7 @@ export default {
       searchInt.collectInt().then(res => {
         console.log("中图分类法", res.data.row);
         this.treeArr = this._Fcollect(res.data.row);
+        this.loading = false;
       });
     },
     // 检索
@@ -246,8 +252,15 @@ export default {
       }
       .searchEnd {
         height: 500px;
+        position: relative;
+        .loadingBox{
+            position: absolute;
+            top: 200px;
+            left: 80px;
+          }
         .treeBox {
           padding-top: 12px;
+          
           .tree-block {
             margin-bottom: 12px;
             .fatherBox {

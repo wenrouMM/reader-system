@@ -39,7 +39,7 @@
     </div>
   </div>
 </template>
-s
+
 <script>
 import { loginInt } from "@/request/api/login";
 
@@ -60,7 +60,6 @@ export default {
     };
   },
   methods: {
-    //登陆按钮
     landingBtn() {
       loginInt.loginFun(this.form.name, this.form.password).then(res => {
         console.log("登录后返回的信息", res);
@@ -72,79 +71,51 @@ export default {
           sessionStorage.setItem("authorization", authorization);
           this.$store.commit("SET_TOKEN", data.authorization);
           this.$store.commit("SET_NAME", data.nowLoginUser.name);
-          this.$message.success('登录成功')
+          this.$message.success("登录成功");
           this.$router.push("/BasicInfo");
         } else {
           console.log(res.data.msg);
         }
       });
-      /* sessionStorage.setItem("authorization", "123456");
-      this.$store.commit("SET_TOKEN", "123456");
-      this.$store.commit("SET_NAME", "啥啥啥");
-      this.$router.push("/BasicInfo"); */
     },
-    methods: {
-        //登陆按钮
-        landingBtn() {
-            loginInt.loginFun(this.form.name, this.form.password).then(res => {
-                console.log("登录后返回的信息", res);
-                if (res.data.state == true) {
-                    var userInfo = JSON.stringify(res.data.row.nowLoginUser);
-                    const data = res.data.row;
-                    var authorization = res.data.row.authorization;
-                    sessionStorage.setItem("userInfo", userInfo);
-                    sessionStorage.setItem("authorization", authorization);
-                    this.$store.commit("SET_TOKEN", data.authorization);
-                    this.$store.commit("SET_NAME", data.nowLoginUser.name);
-                    this.$message.success('登录成功')
-                    this.$router.push("/BasicInfo");
-                } else {
-                    console.log(res.data.msg);
-                }
-            });
-            /* sessionStorage.setItem("authorization", "123456");
-            this.$store.commit("SET_TOKEN", "123456");
-            this.$store.commit("SET_NAME", "啥啥啥");
-            this.$router.push("/BasicInfo"); */
-        },
-        //取消按钮
-        cancelBtn(formName) {
-            this.$refs[formName].resetFields();
-        }
+    //取消按钮
+    cancelBtn(formName) {
+      this.$refs[formName].resetFields();
     }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-    #login{
-        margin: 0px auto;
-        width: 815px;
-        height: 600px;
-    }
-    .loginBack{
-        background-image: url("../../common/img/login/login.png");
-        width: 475px;
-        height: 220px;
-        padding: 90px 170px;
-    }
-    .iconStyle{
-        width: 20px;
-        height: 20px;
-        margin-top: 10px;
-    }
-    .pointOut{
-        padding: 20px 20px;
-    }
-    .pointTitle{
-        color: #12b494;
-        margin-bottom: 20px;
-        font-weight: bold;
-    }
-    .pointFont{
-        color: #2a2a2a;
-        margin-bottom: 20px;
-        margin-left: 20px;
-        font-size: 15px;
-    }
+#login {
+  margin: 0px auto;
+  width: 815px;
+  height: 600px;
+}
+.loginBack {
+  background-image: url("../../common/img/login/login.png");
+  width: 475px;
+  height: 220px;
+  padding: 90px 170px;
+}
+.iconStyle {
+  width: 20px;
+  height: 20px;
+  margin-top: 10px;
+}
+.pointOut {
+  padding: 20px 20px;
+}
+.pointTitle {
+  color: #12b494;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.pointFont {
+  color: #2a2a2a;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  font-size: 15px;
+}
 </style>
 
