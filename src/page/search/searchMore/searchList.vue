@@ -13,11 +13,11 @@
           <!-- <div class="tab ">
             <i class></i>
             <span class="text">本馆图书馆藏（12）</span>
-          </div> -->
+          </div>-->
           <p class="searchData">
             共有
-            <span style="color:#ff4a4a;">12</span>条记录，检索时间：
-            <span style="color:#ff4a4a">0.010秒</span>
+            <span style="color:#ff4a4a;">{{total}}</span>
+            条记录
           </p>
         </div>
       </div>
@@ -47,19 +47,36 @@
         <launch @son-click="searchpublicTime" :key="4" :dataArr="publicTimeArr" :init="initArr[3]"></launch>
         <launch @son-click="searchtype" :key="5" :dataArr="typeArr" :init="initArr[4]"></launch>
       </div>
+
       <div class="aside-right">
-        <!-- 分页器 -->
-        <section class="pagation">
-          <pagation></pagation>
-        </section>
-        <section class="bookBox">
-          <animation>
-            <div  class="protect" :data-index="index" v-for="(item,index) of collectionList" :key="index">
-            <book-block :data="item" ></book-block>
-          </div>
-          </animation>
-          
-        </section>
+        <!--- 暂无数据 --->
+        <div class="no-data" v-if="!collectionList.length">
+          NO data
+        </div>
+        <!-- 数据展示 -->
+        <div v-if="collectionList.length" class="rightBox">
+          <!-- 分页器 -->
+          <section class="pagation">
+            <pagation
+              :allData="total"
+              :pageSize="pageSize"
+              :current="currentPage"
+              @pageChange="pageChangeBtn"
+            ></pagation>
+          </section>
+          <section class="bookBox">
+            <animation>
+              <div
+                class="protect"
+                :data-index="index"
+                v-for="(item,index) of collectionList"
+                :key="index"
+              >
+                <book-block :data="item"></book-block>
+              </div>
+            </animation>
+          </section>
+        </div>
       </div>
     </section>
   </div>
@@ -67,33 +84,33 @@
 
 <script>
 const init = [
-        {
-          title:'所属馆',
-          icon:''
-        },
-        {
-          title:'文献类型',
-          icon:''
-        },
-        {
-          title:'著作者',
-          icon:''
-        },
-        {
-          title:'出版日期',
-          icon:''
-        },
-        {
-          title:'分类',
-          icon:''
-        },
-        ]
+  {
+    title: "所属馆",
+    icon: ""
+  },
+  {
+    title: "文献类型",
+    icon: ""
+  },
+  {
+    title: "著作者",
+    icon: ""
+  },
+  {
+    title: "出版日期",
+    icon: ""
+  },
+  {
+    title: "分类",
+    icon: ""
+  }
+];
 import SearchInput from "@/components/SearchInput";
 import BookBlock from "@/components/bookBlock";
-import launch from "@/components/launch"
-import animation from "@/components/animate/listFade"
-import pagation from "@/components/pagation"
-import {searchInt} from '@/request/api/search'
+import launch from "@/components/launch";
+import animation from "@/components/animate/listFade";
+import pagation from "@/components/pagation";
+import { searchInt } from "@/request/api/search";
 export default {
   data() {
     return {
@@ -106,79 +123,92 @@ export default {
           value: "1"
         }
       ],
-      // 
-      total:0,
+
       // 组件传递数据 馆藏列表
-      collectionList:[],
-      placeArr:[], // 馆藏地
-      indexArr:[], // 索引类型
-      authorArr:[], // 作者
-      publicTimeArr:[], // 出版时间
-      typeArr:[], // 出版时间
-      initArr:[],
-      condition:null // 搜索条件缓存
+      collectionList: [],
+      placeArr: [], // 馆藏地
+      indexArr: [], // 索引类型
+      authorArr: [], // 作者
+      publicTimeArr: [], // 出版时间
+      typeArr: [], // 出版时间
+      initArr: [],
+      condition: null, // 搜索条件缓存
       //分页器
+      total: 0,
+      pageSize: 10,
+      currentPage: 1
     };
   },
-  methods:{
+  methods: {
     // 普通检索
-      _searchto(val){
-      this.$router.push({path:'searchList',query:val})
-      this._allSearch(val)
+    _searchto(val) {
+      this.$router.push({ path: "searchList", query: val });
+      this._allSearch(val);
     },
     // 附加馆藏地搜索
-    searchPlace(val){
-      let obj = {}
-      obj.libData = val
-      this.condition = Object.assign(this.condition,obj)
-      this._allSearch(this.condition)
-      console.log('合并之后的数据',this.condition,this.$route.query)
+    searchPlace(val) {
+      let obj = {};
+      obj.libData = val;
+      this.condition = Object.assign(this.condition, obj);
+      this._allSearch(this.condition);
+      console.log("合并之后的数据", this.condition, this.$route.query);
     },
     // 索引类型搜索
-    searchIndex(val){
-      let obj = {}
-      obj.documentTypeData = val
-      this.condition = Object.assign(this.condition,obj)
-      this._allSearch(this.condition)
-      console.log('合并之后的数据',this.condition,this.$route.query)
+    searchIndex(val) {
+      let obj = {};
+      obj.documentTypeData = val;
+      this.condition = Object.assign(this.condition, obj);
+      this._allSearch(this.condition);
+      console.log("合并之后的数据", this.condition, this.$route.query);
     },
     // 著作者搜索
-    searchauthor(){
-      let obj = {}
-      obj.authorData = val
-      this.condition = Object.assign(this.condition,obj)
-      this._allSearch(this.condition)
-      console.log('合并之后的数据',this.condition,this.$route.query)
+    searchauthor() {
+      let obj = {};
+      obj.authorData = val;
+      this.condition = Object.assign(this.condition, obj);
+      this._allSearch(this.condition);
+      console.log("合并之后的数据", this.condition, this.$route.query);
     },
     // 发布日期搜索
-    searchpublicTime(){
-      let obj = {}
-      obj.publicationTimeData = val
-      this.condition = Object.assign(this.condition,obj)
-      this._allSearch(this.condition)
-      console.log('合并之后的数据',this.condition,this.$route.query)
+    searchpublicTime() {
+      let obj = {};
+      obj.publicationTimeData = val;
+      this.condition = Object.assign(this.condition, obj);
+      this._allSearch(this.condition);
+      console.log("合并之后的数据", this.condition, this.$route.query);
     },
     // 类型搜索
-    searchtype(){
-      let obj = {}
-      obj.typeData = val
-      this.condition = Object.assign(this.condition,obj)
-      this._allSearch(this.condition)
-      console.log('合并之后的数据',this.condition,this.$route.query)
+    searchtype() {
+      let obj = {};
+      obj.typeData = val;
+      this.condition = Object.assign(this.condition, obj);
+      this._allSearch(this.condition);
+      console.log("合并之后的数据", this.condition, this.$route.query);
     },
-    _allSearch(data){
-      let obj =data
-      searchInt.allSearchInt(data).then((res)=>{
-        let data = res.data.row
-        this.collectionList = data.dataList
-        this.placeArr = data.libNum
-        this.indexArr = data.documentTypeNum
-        this.authorArr = data.authorNum
-        this.publicTimeArr = data.publicationTimeNum
-        this.typeArr = data.typeNum
-        this.total = res.data.total
-        console.log(res)
-      })
+    // 全局搜索
+    _allSearch(data) {
+      let obj = data;
+      searchInt.allSearchInt(data).then(res => {
+        let data = res.data.row;
+        this.collectionList = data.dataList;
+        this.placeArr = data.libNum;
+        this.indexArr = data.documentTypeNum;
+        this.authorArr = data.authorNum;
+        this.publicTimeArr = data.publicationTimeNum;
+        this.typeArr = data.typeNum;
+        this.total = res.data.total;
+        console.log(res);
+      });
+    },
+    // 匹配度排序
+    // 分页按钮
+    pageChangeBtn(val) {
+      let obj = {};
+      obj.currentPage = val;
+      this.condition = Object.assign(this.condition, obj);
+
+      this._allSearch(this.condition);
+      console.log("当前页码", val, this.$route);
     }
   },
   components: {
@@ -188,13 +218,14 @@ export default {
     animation,
     pagation
   },
-  created(){ 
-    let container = this.$route.query
-    
-    this.condition = container
-    console.log('起始数据',this.condition)
-    this._allSearch(this.condition)
-    this.initArr = init
+  created() {
+    let container = this.$route.query;
+    this.pageSize = Number(container.pageSize);
+    this.currentPage = Number(container.currentPage);
+    this.condition = container;
+    console.log("起始数据", this.condition);
+    this._allSearch(this.condition);
+    this.initArr = init;
   }
 };
 </script>
@@ -262,21 +293,23 @@ export default {
     flex-direction: row;
     .aside-left {
       width: 247px;
-      
     }
     .aside-right {
       margin-left: 32px;
       position: relative;
       min-height: 143px;
-      .pagation {
-        height: 40px;
-        width: 100%;
-        display: flex;
-        flex-direction: row-reverse;
+      .no-data {
       }
-      .bookBox {
-        .protect{
-          
+      .rightBox {
+        .pagation {
+          height: 40px;
+          width: 100%;
+          display: flex;
+          flex-direction: row-reverse;
+        }
+        .bookBox {
+          .protect {
+          }
         }
       }
     }

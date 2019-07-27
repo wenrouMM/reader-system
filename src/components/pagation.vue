@@ -2,8 +2,7 @@
   <div id="pagation">
     <div class="Cx-pagation">
      <div class="">
-         <span>共3000条</span>
-         <span>共100页</span>
+         
      </div>
       <div class="buttonBox">
         <button @click="frist">
@@ -16,11 +15,13 @@
           <span>下一页</span>
         </button>
         <button>
-          <span>尾页</span>
+          <span @click="last">尾页</span>
         </button>
       </div>
       <div class="jump">
         <input v-model.number="pageInput" class="inputBox" type="text" />
+        <span>当前第{{currentPage}}页</span>
+         <span>共{{pageMax}}页</span>
         <button @click="jumpBtn">跳转</button>
       </div>
     </div>
@@ -36,26 +37,32 @@ export default {
         pageSize:{
             type:Number,
             default:10
+        },
+        current:{
+          type:Number,
+          default:1
         }
     },
     data(){
         return{
             pageInput:1,
-            currentPage:1,
+            currentPage:this.current,
             SonPageSize:this.pageSize // 每页显示的个数
         }
     },
     computed:{
         pageMax(){
-            let end = Math.ceil(this.allData / this.pageSize)
-            return end
-        }
+             let end = Math.ceil(this.allData / this.SonPageSize)
+             end  = end?end:1;
+            return  end
+        } 
 
     },
     methods:{
         frist(){
             this.currentPage = 1
             console.log('回到首页',this.currentPage)
+            this.emitBtn()
         },
         prev(){
             if(this.currentPage > 1){
@@ -63,6 +70,7 @@ export default {
             } else{
                 this.currentPage = 1
             }
+            this.emitBtn()
             console.log('上一页',this.currentPage)
         },
         next(){
@@ -71,16 +79,25 @@ export default {
             } else{
                 this.currentPage = 1
             }
+            this.emitBtn()
             console.log('下一页',this.currentPage)
             console.log('最大页码',this.pageMax)
+        },
+        last(){
+          this.currentPage = this.pageMax
+          this.emitBtn()
         },
         jumpBtn() {
             if(typeof(this.pageInput) != 'number'){
                 this.pageInput =1
             } else {
-                
+                this.pageInput = Math.floor(this.pageInput)
+                if(this.pageInput < 1){
+                  this.pageInput = 1
+                }
             }
             this.currentPage = this.pageInput
+            this.emitBtn()
             console.log('八成自动转换',this.pageInput,typeof(this.pageInput))
         },
         emitBtn() {

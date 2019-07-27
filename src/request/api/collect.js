@@ -4,7 +4,7 @@ var url = window.url
 const collectUrl = {
     search:`${url}serviceforreadermodule/SfrTbCollect/checkCollect`, // 判断是否收藏
     add:`${url}serviceforreadermodule/SfrTbCollect/addSfrTbCollect`, // 收藏
-    delete:`${url}serviceforreadermodule/SfrTbCollect/deleteSfrTbCollect` // 取消收藏
+    delete:`${url}serviceforreadermodule/SfrTbCollect/deleteSfrTbCollectByBook` // 取消收藏
 }
 
 const orderUrl = {
