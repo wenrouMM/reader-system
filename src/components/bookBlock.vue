@@ -4,7 +4,9 @@
       <div class="bookCtx">
         <div class="imgBox"></div>
         <div class="textBox">
-          <p @click="toDetail(data.fkCataBookId)" class="title"><span>{{data.name}}</span></p>
+          <p @click="toDetail(data.fkCataBookId)" class="title">
+            <span>{{data.name}}</span>
+          </p>
           <p class="info">{{data.author}} {{data.fkPressName}}，1990.10 {{data.callNumber}}</p>
           <p class="buy"></p>
           <div class="touchBox">
@@ -26,8 +28,9 @@
         <div v-if="toggleValue" class="book-detail">
           <div class="selectBox">
             <el-form :model="selectForm" :inline="true">
-              <el-form-item label="分中心:">
+              <el-form-item label="馆内状态:">
                 <el-select style="width:160px;" v-model="selectForm.region" placeholder="请选择">
+                  <el-option label="全部" value="0"></el-option>
                   <el-option label="在馆" value="1"></el-option>
                   <el-option label="借出" value="2"></el-option>
                 </el-select>
@@ -36,14 +39,14 @@
           </div>
           <div class="tableBox">
             <el-table header-cell-class-name="tableHead" :data="tableData" style="width: 100%">
-            <el-table-column align="center" prop="code" label="条码号"></el-table-column>
-            <el-table-column align="center" prop="name" label="索书号"></el-table-column>
-            <el-table-column align="center" prop="address" label="所属分馆"></el-table-column>
-            <el-table-column align="center" prop="place" label="馆藏所在地"></el-table-column>
-            <el-table-column align="center" prop="lendState" label="馆藏状态"></el-table-column>
-            <el-table-column align="center" prop="planReturnTime" label="应还时间"></el-table-column>
-            <el-table-column align="center" prop="renarks" label="备注"></el-table-column>
-          </el-table>
+              <el-table-column align="center" prop="code" label="条码号"></el-table-column>
+              <el-table-column align="center" prop="name" label="索书号"></el-table-column>
+              <el-table-column align="center" prop="address" label="所属分馆"></el-table-column>
+              <el-table-column align="center" prop="place" label="馆藏所在地"></el-table-column>
+              <el-table-column align="center" prop="filterLend" label="馆藏状态"></el-table-column>
+              <el-table-column align="center" prop="planReturnTime" label="应还时间"></el-table-column>
+              <el-table-column align="center" prop="renarks" label="备注"></el-table-column>
+            </el-table>
           </div>
         </div>
       </transition>
@@ -52,11 +55,11 @@
 </template>
 
 <script>
-import {selectInt} from '@/request/api/search'
+import { selectInt } from "@/request/api/search";
 export default {
-  props:{
-    data:{
-      type:Object
+  props: {
+    data: {
+      type: Object
     }
   },
   data() {
@@ -69,47 +72,93 @@ export default {
           value: "1"
         }
       ],
-      tableData: [],
+      
       selectForm: {
-        region: "1"
+        region: "0"
       },
-      tableData:[],
+      
       toggleValue: false,
-      isRequest:false
+      isRequest: false,
+      allTable: [], // 所有数据
+      inlib: [], // 在馆
+      outlib: [] // 借出
+    };
+  },
+  computed: {
+    tableData() {
+      let arr = []
+      switch (this.selectForm.region) {
+        case '0':
+          arr = this.allTable;
+          break;
+        case '1':
+          arr = this.inlib;
+          break;
+        case '2':
+          arr = this.outlib;
+          break;
+      }
+      return arr
     }
   },
   methods: {
     toggleShow(id) {
       this.toggleValue = !this.toggleValue;
-      
-      if(!this.isRequest){
+
+      if (!this.isRequest) {
         let obj = {};
-        obj.fkCataBookId = id
-        this._select(obj)
+        obj.fkCataBookId = id;
+        this._select(obj);
       }
     },
     toDetail(id) {
-      let bookId = id
-      console.log(id)
-      this.$router.push({ path:`/searchDetail/${bookId}`});
+      let bookId = id;
+      console.log(id);
+      this.$router.push({ path: `/searchDetail/${bookId}` });
     },
     _select(fkCataBookId) {
       let data = fkCataBookId;
       selectInt(data).then(res => {
         console.log("下拉", res);
-        this.tableData = res.data.row;
-        this.isRequest = true
+
+        for (let item of res.data.row) {
+          switch (item.lendState) {
+            case 0:
+              item.filterLend = "不在架";
+              break;
+            case 1:
+              item.filterLend = "在架";
+              break;
+            case 2:
+              item.filterLend = "借出";
+              break;
+            case 3:
+              item.filterLend = "剔除";
+              break;
+            case 4:
+              item.filterLend = "损坏";
+          }
+        }
+        this.allTable = res.data.row;
+        this.inlib = res.data.row.filter((obj)=>{
+          return obj.lendState == 1
+        })
+        this.outlib = res.data.row.filter((obj)=>{
+          return obj.lendState == 2
+        })
+        this.isRequest = true;
       });
-    }
+    },
+    
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 #bookBlock {
   .book-block {
     position: relative;
-    
+
     .bookCtx {
       padding-left: 38px;
       padding-top: 10px;
@@ -131,7 +180,7 @@ export default {
           color: #2a2a2a;
           font-size: 14px;
           font-weight: bold;
-          span{
+          span {
             cursor: pointer;
           }
         }

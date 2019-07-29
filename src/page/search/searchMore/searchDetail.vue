@@ -87,6 +87,7 @@
           <el-form :model="selectForm" :inline="true">
             <el-form-item label="馆内状态:">
               <el-select style="width:160px;" v-model="selectForm.region" placeholder="请选择">
+                <el-option label="全部" value="0"></el-option>
                 <el-option label="在馆" value="1"></el-option>
                 <el-option label="借出" value="2"></el-option>
               </el-select>
@@ -99,7 +100,7 @@
             <el-table-column align="center" prop="name" label="索书号"></el-table-column>
             <el-table-column align="center" prop="address" label="所属分馆"></el-table-column>
             <el-table-column align="center" prop="place" label="馆藏所在地"></el-table-column>
-            <el-table-column align="center" prop="lendState" label="馆藏状态"></el-table-column>
+            <el-table-column align="center" prop="filterLend" label="馆藏状态"></el-table-column>
             <el-table-column align="center" prop="planReturnTime" label="应还时间"></el-table-column>
             <el-table-column align="center" prop="renarks" label="备注"></el-table-column>
             <el-table-column align="center" prop="renarks" label="操作">
@@ -123,22 +124,40 @@ export default {
   name: "detail",
   data() {
     return {
-      tableData: [],
+      
       selectForm: {
-        region: "1"
+        region: "0"
       },
 
       isOutput: true, // 控制是否渲染
       bookData: {}, // 书籍数据
       bokId: "", // 书籍ID
       isCollect: false, // 控制收藏点击事件
-      shareShow: false // 控制分享框的显隐
+      shareShow: false, // 控制分享框的显隐
+      allTable: [], // 所有数据
+      inlib: [], // 在馆
+      outlib: [] // 借出
     };
   },
   computed: {
     hasLogin() {
       console.log(this.$store.state.token);
       return this.$store.state.token ? true : false;
+    },
+    tableData() {
+      let arr = [];
+      switch (this.selectForm.region) {
+        case "0":
+          arr = this.allTable;
+          break;
+        case "1":
+          arr = this.inlib;
+          break;
+        case "2":
+          arr = this.outlib;
+          break;
+      }
+      return arr;
     }
   },
   methods: {
@@ -195,7 +214,31 @@ export default {
       selectInt(data).then(res => {
         console.log("下拉", res);
         if (res.data.state == true) {
-          this.tableData = res.data.row;
+          for (let item of res.data.row) {
+            switch (item.lendState) {
+              case 0:
+                item.filterLend = "不在架";
+                break;
+              case 1:
+                item.filterLend = "在架";
+                break;
+              case 2:
+                item.filterLend = "借出";
+                break;
+              case 3:
+                item.filterLend = "剔除";
+                break;
+              case 4:
+                item.filterLend = "损坏";
+            }
+          }
+          this.allTable = res.data.row;
+          this.inlib = res.data.row.filter(obj => {
+            return obj.lendState == 1;
+          });
+          this.outlib = res.data.row.filter(obj => {
+            return obj.lendState == 2;
+          });
         }
       });
     },

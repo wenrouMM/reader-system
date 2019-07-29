@@ -68,11 +68,7 @@ const actions= {
                 console.log(error)
                 reject(error)
             })
-        })/* .catch(error =>{
-            console.log('如果这样的话吗')
-            console.log(error)
-            
-        }) */
+        })
     },
 
     // 退出登录

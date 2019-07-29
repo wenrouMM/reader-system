@@ -79,6 +79,23 @@
         </div>
       </div>
     </section>
+    <!-- 漂浮公告 -->
+    <section class="noticeBox">
+      <div class="notice">
+        <div class="noticeBr top"></div>
+        <div class="content">
+          <p class="title">最新公告</p>
+          <p class="text">
+            <span class="circle"></span>giaogao
+          </p>
+          <p class="text">
+            <span class="circle"></span>giaogao
+            版权所有 copyright © www.kuiniu.com 智慧图
+          </p>
+        </div>
+        <div class="noticeBr bottom"></div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -231,6 +248,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/common/scss/variables.scss';
 #searchList {
   .searchBox {
     width: 1200px;
@@ -309,6 +327,59 @@ export default {
         }
         .bookBox {
           .protect {
+          }
+        }
+      }
+    }
+  }
+    .noticeBox {
+    position: fixed;
+    top: 35%;
+    right: 20px;
+
+    .notice {
+      .noticeBr {
+        width: 315px;
+        height: 18px;
+        border-radius: 5px;
+      }
+      .top {
+        background-color: #09bd99;
+      }
+      .bottom {
+        background-color: #38df93;
+      }
+      .content {
+        width: 280px;
+        padding-top: 13px;
+        padding-bottom: 23px;
+        margin: 0 auto;
+        min-height: 220px;
+        border: 3px solid;
+        border-top: none;
+        border-bottom: none;
+        box-sizing: border-box;
+        border-image: repeating-linear-gradient(45deg, #09bd99, #38df93 30px) 60;
+        .title {
+          font-size: 14px;
+          color: #ff2424;
+          padding-left: 14px;
+          margin-bottom: 10px;
+        }
+        .text {
+          padding: 0 18px;
+          line-height: 27px;
+          width: 100%;
+          box-sizing: border-box;
+          cursor: pointer;
+          word-break: break-all;
+          .circle {
+            width: 6px;
+            height: 6px;
+            background-color: $green;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 4px;
           }
         }
       }
