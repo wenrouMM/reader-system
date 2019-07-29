@@ -72,9 +72,11 @@
         <el-scrollbar style="height:100%">
           <div class="pagation"></div>
           <div v-if="collectionList.length" class="detailBox">
-            <div class="protect" v-for="(item,index) of collectionList" :key="index">
+            <animation>
+            <div v-bind:data-index="index" class="protect" v-for="(item,index) of collectionList" :key="index">
               <book-block :data="item"></book-block>
             </div>
+            </animation>
           </div>
         </el-scrollbar>
       </section>
@@ -111,6 +113,7 @@ import { searchInt } from "@/request/api/search";
 import { getBigLetter } from "@/common/js/util";
 import BookBlock from "@/components/bookBlock";
 import loading from "@/layout/loading"
+import animation from "@/components/animate/listFade"; 
 const classArr = [""];
 export default {
   data() {
@@ -131,7 +134,8 @@ export default {
   },
   components:{
     BookBlock,
-    loading
+    loading,
+    animation
   },
   methods: {
     /*------ opation ------*/

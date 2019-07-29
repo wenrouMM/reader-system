@@ -51,7 +51,7 @@
       <div class="aside-right">
         <!--- 暂无数据 --->
         <div class="no-data" v-if="!collectionList.length">
-          NO data
+         <img src="../../../common/img/no-data.jpg">
         </div>
         <!-- 数据展示 -->
         <div v-if="collectionList.length" class="rightBox">
@@ -140,7 +140,8 @@ export default {
           value: "1"
         }
       ],
-
+      // no-data数据
+      noData:'',
       // 组件传递数据 馆藏列表
       collectionList: [],
       placeArr: [], // 馆藏地
@@ -316,7 +317,13 @@ export default {
       margin-left: 32px;
       position: relative;
       min-height: 143px;
+      width: 75%;
       .no-data {
+        img{
+          padding-left: 100px;
+          object-fit: cover;
+          width: 800px;
+        }
       }
       .rightBox {
         .pagation {

@@ -2,7 +2,9 @@
   <div id="bookBlock">
     <div class="book-block">
       <div class="bookCtx">
-        <div class="imgBox"></div>
+        <div class="imgBox">
+          <img class="imgSize" :src="defaultImg">
+        </div>
         <div class="textBox">
           <p @click="toDetail(data.fkCataBookId)" class="title">
             <span>{{data.name}}</span>
@@ -64,6 +66,7 @@ export default {
   },
   data() {
     return {
+      defaultImg:require('../../public/cover.jpg'),
       selfImg: require("@/common/img/searchList/bookself.png"),
       sortValue: "",
       sortOptions: [
@@ -172,6 +175,11 @@ export default {
         height: 130px;
         background-color: #2a2a2a;
         margin-right: 25px;
+        .imgSize{
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
       .textBox {
         padding-top: 13px;

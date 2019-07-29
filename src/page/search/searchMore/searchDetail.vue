@@ -8,7 +8,9 @@
     </section>
     <section class="bookBox">
       <div class="bookCtx">
-        <div class="imgBox"></div>
+        <div class="imgBox">
+          <img :src="defaultImg">
+        </div>
         <div class="info">
           <p class="stage">
             <span class="distance">作者：</span>
@@ -88,7 +90,7 @@
             <el-form-item label="馆内状态:">
               <el-select style="width:160px;" v-model="selectForm.region" placeholder="请选择">
                 <el-option label="全部" value="0"></el-option>
-                <el-option label="在馆" value="1"></el-option>
+                <el-option label="在架" value="1"></el-option>
                 <el-option label="借出" value="2"></el-option>
               </el-select>
             </el-form-item>
@@ -128,7 +130,7 @@ export default {
       selectForm: {
         region: "0"
       },
-
+      defaultImg:require('../../../../public/cover.jpg'),
       isOutput: true, // 控制是否渲染
       bookData: {}, // 书籍数据
       bokId: "", // 书籍ID
@@ -329,7 +331,11 @@ export default {
       .imgBox {
         width: 170px;
         height: 221px;
-        background-color: aquamarine;
+        
+        img{
+          width: 100%;
+          height: 100%;
+        }
       }
       .info {
         width: 410px;

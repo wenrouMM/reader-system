@@ -11,7 +11,7 @@
         <div class="flexLayoutRow">
           <img :src="userIcon" class="iconStyle" />
           <el-form-item label="密　码：" prop="password">
-            <el-input v-model="form.password" clearable></el-input>
+            <el-input type="password" v-model="form.password" clearable></el-input>
           </el-form-item>
         </div>
         <!--<div class="flexLayoutRow">

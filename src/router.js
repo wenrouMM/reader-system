@@ -190,7 +190,7 @@ export default new Router({
         },
         {
             path: '/test',
-            component: () => import('../src/layout/loading.vue')
+            component: () => import('../src/layout/toTop.vue')
         },
 
 

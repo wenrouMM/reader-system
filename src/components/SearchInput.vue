@@ -2,7 +2,7 @@
   <div id="searchInput">
     <!-- 搜索框 -->
     
-      <el-input @focus="focuVali" @blur="blurVali" placeholder="请输入搜索内容" v-model="search" class="input-with-select">
+      <el-input @focus="focuVali" @keyup.enter.native="searchBtn" @blur="blurVali" placeholder="请输入搜索内容" v-model="search" class="input-with-select">
         <el-select v-model="select" slot="prepend" placeholder="请选择">
           <el-option v-for="(item,index) of optionsArr" :key="index" :label="item.label" :value="item.value"></el-option>
         </el-select>
