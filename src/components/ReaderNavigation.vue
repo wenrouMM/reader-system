@@ -14,7 +14,7 @@
                     </template>
                     <el-menu-item-group>
                         <el-menu-item index="/BasicInfo" >基本信息</el-menu-item>
-                        <el-menu-item index="/DocumentProcessing">证件挂失/恢复</el-menu-item>
+                        <el-menu-item index="/DocumentProcessing">读者卡挂失/恢复</el-menu-item>
                         <el-menu-item index="/ChangePassword">修改密码</el-menu-item>
                         <!--<el-menu-item index="/ModifyLoginName">修改登录名</el-menu-item>-->
                     </el-menu-item-group>

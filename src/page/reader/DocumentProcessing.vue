@@ -3,7 +3,7 @@
         <div class="flexLayoutRow">
             <div class="title flexLayoutRow">
                 <img :src="titleIcon" class="titleImg">
-                <div class="titleFont">证件挂失/恢复</div>
+                <div class="titleFont">读者卡挂失/恢复</div>
             </div>
             <div></div>
         </div>

@@ -53,7 +53,7 @@
                         <span style="color: #2a2a2a">{{scope.row.beginTime == null || scope.row.beginTime=='' ?'---':scope.row.beginTime}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column>
+                <el-table-column
                         prop="subscribeState"
                         :show-overflow-tooltip="true"
                         label="预约状态">
